@@ -22,7 +22,7 @@ const projects = [
     year: '2026',
     desc: 'Directed and shot a Sinhala music video on the UVOCTECH campus — handheld cinematography with two lead actors. End-to-end: script, direction, editing, and color grade.',
     highlight: false,
-    videoPath: '/videos/music-video.mp4',
+    videoLink: 'YOUR_DRIVE_LINK_HERE', // ← paste your Google Drive share link
   },
   {
     title: 'Cinematic Motion Project',
@@ -30,7 +30,7 @@ const projects = [
     year: '2026',
     desc: 'AI-assisted dark cinematic motion video. AI backgrounds generated via Gemini Imagen 3, graded in Photoshop, then animated in After Effects with a structured color narrative arc.',
     highlight: false,
-    videoPath: '/videos/cinematic-motion.mp4',
+    videoLink: 'YOUR_DRIVE_LINK_HERE', // ← paste your Google Drive share link
   },
   {
     title: 'BTS Video',
@@ -38,7 +38,7 @@ const projects = [
     year: '2026',
     desc: 'BTS of Opening ceremony proadcast Studio & Inauguration of 2026 at UOVT.',
     highlight: true,
-    videoPath: '/videos/bts.mp4',
+    videoLink: 'https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing'
   },
 
 ];
@@ -81,7 +81,7 @@ function ProjectCard({ project, index, onClick }) {
 
       <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.35rem', fontWeight: 600, marginBottom: '0.8rem', letterSpacing: '-0.01em' }}>{project.title}</h3>
       <p style={{ color: 'var(--muted)', lineHeight: 1.7, fontSize: '0.9rem' }}>{project.desc}</p>
-      
+
       {(project.videoPath || project.videoLink) && (
         <div style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--amber)', fontSize: '0.8rem', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>
           <span>▶ Watch Video</span>
