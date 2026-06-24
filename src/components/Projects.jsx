@@ -58,7 +58,7 @@ function ProjectCard({ project, index, onClick }) {
         background: project.highlight ? 'linear-gradient(135deg, var(--navy) 0%, rgba(200,169,110,0.06) 100%)' : 'var(--navy)',
         border: project.highlight ? '1px solid rgba(200,169,110,0.35)' : '1px solid var(--border)',
         padding: '2rem',
-        cursor: project.videoPath ? 'pointer' : 'default',
+        cursor: (project.videoPath || project.videoLink) ? 'pointer' : 'default',
         transition: 'border-color 0.3s, transform 0.3s',
         position: 'relative',
         overflow: 'hidden',
@@ -81,8 +81,8 @@ function ProjectCard({ project, index, onClick }) {
 
       <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.35rem', fontWeight: 600, marginBottom: '0.8rem', letterSpacing: '-0.01em' }}>{project.title}</h3>
       <p style={{ color: 'var(--muted)', lineHeight: 1.7, fontSize: '0.9rem' }}>{project.desc}</p>
-
-      {project.videoPath && (
+      
+      {(project.videoPath || project.videoLink) && (
         <div style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--amber)', fontSize: '0.8rem', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>
           <span>▶ Watch Video</span>
         </div>
@@ -112,7 +112,13 @@ export default function Projects() {
               key={p.title}
               project={p}
               index={i}
-              onClick={() => p.videoPath && setSelectedVideo(p.videoPath)}
+              onClick={() => {
+                if (p.videoLink) {
+                  window.open(p.videoLink, '_blank');
+                } else if (p.videoPath) {
+                  setSelectedVideo(p.videoPath);
+                }
+              }}
             />
           ))}
         </div>
