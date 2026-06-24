@@ -32,6 +32,15 @@ const projects = [
     highlight: false,
     videoPath: '/videos/cinematic-motion.mp4',
   },
+  {
+    title: 'BTS Video',
+    tag: 'Primire Pro',
+    year: '2026',
+    desc: 'BTS of Opening ceremony proadcast Studio & Inauguration of 2026 at UOVT.',
+    highlight: true,
+    videoPath: '/videos/bts.mp4',
+  },
+
 ];
 
 function ProjectCard({ project, index, onClick }) {
@@ -72,7 +81,7 @@ function ProjectCard({ project, index, onClick }) {
 
       <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.35rem', fontWeight: 600, marginBottom: '0.8rem', letterSpacing: '-0.01em' }}>{project.title}</h3>
       <p style={{ color: 'var(--muted)', lineHeight: 1.7, fontSize: '0.9rem' }}>{project.desc}</p>
-      
+
       {project.videoPath && (
         <div style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--amber)', fontSize: '0.8rem', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>
           <span>▶ Watch Video</span>
@@ -99,10 +108,10 @@ export default function Projects() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: '1.5rem' }}>
           {projects.map((p, i) => (
-            <ProjectCard 
-              key={p.title} 
-              project={p} 
-              index={i} 
+            <ProjectCard
+              key={p.title}
+              project={p}
+              index={i}
               onClick={() => p.videoPath && setSelectedVideo(p.videoPath)}
             />
           ))}
@@ -159,10 +168,10 @@ export default function Projects() {
               >
                 ✕
               </button>
-              <video 
-                src={selectedVideo} 
-                controls 
-                autoPlay 
+              <video
+                src={selectedVideo}
+                controls
+                autoPlay
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               >
                 Your browser does not support the video tag.
