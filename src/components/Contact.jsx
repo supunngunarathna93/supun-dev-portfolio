@@ -6,7 +6,7 @@ export default function Contact() {
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [copied, setCopied] = useState(false);
 
-  const email = 'supun@example.com'; // ← replace with your real email
+  const email = 'supunngunarathna.edit.work@gmail.com'; // ← replace with your real email
 
   const copy = () => {
     navigator.clipboard.writeText(email);
@@ -15,8 +15,8 @@ export default function Contact() {
   };
 
   const links = [
-    { label: 'GitHub', href: 'https://github.com/yourusername' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/yourusername' },
+    { label: 'GitHub', href: 'https://github.com/supunngunarathna93' },
+    { label: 'LinkedIn', href: 'https://linkedin.com/in/supun-n-gunarathna-70ab43320' },
   ];
 
   return (
@@ -64,7 +64,7 @@ export default function Contact() {
         {/* Footer */}
         <div style={{ marginTop: '6rem', paddingTop: '2rem', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.8rem', color: 'var(--muted)' }}>
-            © 2025 Supun Peiris
+            © 2026 Supun N Gunarathna
           </span>
           <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.8rem', color: 'var(--muted)', letterSpacing: '0.05em' }}>
             Built with React + Vite

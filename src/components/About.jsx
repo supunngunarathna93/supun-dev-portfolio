@@ -35,9 +35,9 @@ export default function About() {
             {[
               { label: 'University', value: ', Sri Lanka' },
               { label: 'Degree', value: 'Multimedia & Web Technology' },
-              { label: 'Focus', value: 'Mobile Apps · AI/ML · Filmmaking' },
+              { label: 'Focus', value: 'Mobile Apps · AI/ML · Filmmaking . Video Editing' },
               { label: 'Languages', value: 'Sinhala · Tamil · English' },
-              { label: 'Currently', value: 'Building a multilingual React portfolio + Smart Ripeness App' },
+              { label: 'Currently', value: 'Building a multilingual React portfolio + Fresh Lens Mobile App' },
             ].map(({ label, value }) => (
               <div key={label} style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', paddingBottom: '1.5rem', borderBottom: '1px solid var(--border)' }}>
                 <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--amber)', minWidth: 110, paddingTop: 3, opacity: 0.8 }}>{label}</span>
