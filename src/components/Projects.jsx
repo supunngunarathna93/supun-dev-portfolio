@@ -1,44 +1,47 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { useRef, useState } from 'react';
 
 const projects = [
   {
-    title: 'Smart Ripeness App',
+    title: 'Fresh Lens App',
     tag: 'Flutter · TFLite · Firebase',
-    year: '2024',
+    year: '2026',
     desc: 'AI-powered fruit ripeness detection app for Sri Lankan farmers. Supports Mango, Java Apple, Watermelon, and Passion Fruit with multilingual UI (EN / SI / TA), Firebase auth, marketplace, and dark/light theming.',
     highlight: true,
   },
   {
     title: 'Multilingual Portfolio',
     tag: 'React · Vite · Framer Motion',
-    year: '2025',
+    year: '2026',
     desc: 'This portfolio itself — built with Vite, Tailwind CSS v4, react-i18next for English/Sinhala/Tamil support, glass-effect cards, and scroll animations.',
     highlight: false,
   },
   {
     title: '"මේ හිත සනසා" Music Video',
     tag: 'Sony A6400 · After Effects · Filmmaking',
-    year: '2024',
+    year: '2026',
     desc: 'Directed and shot a Sinhala music video on the UVOCTECH campus — handheld cinematography with two lead actors. End-to-end: script, direction, editing, and color grade.',
     highlight: false,
+    videoPath: '/videos/music-video.mp4',
   },
   {
     title: 'Cinematic Motion Project',
     tag: 'After Effects · Gemini Imagen 3 · Photoshop',
-    year: '2024',
+    year: '2026',
     desc: 'AI-assisted dark cinematic motion video. AI backgrounds generated via Gemini Imagen 3, graded in Photoshop, then animated in After Effects with a structured color narrative arc.',
     highlight: false,
+    videoPath: '/videos/cinematic-motion.mp4',
   },
 ];
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, onClick }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
     <motion.div
       ref={ref}
+      onClick={onClick}
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -46,7 +49,7 @@ function ProjectCard({ project, index }) {
         background: project.highlight ? 'linear-gradient(135deg, var(--navy) 0%, rgba(200,169,110,0.06) 100%)' : 'var(--navy)',
         border: project.highlight ? '1px solid rgba(200,169,110,0.35)' : '1px solid var(--border)',
         padding: '2rem',
-        cursor: 'default',
+        cursor: project.videoPath ? 'pointer' : 'default',
         transition: 'border-color 0.3s, transform 0.3s',
         position: 'relative',
         overflow: 'hidden',
@@ -69,6 +72,12 @@ function ProjectCard({ project, index }) {
 
       <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.35rem', fontWeight: 600, marginBottom: '0.8rem', letterSpacing: '-0.01em' }}>{project.title}</h3>
       <p style={{ color: 'var(--muted)', lineHeight: 1.7, fontSize: '0.9rem' }}>{project.desc}</p>
+      
+      {project.videoPath && (
+        <div style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--amber)', fontSize: '0.8rem', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>
+          <span>▶ Watch Video</span>
+        </div>
+      )}
     </motion.div>
   );
 }
@@ -76,6 +85,7 @@ function ProjectCard({ project, index }) {
 export default function Projects() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   return (
     <section id="projects" ref={ref} style={{ padding: '8rem 2rem', background: 'linear-gradient(180deg, var(--black) 0%, rgba(26,26,46,0.3) 50%, var(--black) 100%)' }}>
@@ -88,9 +98,79 @@ export default function Projects() {
         </motion.div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: '1.5rem' }}>
-          {projects.map((p, i) => <ProjectCard key={p.title} project={p} index={i} />)}
+          {projects.map((p, i) => (
+            <ProjectCard 
+              key={p.title} 
+              project={p} 
+              index={i} 
+              onClick={() => p.videoPath && setSelectedVideo(p.videoPath)}
+            />
+          ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedVideo(null)}
+            style={{
+              position: 'fixed',
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.85)',
+              zIndex: 1000,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '2rem'
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '900px',
+                aspectRatio: '16/9',
+                backgroundColor: '#000',
+                borderRadius: '12px',
+                overflow: 'hidden',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+              }}
+            >
+              <button
+                onClick={() => setSelectedVideo(null)}
+                style={{
+                  position: 'absolute',
+                  top: '1rem', right: '1rem',
+                  background: 'rgba(0, 0, 0, 0.5)',
+                  color: 'white', border: 'none',
+                  width: '32px', height: '32px',
+                  borderRadius: '50%',
+                  display: 'flex', justifyContent: 'center', alignItems: 'center',
+                  cursor: 'pointer', zIndex: 10,
+                  fontSize: '1.2rem'
+                }}
+              >
+                ✕
+              </button>
+              <video 
+                src={selectedVideo} 
+                controls 
+                autoPlay 
+                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+              >
+                Your browser does not support the video tag.
+              </video>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
