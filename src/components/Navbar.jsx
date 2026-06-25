@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../ThemeContext';
 
 const links = ['About', 'Projects', 'Skills', 'Contact'];
 
@@ -7,6 +8,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('');
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -27,6 +29,9 @@ export default function Navbar() {
     return () => observer.disconnect();
   }, []);
 
+  const isDark = theme === 'dark';
+  const linkColor = isDark ? 'rgba(240,238,255,0.6)' : 'rgba(18,16,58,0.55)';
+
   return (
     <>
       <nav style={{
@@ -34,7 +39,7 @@ export default function Navbar() {
         padding: '1rem 2rem',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         transition: 'background 0.4s, backdrop-filter 0.4s, border-bottom 0.4s, padding 0.3s',
-        background: scrolled ? 'rgba(5,5,13,0.82)' : 'transparent',
+        background: scrolled ? 'var(--nav-scrolled-bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
         borderBottom: scrolled ? '1px solid rgba(124,92,252,0.15)' : '1px solid transparent',
@@ -59,7 +64,7 @@ export default function Navbar() {
           }}>Supun</span>
         </a>
 
-        {/* Desktop links */}
+        {/* Desktop links + toggle */}
         <ul style={{ display: 'flex', gap: '0.25rem', listStyle: 'none', alignItems: 'center' }} className="desk-nav">
           {links.map((l) => {
             const isActive = active === l.toLowerCase();
@@ -72,19 +77,35 @@ export default function Navbar() {
                     fontSize: '0.85rem',
                     letterSpacing: '0.06em',
                     textDecoration: 'none',
-                    color: isActive ? '#7c5cfc' : 'rgba(240,238,255,0.6)',
+                    color: isActive ? 'var(--violet)' : linkColor,
                     padding: '0.4rem 0.9rem',
                     borderRadius: 50,
                     transition: 'color 0.2s, background 0.2s',
                     background: isActive ? 'rgba(124,92,252,0.1)' : 'transparent',
                     display: 'block',
                   }}
-                  onMouseEnter={(e) => { if (!isActive) { e.target.style.color = '#7c5cfc'; e.target.style.background = 'rgba(124,92,252,0.07)'; } }}
-                  onMouseLeave={(e) => { if (!isActive) { e.target.style.color = 'rgba(240,238,255,0.6)'; e.target.style.background = 'transparent'; } }}
+                  onMouseEnter={(e) => { if (!isActive) { e.target.style.color = 'var(--violet)'; e.target.style.background = 'rgba(124,92,252,0.07)'; } }}
+                  onMouseLeave={(e) => { if (!isActive) { e.target.style.color = linkColor; e.target.style.background = 'transparent'; } }}
                 >{l}</a>
               </li>
             );
           })}
+
+          {/* Theme toggle */}
+          <li>
+            <button
+              className="theme-toggle"
+              onClick={toggle}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              style={{ marginLeft: '0.4rem' }}
+            >
+              <span className="theme-toggle-thumb">
+                {isDark ? '🌙' : '☀️'}
+              </span>
+            </button>
+          </li>
+
           <li>
             <a
               href="#contact"
@@ -96,22 +117,33 @@ export default function Navbar() {
           </li>
         </ul>
 
-        {/* Hamburger */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="hamburger"
-          aria-label="Toggle menu"
-          style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: '4px', flexDirection: 'column', gap: 5 }}
-        >
-          {[0, 1, 2].map((i) => (
-            <span key={i} style={{
-              display: 'block', width: 22, height: 2, background: 'var(--white)', borderRadius: 2,
-              transition: 'transform 0.3s, opacity 0.3s',
-              transform: open && i === 0 ? 'rotate(45deg) translateY(7px)' : open && i === 2 ? 'rotate(-45deg) translateY(-7px)' : 'none',
-              opacity: open && i === 1 ? 0 : 1,
-            }} />
-          ))}
-        </button>
+        {/* Mobile right side: toggle + hamburger */}
+        <div style={{ display: 'none', alignItems: 'center', gap: '0.75rem' }} className="mobile-right">
+          <button
+            className="theme-toggle"
+            onClick={toggle}
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            <span className="theme-toggle-thumb">
+              {isDark ? '🌙' : '☀️'}
+            </span>
+          </button>
+          <button
+            onClick={() => setOpen(!open)}
+            className="hamburger"
+            aria-label="Toggle menu"
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px', flexDirection: 'column', gap: 5, display: 'flex' }}
+          >
+            {[0, 1, 2].map((i) => (
+              <span key={i} style={{
+                display: 'block', width: 22, height: 2, background: 'var(--white)', borderRadius: 2,
+                transition: 'transform 0.3s, opacity 0.3s',
+                transform: open && i === 0 ? 'rotate(45deg) translateY(7px)' : open && i === 2 ? 'rotate(-45deg) translateY(-7px)' : 'none',
+                opacity: open && i === 1 ? 0 : 1,
+              }} />
+            ))}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu */}
@@ -124,7 +156,8 @@ export default function Navbar() {
             transition={{ duration: 0.25 }}
             style={{
               position: 'fixed', top: '60px', left: 0, right: 0, zIndex: 199,
-              background: 'rgba(5,5,13,0.97)', backdropFilter: 'blur(20px)',
+              background: 'var(--nav-mobile-bg)', backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
               borderBottom: '1px solid rgba(124,92,252,0.15)',
               padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.2rem',
             }}
@@ -143,7 +176,7 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 640px) {
           .desk-nav { display: none !important; }
-          .hamburger { display: flex !important; }
+          .mobile-right { display: flex !important; }
         }
       `}</style>
     </>
