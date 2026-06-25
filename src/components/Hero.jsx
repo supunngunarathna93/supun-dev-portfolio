@@ -25,35 +25,36 @@ export default function Hero() {
     >
       {/* ── Animated background orbs ── */}
       <div className="orb-1" style={{
-        position: 'absolute', top: '8%', right: '10%',
-        width: 600, height: 600,
-        background: 'radial-gradient(circle, rgba(124,92,252,0.12) 0%, transparent 70%)',
-        pointerEvents: 'none', borderRadius: '50%',
-        filter: 'blur(60px)',
+        position: 'absolute', top: '5%', right: '8%',
+        width: 700, height: 700,
+        background: 'radial-gradient(circle, rgba(124,92,252,0.14) 0%, transparent 70%)',
+        pointerEvents: 'none', borderRadius: '50%', filter: 'blur(70px)',
       }} />
       <div className="orb-2" style={{
-        position: 'absolute', bottom: '15%', left: '5%',
-        width: 450, height: 450,
-        background: 'radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%)',
-        pointerEvents: 'none', borderRadius: '50%',
-        filter: 'blur(60px)',
+        position: 'absolute', bottom: '10%', left: '3%',
+        width: 500, height: 500,
+        background: 'radial-gradient(circle, rgba(0,212,255,0.10) 0%, transparent 70%)',
+        pointerEvents: 'none', borderRadius: '50%', filter: 'blur(65px)',
       }} />
       <div style={{
-        position: 'absolute', top: '50%', left: '50%',
+        position: 'absolute', top: '45%', left: '55%',
         transform: 'translate(-50%, -50%)',
-        width: 800, height: 400,
-        background: 'radial-gradient(ellipse, rgba(224,64,251,0.04) 0%, transparent 70%)',
-        pointerEvents: 'none', filter: 'blur(40px)',
+        width: 900, height: 500,
+        background: 'radial-gradient(ellipse, rgba(224,64,251,0.05) 0%, transparent 70%)',
+        pointerEvents: 'none', filter: 'blur(50px)',
       }} />
 
-      {/* ── Subtle grid ── */}
+      {/* ── Glass grid overlay ── */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: 'linear-gradient(rgba(124,92,252,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(124,92,252,0.035) 1px, transparent 1px)',
+        backgroundImage: [
+          'linear-gradient(rgba(124,92,252,0.045) 1px, transparent 1px)',
+          'linear-gradient(90deg, rgba(124,92,252,0.045) 1px, transparent 1px)',
+        ].join(', '),
         backgroundSize: '64px 64px',
         pointerEvents: 'none',
-        maskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%)',
+        maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 40%, transparent 100%)',
+        WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 40%, transparent 100%)',
       }} />
 
       {/* ── Main content ── */}
@@ -63,30 +64,33 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
         >
-          {/* Status pill */}
+          {/* Status pill — glassmorphism */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.15, duration: 0.6 }}
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              background: 'rgba(124,92,252,0.1)',
-              border: '1px solid rgba(124,92,252,0.3)',
-              borderRadius: 50, padding: '0.35rem 1rem',
+              display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
+              background: 'rgba(10,8,30,0.55)',
+              border: '1px solid rgba(0,212,255,0.28)',
+              backdropFilter: 'blur(20px) saturate(160%)',
+              WebkitBackdropFilter: 'blur(20px) saturate(160%)',
+              borderRadius: 50, padding: '0.4rem 1.1rem',
               marginBottom: '2rem',
+              boxShadow: '0 0 20px rgba(0,212,255,0.1), inset 0 1px 0 rgba(255,255,255,0.06)',
             }}
           >
             <span style={{
               width: 7, height: 7, borderRadius: '50%',
               background: '#00d4ff',
-              boxShadow: '0 0 8px #00d4ff',
+              boxShadow: '0 0 8px #00d4ff, 0 0 16px rgba(0,212,255,0.6)',
               animation: 'pulse-glow 2s ease-in-out infinite',
-              display: 'block',
+              display: 'block', flexShrink: 0,
             }} />
             <span style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: '0.72rem', letterSpacing: '0.18em',
-              textTransform: 'uppercase', color: 'rgba(240,238,255,0.7)',
+              textTransform: 'uppercase', color: 'rgba(240,238,255,0.75)',
             }}>Available for projects</span>
           </motion.div>
 
@@ -100,13 +104,10 @@ export default function Hero() {
             marginBottom: '1.8rem',
           }}>
             <span style={{ display: 'block', color: 'var(--white)' }}>Supun N</span>
-            <span
-              className="grad-text"
-              style={{ display: 'block' }}
-            >Gunarathna</span>
+            <span className="grad-text" style={{ display: 'block' }}>Gunarathna</span>
           </h1>
 
-          {/* Roles */}
+          {/* Tagline */}
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -125,25 +126,33 @@ export default function Hero() {
             a story worth telling, and whatever tools it takes to get there.
           </motion.p>
 
-          {/* Role tags */}
+          {/* Role tags — glass pills */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}
           >
-            {roles.map((role, i) => (
-              <span key={role} style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '0.75rem',
-                padding: '0.3rem 0.9rem',
-                borderRadius: 50,
-                border: `1px solid ${i === 0 ? 'rgba(124,92,252,0.5)' : i === 1 ? 'rgba(0,212,255,0.35)' : 'rgba(224,64,251,0.35)'}`,
-                color: i === 0 ? '#7c5cfc' : i === 1 ? '#00d4ff' : i === 2 ? '#e040fb' : 'var(--amber)',
-                background: i === 0 ? 'rgba(124,92,252,0.08)' : i === 1 ? 'rgba(0,212,255,0.06)' : i === 2 ? 'rgba(224,64,251,0.06)' : 'rgba(240,180,41,0.06)',
-                letterSpacing: '0.06em',
-              }}>{role}</span>
-            ))}
+            {roles.map((role, i) => {
+              const colors = ['rgba(124,92,252,0.5)', 'rgba(0,212,255,0.35)', 'rgba(224,64,251,0.35)', 'rgba(240,180,41,0.35)'];
+              const fg     = ['#7c5cfc', '#00d4ff', '#e040fb', 'var(--amber)'];
+              const bg     = ['rgba(124,92,252,0.08)', 'rgba(0,212,255,0.06)', 'rgba(224,64,251,0.06)', 'rgba(240,180,41,0.06)'];
+              return (
+                <span key={role} style={{
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontSize: '0.75rem',
+                  padding: '0.32rem 0.95rem',
+                  borderRadius: 50,
+                  border: `1px solid ${colors[i]}`,
+                  color: fg[i],
+                  background: bg[i],
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  letterSpacing: '0.06em',
+                  boxShadow: `0 2px 12px ${bg[i]}`,
+                }}>{role}</span>
+              );
+            })}
           </motion.div>
 
           {/* CTAs */}
@@ -154,7 +163,7 @@ export default function Hero() {
             style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
           >
             <a href="#projects" className="btn-glow">View My Work</a>
-            <a href="#contact" className="btn-outline">Get in Touch</a>
+            <a href="#contact"  className="btn-outline">Get in Touch</a>
           </motion.div>
         </motion.div>
 
@@ -189,16 +198,18 @@ export default function Hero() {
       <div style={{
         marginTop: 'auto',
         overflow: 'hidden',
-        borderTop: '1px solid rgba(124,92,252,0.12)',
-        background: 'rgba(124,92,252,0.02)',
+        borderTop: '1px solid rgba(124,92,252,0.14)',
+        background: 'rgba(10,8,30,0.45)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
         position: 'relative',
       }}>
-        {/* Top sprockets */}
+        {/* Sprockets top */}
         <div style={{ display: 'flex', gap: '2rem', padding: '0.6rem 1rem 0' }}>
           {Array.from({ length: 40 }).map((_, i) => (
             <div key={i} style={{
               width: 9, height: 6,
-              border: '1px solid rgba(124,92,252,0.2)',
+              border: '1px solid rgba(124,92,252,0.22)',
               borderRadius: 1, flexShrink: 0,
             }} />
           ))}
@@ -207,11 +218,7 @@ export default function Hero() {
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
           transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
-          style={{
-            display: 'flex', gap: '3.5rem',
-            padding: '0.6rem 0',
-            willChange: 'transform',
-          }}
+          style={{ display: 'flex', gap: '3.5rem', padding: '0.6rem 0', willChange: 'transform' }}
         >
           {ticker.map((item, i) => (
             <span key={i} style={{
@@ -222,17 +229,17 @@ export default function Hero() {
               flexShrink: 0, whiteSpace: 'nowrap',
             }}>
               {item}
-              <span style={{ marginLeft: '3.5rem', color: 'rgba(124,92,252,0.25)', fontSize: '0.9rem' }}>◆</span>
+              <span style={{ marginLeft: '3.5rem', color: 'rgba(124,92,252,0.3)', fontSize: '0.9rem' }}>◆</span>
             </span>
           ))}
         </motion.div>
 
-        {/* Bottom sprockets */}
+        {/* Sprockets bottom */}
         <div style={{ display: 'flex', gap: '2rem', padding: '0 1rem 0.6rem' }}>
           {Array.from({ length: 40 }).map((_, i) => (
             <div key={i} style={{
               width: 9, height: 6,
-              border: '1px solid rgba(124,92,252,0.2)',
+              border: '1px solid rgba(124,92,252,0.22)',
               borderRadius: 1, flexShrink: 0,
             }} />
           ))}

@@ -27,10 +27,9 @@ const socials = [
 ];
 
 export default function Contact() {
-  const ref = useRef(null);
+  const ref    = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
   const [copied, setCopied] = useState(false);
-
   const email = 'supunngunarathna.edit.work@gmail.com';
 
   const copy = () => {
@@ -43,25 +42,21 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      style={{
-        padding: '9rem 0 6rem',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
+      style={{ padding: '9rem 0 6rem', position: 'relative', overflow: 'hidden' }}
     >
-      {/* BG glow */}
+      {/* BG glows */}
       <div style={{
         position: 'absolute', top: '10%', left: '50%',
         transform: 'translateX(-50%)',
-        width: 700, height: 500,
-        background: 'radial-gradient(ellipse, rgba(124,92,252,0.1) 0%, transparent 70%)',
-        filter: 'blur(60px)', pointerEvents: 'none', borderRadius: '50%',
+        width: 800, height: 600,
+        background: 'radial-gradient(ellipse, rgba(124,92,252,0.09) 0%, transparent 70%)',
+        filter: 'blur(70px)', pointerEvents: 'none', borderRadius: '50%',
       }} />
       <div style={{
         position: 'absolute', bottom: '10%', right: '5%',
         width: 400, height: 400,
-        background: 'radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)',
-        filter: 'blur(50px)', pointerEvents: 'none', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%)',
+        filter: 'blur(55px)', pointerEvents: 'none', borderRadius: '50%',
       }} />
 
       <div className="section-container">
@@ -75,59 +70,60 @@ export default function Contact() {
           <h2 style={{
             fontFamily: "'Outfit', sans-serif",
             fontSize: 'clamp(2.5rem, 6vw, 5.5rem)',
-            fontWeight: 900,
-            letterSpacing: '-0.03em',
-            lineHeight: 1.0,
-            marginBottom: '1.5rem',
-            maxWidth: 760,
+            fontWeight: 900, letterSpacing: '-0.03em',
+            lineHeight: 1.0, marginBottom: '1.5rem', maxWidth: 760,
           }}>
             Let's make something<br />
             <span className="grad-text">worth watching.</span>
           </h2>
 
           <p style={{
-            color: 'var(--muted)',
-            fontSize: '1.05rem',
-            lineHeight: 1.75,
-            maxWidth: 480,
-            marginBottom: '3rem',
+            color: 'var(--muted)', fontSize: '1.05rem',
+            lineHeight: 1.75, maxWidth: 480, marginBottom: '3rem',
           }}>
             Open to freelance projects, collaborations, and interesting conversations —
             about tech, film, or both. Let's build something great together.
           </p>
 
-          {/* Email card */}
+          {/* Email card — deep glass */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
             style={{
-              display: 'inline-flex',
-              alignItems: 'center',
+              display: 'inline-flex', alignItems: 'center',
               gap: '1.2rem',
-              background: 'var(--glass-bg)',
-              border: '1px solid var(--glass-border)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              borderRadius: 16,
-              padding: '1.2rem 1.5rem',
+              background: 'rgba(10,8,30,0.55)',
+              border: '1px solid rgba(124,92,252,0.22)',
+              backdropFilter: 'blur(28px) saturate(170%)',
+              WebkitBackdropFilter: 'blur(28px) saturate(170%)',
+              borderRadius: 18,
+              padding: '1.25rem 1.6rem',
               marginBottom: '2.5rem',
               flexWrap: 'wrap',
+              position: 'relative', overflow: 'hidden',
+              boxShadow: '0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)',
             }}
           >
+            {/* shine */}
             <div style={{
-              width: 40, height: 40, borderRadius: 10,
-              background: 'linear-gradient(135deg, rgba(124,92,252,0.3), rgba(0,212,255,0.3))',
+              position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+              background: 'linear-gradient(90deg, transparent, rgba(124,92,252,0.5), rgba(0,212,255,0.3), transparent)',
+            }} />
+            <div style={{
+              width: 42, height: 42, borderRadius: 11,
+              background: 'linear-gradient(135deg, rgba(124,92,252,0.25), rgba(0,212,255,0.25))',
               border: '1px solid rgba(124,92,252,0.3)',
+              backdropFilter: 'blur(8px)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '1.1rem',
+              boxShadow: '0 0 16px rgba(124,92,252,0.2)',
             }}>✉️</div>
             <div>
               <div style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: '0.65rem', letterSpacing: '0.18em',
-                textTransform: 'uppercase', color: 'var(--muted)',
-                marginBottom: '0.15rem',
+                textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '0.15rem',
               }}>Email me at</div>
               <div style={{
                 fontFamily: "'Space Grotesk', sans-serif",
@@ -139,17 +135,18 @@ export default function Contact() {
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
                 fontSize: '0.8rem', fontWeight: 600,
-                padding: '0.5rem 1.2rem',
-                borderRadius: 50,
-                border: 'none',
-                cursor: 'pointer',
+                padding: '0.5rem 1.25rem', borderRadius: 50,
+                border: 'none', cursor: 'pointer',
                 transition: 'all 0.3s',
                 background: copied
                   ? 'rgba(0,212,255,0.15)'
                   : 'linear-gradient(135deg, #7c5cfc, #00d4ff)',
                 color: copied ? '#00d4ff' : '#fff',
-                boxShadow: copied ? '0 0 15px rgba(0,212,255,0.3)' : '0 0 20px rgba(124,92,252,0.35)',
+                boxShadow: copied
+                  ? '0 0 16px rgba(0,212,255,0.3)'
+                  : '0 0 22px rgba(124,92,252,0.4)',
                 letterSpacing: '0.05em',
+                backdropFilter: copied ? 'blur(8px)' : 'none',
               }}
             >
               {copied ? '✓ Copied!' : 'Copy'}
@@ -166,47 +163,49 @@ export default function Contact() {
             {socials.map((s) => (
               <a
                 key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={s.href} target="_blank" rel="noopener noreferrer"
                 style={{
                   display: 'flex', alignItems: 'center', gap: '0.85rem',
-                  padding: '1rem 1.5rem',
-                  background: 'var(--glass-bg)',
-                  border: '1px solid var(--glass-border)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  borderRadius: 14,
-                  textDecoration: 'none',
-                  color: 'var(--white)',
-                  transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.25s',
-                  minWidth: 200,
+                  padding: '1rem 1.6rem',
+                  background: 'rgba(10,8,30,0.50)',
+                  border: '1px solid rgba(124,92,252,0.18)',
+                  backdropFilter: 'blur(24px) saturate(160%)',
+                  WebkitBackdropFilter: 'blur(24px) saturate(160%)',
+                  borderRadius: 16,
+                  textDecoration: 'none', color: 'var(--white)',
+                  transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.25s, background 0.3s',
+                  minWidth: 210,
+                  position: 'relative', overflow: 'hidden',
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = `${s.accent}55`;
-                  e.currentTarget.style.boxShadow = `0 0 25px ${s.accent}20`;
-                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.borderColor  = `${s.accent}50`;
+                  e.currentTarget.style.boxShadow    = `0 0 30px ${s.accent}20, 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)`;
+                  e.currentTarget.style.transform    = 'translateY(-3px)';
+                  e.currentTarget.style.background   = 'rgba(18,14,50,0.65)';
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'var(--glass-border)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.borderColor  = 'rgba(124,92,252,0.18)';
+                  e.currentTarget.style.boxShadow    = '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)';
+                  e.currentTarget.style.transform    = 'none';
+                  e.currentTarget.style.background   = 'rgba(10,8,30,0.50)';
                 }}
               >
                 <div style={{
                   color: s.accent,
-                  width: 38, height: 38,
-                  background: `${s.accent}15`,
-                  border: `1px solid ${s.accent}30`,
-                  borderRadius: 10,
+                  width: 40, height: 40,
+                  background: `${s.accent}12`,
+                  border: `1px solid ${s.accent}28`,
+                  backdropFilter: 'blur(8px)',
+                  borderRadius: 11,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0,
+                  boxShadow: `0 0 14px ${s.accent}18`,
                 }}>{s.icon}</div>
                 <div>
                   <div style={{
                     fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 600, fontSize: '0.9rem',
-                    marginBottom: '0.1rem',
+                    fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.1rem',
                   }}>{s.label}</div>
                   <div style={{
                     fontFamily: "'Space Grotesk', sans-serif",
@@ -221,20 +220,18 @@ export default function Contact() {
         {/* Footer */}
         <div style={{
           paddingTop: '2rem',
-          borderTop: '1px solid rgba(124,92,252,0.12)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '1rem',
+          borderTop: '1px solid rgba(124,92,252,0.14)',
+          display: 'flex', justifyContent: 'space-between',
+          alignItems: 'center', flexWrap: 'wrap', gap: '1rem',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <div style={{
-              width: 24, height: 24, borderRadius: 6,
+              width: 26, height: 26, borderRadius: 7,
               background: 'linear-gradient(135deg, #7c5cfc, #00d4ff)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '0.55rem', fontWeight: 800, color: '#fff',
               fontFamily: "'Space Grotesk', sans-serif",
+              boxShadow: '0 0 12px rgba(124,92,252,0.4)',
             }}>SG</div>
             <span style={{
               fontFamily: "'Space Grotesk', sans-serif",
@@ -243,8 +240,7 @@ export default function Contact() {
           </div>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.78rem', color: 'var(--muted-2)',
-            letterSpacing: '0.06em',
+            fontSize: '0.78rem', color: 'var(--muted-2)', letterSpacing: '0.06em',
           }}>Built with React + Vite + Framer Motion</span>
         </div>
       </div>
