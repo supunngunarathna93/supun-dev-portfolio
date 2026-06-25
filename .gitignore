@@ -2,3 +2,6 @@ node_modules
 dist
 .DS_Store
 *.local
+
+# Large video files — host externally (YouTube, Drive, Cloudinary, etc.)
+public/videos/
