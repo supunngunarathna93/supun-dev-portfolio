@@ -6,46 +6,60 @@ const projects = [
     title: 'Fresh Lens App',
     tag: 'Flutter · TFLite · Firebase',
     year: '2026',
+    emoji: '🌿',
     desc: 'AI-powered fruit ripeness detection app for Sri Lankan farmers. Supports Mango, Java Apple, Watermelon, and Passion Fruit with multilingual UI (EN / SI / TA), Firebase auth, marketplace, and dark/light theming.',
-    highlight: true,
+    featured: true,
+    accent: '#7c5cfc',
+    links: [],
   },
   {
     title: 'Multilingual Portfolio',
     tag: 'React · Vite · Framer Motion',
     year: '2026',
-    desc: 'This portfolio itself — built with Vite, Tailwind CSS v4, react-i18next for English/Sinhala/Tamil support, glass-effect cards, and scroll animations.',
-    highlight: false,
+    emoji: '🌐',
+    desc: 'This portfolio itself — built with Vite, react-i18next for English/Sinhala/Tamil support, glass-effect cards, cinematic dark theme, and smooth scroll animations.',
+    featured: false,
+    accent: '#00d4ff',
+    links: [],
   },
   {
     title: '"මේ හිත සනසා" Music Video',
     tag: 'Sony A6400 · After Effects · Filmmaking',
     year: '2026',
+    emoji: '🎬',
     desc: 'Directed and shot a Sinhala music video on the UVOCTECH campus — handheld cinematography with two lead actors. End-to-end: script, direction, editing, and color grade.',
-    highlight: false,
-    videoLink: 'YOUR_DRIVE_LINK_HERE', // ← paste your Google Drive share link
+    featured: false,
+    accent: '#e040fb',
+    videoLink: null,
   },
   {
     title: 'Cinematic Motion Project',
     tag: 'After Effects · Gemini Imagen 3 · Photoshop',
     year: '2026',
+    emoji: '✨',
     desc: 'AI-assisted dark cinematic motion video. AI backgrounds generated via Gemini Imagen 3, graded in Photoshop, then animated in After Effects with a structured color narrative arc.',
-    highlight: false,
-    videoLink: 'YOUR_DRIVE_LINK_HERE', // ← paste your Google Drive share link
+    featured: false,
+    accent: '#f0b429',
+    videoLink: null,
   },
   {
-    title: 'BTS Video',
-    tag: 'Primire Pro',
+    title: 'BTS Video — UOVT 2026',
+    tag: 'Premiere Pro · Video Production',
     year: '2026',
-    desc: 'BTS of Opening ceremony proadcast Studio & Inauguration of 2026 at UOVT.',
-    highlight: true,
-    videoLink: 'https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing'
+    emoji: '🎥',
+    desc: 'Behind-the-scenes coverage of the Opening Ceremony & Inauguration of 2026 at the University of Vocational Technology — broadcast studio production.',
+    featured: true,
+    accent: '#00d4ff',
+    videoLink: 'https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing',
   },
-
 ];
 
 function ProjectCard({ project, index, onClick }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const [hovered, setHovered] = useState(false);
+
+  const hasVideo = !!(project.videoLink || project.videoPath);
 
   return (
     <motion.div
@@ -53,38 +67,103 @@ function ProjectCard({ project, index, onClick }) {
       onClick={onClick}
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.6, delay: index * 0.09 }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        background: project.highlight ? 'linear-gradient(135deg, var(--navy) 0%, rgba(200,169,110,0.06) 100%)' : 'var(--navy)',
-        border: project.highlight ? '1px solid rgba(200,169,110,0.35)' : '1px solid var(--border)',
+        background: 'var(--glass-bg)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: `1px solid ${hovered ? project.accent + '55' : 'var(--glass-border)'}`,
+        borderRadius: 20,
         padding: '2rem',
-        cursor: (project.videoPath || project.videoLink) ? 'pointer' : 'default',
-        transition: 'border-color 0.3s, transform 0.3s',
+        cursor: hasVideo ? 'pointer' : 'default',
+        transition: 'border-color 0.35s, box-shadow 0.35s, transform 0.3s',
         position: 'relative',
         overflow: 'hidden',
+        boxShadow: hovered ? `0 0 40px ${project.accent}15, 0 20px 50px rgba(0,0,0,0.4)` : 'none',
+        transform: hovered ? 'translateY(-6px)' : 'none',
       }}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
     >
-      {project.highlight && (
+      {/* Top glow line */}
+      <div style={{
+        position: 'absolute', top: 0, left: '5%', right: '5%', height: 1,
+        background: `linear-gradient(90deg, transparent, ${project.accent}60, transparent)`,
+        opacity: hovered ? 1 : 0.3,
+        transition: 'opacity 0.3s',
+      }} />
+
+      {/* Featured badge */}
+      {project.featured && (
         <span style={{
-          position: 'absolute', top: '1rem', right: '1rem',
-          fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.65rem',
-          letterSpacing: '0.2em', textTransform: 'uppercase',
-          background: 'var(--amber)', color: 'var(--black)', padding: '0.2rem 0.6rem', fontWeight: 700,
+          position: 'absolute', top: '1.2rem', right: '1.2rem',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontSize: '0.6rem', letterSpacing: '0.2em',
+          textTransform: 'uppercase',
+          background: `linear-gradient(135deg, ${project.accent}, ${project.accent}99)`,
+          color: '#fff',
+          padding: '0.22rem 0.65rem',
+          borderRadius: 50,
+          fontWeight: 700,
+          boxShadow: `0 0 12px ${project.accent}55`,
         }}>Featured</span>
       )}
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.7rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--amber)', opacity: 0.8 }}>{project.tag}</span>
-        <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '0.75rem', color: 'var(--muted)' }}>{project.year}</span>
+      {/* Emoji + header */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+        <div style={{
+          width: 44, height: 44, borderRadius: 12,
+          background: `${project.accent}15`,
+          border: `1px solid ${project.accent}30`,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '1.3rem', flexShrink: 0,
+        }}>{project.emoji}</div>
+        <div>
+          <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '0.65rem', letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: project.accent, opacity: 0.85,
+            }}>{project.tag}</span>
+          </div>
+          <span style={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '0.7rem', color: 'var(--muted)',
+          }}>{project.year}</span>
+        </div>
       </div>
 
-      <h3 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '1.35rem', fontWeight: 600, marginBottom: '0.8rem', letterSpacing: '-0.01em' }}>{project.title}</h3>
-      <p style={{ color: 'var(--muted)', lineHeight: 1.7, fontSize: '0.9rem' }}>{project.desc}</p>
+      <h3 style={{
+        fontFamily: "'Outfit', sans-serif",
+        fontSize: '1.25rem', fontWeight: 700,
+        marginBottom: '0.75rem',
+        letterSpacing: '-0.01em',
+        color: 'var(--white)',
+      }}>{project.title}</h3>
 
-      {(project.videoPath || project.videoLink) && (
-        <div style={{ marginTop: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--amber)', fontSize: '0.8rem', fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600 }}>
-          <span>▶ Watch Video</span>
+      <p style={{
+        color: 'var(--muted)',
+        lineHeight: 1.72,
+        fontSize: '0.88rem',
+        marginBottom: hasVideo ? '1.2rem' : 0,
+      }}>{project.desc}</p>
+
+      {hasVideo && (
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+          color: project.accent,
+          fontSize: '0.8rem',
+          fontFamily: "'Space Grotesk', sans-serif",
+          fontWeight: 600,
+          background: `${project.accent}10`,
+          border: `1px solid ${project.accent}30`,
+          borderRadius: 50,
+          padding: '0.35rem 0.9rem',
+          transition: 'background 0.2s',
+        }}>
+          <span style={{ fontSize: '0.75rem' }}>▶</span>
+          <span>Watch Video</span>
         </div>
       )}
     </motion.div>
@@ -97,33 +176,71 @@ export default function Projects() {
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   return (
-    <section id="projects" ref={ref} style={{ padding: '8rem 2rem', background: 'linear-gradient(180deg, var(--black) 0%, rgba(26,26,46,0.3) 50%, var(--black) 100%)' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+    <section
+      id="projects"
+      ref={ref}
+      style={{
+        padding: '9rem 0',
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(180deg, transparent 0%, rgba(15,15,40,0.4) 50%, transparent 100%)',
+      }}
+    >
+      {/* BG accents */}
+      <div style={{
+        position: 'absolute', top: '30%', right: '-8%',
+        width: 500, height: 500,
+        background: 'radial-gradient(circle, rgba(224,64,251,0.05) 0%, transparent 70%)',
+        filter: 'blur(60px)', pointerEvents: 'none', borderRadius: '50%',
+      }} />
+
+      <div className="section-container">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.65 }}
+          style={{ marginBottom: '3.5rem' }}
+        >
           <span className="section-label" style={{ display: 'block', marginBottom: '1rem' }}>02 — Projects</span>
-          <h2 style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 700, letterSpacing: '-0.02em', marginBottom: '3.5rem' }}>
-            Things I've <span style={{ color: 'var(--amber)' }}>built</span>
+          <h2 style={{
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
+            fontWeight: 800,
+            letterSpacing: '-0.02em',
+            marginBottom: '1rem',
+          }}>
+            Things I've <span className="grad-text">built</span>
           </h2>
+          <p style={{
+            color: 'var(--muted)',
+            fontSize: '1rem',
+            maxWidth: 500,
+            lineHeight: 1.7,
+          }}>
+            A mix of software, AI, and film — each project a different problem, a different medium.
+          </p>
         </motion.div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: '1.5rem' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 460px), 1fr))',
+          gap: '1.25rem',
+        }}>
           {projects.map((p, i) => (
             <ProjectCard
               key={p.title}
               project={p}
               index={i}
               onClick={() => {
-                if (p.videoLink) {
-                  window.open(p.videoLink, '_blank');
-                } else if (p.videoPath) {
-                  setSelectedVideo(p.videoPath);
-                }
+                if (p.videoLink) window.open(p.videoLink, '_blank');
+                else if (p.videoPath) setSelectedVideo(p.videoPath);
               }}
             />
           ))}
         </div>
       </div>
 
+      {/* Video modal */}
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
@@ -132,56 +249,47 @@ export default function Projects() {
             exit={{ opacity: 0 }}
             onClick={() => setSelectedVideo(null)}
             style={{
-              position: 'fixed',
-              top: 0, left: 0, right: 0, bottom: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0.85)',
+              position: 'fixed', inset: 0,
+              background: 'rgba(0,0,0,0.9)',
               zIndex: 1000,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '2rem'
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              padding: '2rem',
+              backdropFilter: 'blur(8px)',
             }}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.88, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              exit={{ scale: 0.88, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
               style={{
                 position: 'relative',
-                width: '100%',
-                maxWidth: '900px',
+                width: '100%', maxWidth: 900,
                 aspectRatio: '16/9',
-                backgroundColor: '#000',
-                borderRadius: '12px',
+                background: '#000',
+                borderRadius: 16,
                 overflow: 'hidden',
-                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)'
+                boxShadow: '0 0 60px rgba(124,92,252,0.3), 0 30px 60px rgba(0,0,0,0.6)',
+                border: '1px solid rgba(124,92,252,0.3)',
               }}
             >
               <button
                 onClick={() => setSelectedVideo(null)}
                 style={{
-                  position: 'absolute',
-                  top: '1rem', right: '1rem',
-                  background: 'rgba(0, 0, 0, 0.5)',
-                  color: 'white', border: 'none',
-                  width: '32px', height: '32px',
-                  borderRadius: '50%',
-                  display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  cursor: 'pointer', zIndex: 10,
-                  fontSize: '1.2rem'
+                  position: 'absolute', top: '1rem', right: '1rem', zIndex: 10,
+                  background: 'rgba(0,0,0,0.6)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)',
+                  width: 34, height: 34, borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', fontSize: '1rem',
+                  backdropFilter: 'blur(4px)',
                 }}
-              >
-                ✕
-              </button>
+              >✕</button>
               <video
                 src={selectedVideo}
                 controls
                 autoPlay
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-              >
-                Your browser does not support the video tag.
-              </video>
+              />
             </motion.div>
           </motion.div>
         )}
