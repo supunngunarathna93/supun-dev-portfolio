@@ -38,10 +38,28 @@ const projects = [
     featured: true, accent: '#00d4ff',
     videoLink: 'https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing',
   },
+
+  {
+    title: 'Hanthana Batch Trip Video — UOVT 2026',
+    tag: 'Premiere Pro · Video Production',
+    year: '2026', emoji: '🎥',
+    desc: 'Coverage of the Hanthana Batch Trip of 2026 at the University of Vocational Technology',
+    featured: true, accent: '#00d4ff',
+    videoLink: 'https://drive.google.com/file/d/1FYkNnhN2gbtFoDSTXEBm3l2FJe7s42v8/view?usp=drive_link',
+  },
+
+  {
+    title: 'Siythra Educational Session — UOVT 2026',
+    tag: 'Premiere Pro · Video Production',
+    year: '2026', emoji: '🎥',
+    desc: 'Pre Documentry of the Siythra Educational Session of 2026 at the Department of Multimedia and Web Technology',
+    featured: true, accent: '#ffe600ff',
+    videoLink: 'https://drive.google.com/file/d/1DjOdI3DoeOqLTrH7fZrzAZMXM91Etk01/view?usp=sharing',
+  },
 ];
 
 function ProjectCard({ project, index, onClick }) {
-  const ref    = useRef(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
   const [hovered, setHovered] = useState(false);
   const hasVideo = !!(project.videoLink || project.videoPath);
@@ -151,8 +169,8 @@ function ProjectCard({ project, index, onClick }) {
 }
 
 export default function Projects() {
-  const ref          = useRef(null);
-  const inView       = useInView(ref, { once: true, margin: '-60px' });
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
   const [selectedVideo, setSelectedVideo] = useState(null);
 
   return (
