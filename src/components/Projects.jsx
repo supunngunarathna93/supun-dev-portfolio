@@ -17,20 +17,6 @@ const projects = [
     featured: false, accent: '#00d4ff', links: [],
   },
   {
-    title: '\"මේ හිත සනසා\" Music Video',
-    tag: 'Sony A6400 · After Effects · Filmmaking',
-    year: '2026', emoji: '🎬',
-    desc: 'Directed and shot a Sinhala music video on the UVOCTECH campus — handheld cinematography with two lead actors. End-to-end: script, direction, editing, and color grade.',
-    featured: false, accent: '#e040fb', videoLink: null,
-  },
-  {
-    title: 'Cinematic Motion Project',
-    tag: 'After Effects · Gemini Imagen 3 · Photoshop',
-    year: '2026', emoji: '✨',
-    desc: 'AI-assisted dark cinematic motion video. AI backgrounds generated via Gemini Imagen 3, graded in Photoshop, then animated in After Effects with a structured color narrative arc.',
-    featured: false, accent: '#f0b429', videoLink: null,
-  },
-  {
     title: 'BTS Video — UOVT 2026',
     tag: 'Premiere Pro · Video Production',
     year: '2026', emoji: '🎥',
