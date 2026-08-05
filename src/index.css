@@ -241,6 +241,9 @@ body {
   padding: 0 2rem;
 }
 
+/* Ensure page content sits above the particle canvas (z-index 0) */
+nav, main, footer { position: relative; z-index: 1; }
+
 /* ── Skill tag ── */
 .skill-tag {
   font-family: 'Space Grotesk', sans-serif;
