@@ -2,22 +2,22 @@ import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const stats = [
-  { value: '2+', label: 'Years Coding' },
+  { value: '2+', label: 'Years Editing & Coding' },
   { value: '10+', label: 'Projects Built' },
-  { value: '3',   label: 'Languages' },
-  { value: '∞',   label: 'Curiosity' },
+  { value: '3', label: 'Languages' },
+  { value: '∞', label: 'Curiosity' },
 ];
 
 const info = [
   { label: 'University', value: 'University of Vocational Technology, Sri Lanka' },
-  { label: 'Degree',     value: 'Multimedia & Web Technology' },
-  { label: 'Focus',      value: 'Mobile Apps · AI/ML · Filmmaking · Video Editing' },
-  { label: 'Languages',  value: 'Sinhala · Tamil · English' },
-  { label: 'Currently',  value: 'Building Fresh Lens App + Multilingual React Portfolio' },
+  { label: 'Degree', value: 'Multimedia & Web Technology' },
+  { label: 'Focus', value: 'Filmmaking · Video Editing . Mobile Apps · AI/ML ' },
+  { label: 'Languages', value: 'Sinhala · Tamil · English' },
+  { label: 'Currently', value: 'Building Fresh Lens App + Multilingual React Portfolio' },
 ];
 
 export default function About() {
-  const ref    = useRef(null);
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
@@ -82,11 +82,11 @@ export default function About() {
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(124,92,252,0.4)';
-                  e.currentTarget.style.boxShadow   = '0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(124,92,252,0.12), inset 0 1px 0 rgba(255,255,255,0.07)';
+                  e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.4), 0 0 30px rgba(124,92,252,0.12), inset 0 1px 0 rgba(255,255,255,0.07)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(124,92,252,0.2)';
-                  e.currentTarget.style.boxShadow   = '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)';
+                  e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)';
                 }}
               >
                 {/* top shine */}
