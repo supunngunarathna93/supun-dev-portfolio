@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 const PARTICLE_COUNT  = 110;
 const CONNECTION_DIST = 130;
-const MOUSE_REPEL     = 110;   // px radius where mouse pushes particles
+const MOUSE_ATTRACT   = 140;   // px radius where mouse pulls particles
 const BASE_SPEED      = 0.28;
 
 // Accent colours matching the portfolio palette
@@ -72,14 +72,14 @@ export default function ParticleBackground() {
       for (let i = 0; i < ps.length; i++) {
         const p = ps[i];
 
-        // Mouse repulsion
+        // Mouse attraction — pull particles toward cursor
         const dx = p.x - mouse.current.x;
         const dy = p.y - mouse.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_REPEL && dist > 0) {
-          const force = (MOUSE_REPEL - dist) / MOUSE_REPEL;
-          p.vx += (dx / dist) * force * 0.35;
-          p.vy += (dy / dist) * force * 0.35;
+        if (dist < MOUSE_ATTRACT && dist > 0) {
+          const force = (MOUSE_ATTRACT - dist) / MOUSE_ATTRACT;
+          p.vx -= (dx / dist) * force * 0.55;
+          p.vy -= (dy / dist) * force * 0.55;
         }
 
         // Friction to prevent runaway speed
