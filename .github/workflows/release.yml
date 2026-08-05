@@ -1,0 +1,54 @@
+name: Create GitHub Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Zip build output
+        run: zip -r dist.zip dist/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "?? Supun Portfolio — ${{ github.ref_name }}"
+          body: |
+            ## What is in this release
+
+            This is a production build of **Supun Developer Portfolio** website.
+
+            ### Included
+            - Optimized production build (dist.zip)
+            - Deployed automatically to GitHub Pages
+
+            ### How to deploy manually
+            1. Download dist.zip
+            2. Extract and serve the contents from any static host (Netlify, Vercel, etc.)
+
+            Built with React + Vite
+          files: dist.zip
+          draft: false
+          prerelease: false
