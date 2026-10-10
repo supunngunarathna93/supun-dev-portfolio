@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import HeroPhoto from './HeroPhoto';
 
 const ticker = [
   'Multimedia', 'Web Dev', 'Filmmaker', 'Video Editor',
@@ -9,7 +10,7 @@ const ticker = [
 
 const roles = ['Developer', 'Filmmaker', 'Creator', 'Designer'];
 
-export default function Hero() {
+export default function Hero({ showPhoto = true }) {
   return (
     <section
       id="hero"
@@ -58,8 +59,10 @@ export default function Hero() {
       }} />
 
       {/* ── Main content ── */}
-      <div className="section-container" style={{ width: '100%' }}>
+      <div className="section-container hero-columns" style={{ width: '100%' }}>
+        {/* ── Left column: existing text content ── */}
         <motion.div
+          className="hero-text-col"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: 'easeOut' }}
@@ -167,6 +170,11 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
+        {/* ── Right column: profile photo ── */}
+        <div className="hero-photo-col">
+          <HeroPhoto show={showPhoto} />
+        </div>
+
         {/* ── Scroll indicator ── */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -249,6 +257,62 @@ export default function Hero() {
       <style>{`
         @media (max-width: 640px) {
           #hero h1 { font-size: clamp(2.8rem, 13vw, 5rem) !important; }
+        }
+
+        /* ── Hero two-column layout ── */
+        .hero-columns {
+          display: flex;
+          align-items: center;
+          gap: 0;
+        }
+        .hero-text-col {
+          flex: 0 0 auto;
+          width: 100%;
+          position: relative;
+          z-index: 2;
+        }
+        .hero-photo-col {
+          display: none;
+          flex: 0 0 auto;
+          position: relative;
+        }
+
+        @media (min-width: 900px) {
+          .hero-columns {
+            align-items: stretch;
+            min-height: calc(100vh - 80px);
+            gap: 0;
+          }
+          .hero-text-col {
+            width: 50%;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 2rem;
+          }
+          .hero-photo-col {
+            display: flex;
+            width: 50%;
+            align-items: flex-end;
+            justify-content: flex-end;
+            min-height: calc(100vh - 80px);
+            overflow: visible;
+            position: relative;
+          }
+        }
+
+        /* Mobile: photo as decorative bg-style element below text */
+        @media (max-width: 899px) {
+          .hero-photo-col {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            margin-top: 2rem;
+          }
+          .hero-columns {
+            flex-direction: column;
+          }
         }
       `}</style>
     </section>
