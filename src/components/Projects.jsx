@@ -42,6 +42,24 @@ const projects = [
     featured: true, accent: '#ffe600ff',
     videoLink: 'https://drive.google.com/file/d/1DjOdI3DoeOqLTrH7fZrzAZMXM91Etk01/view?usp=sharing',
   },
+
+  {
+    title: 'Freshers 2026 Theme Reveal — UOVT 2026',
+    tag: 'Premiere Pro · Video Production',
+    year: '2026', emoji: '🎥',
+    desc: 'Theme Reveal of the Freshers 2026 at the University of Vocational Technology',
+    featured: true, accent: '#ff0800ff',
+    videoLink: 'https://drive.google.com/drive/folders/1rWps5NqCg7yySYbCpfljlMz0erLJTsGI?usp=sharing',
+  },
+
+  {
+    title: 'Freshers 2026 After Movie — UOVT 2026',
+    tag: 'Premiere Pro · Video Production',
+    year: '2026', emoji: '🎥',
+    desc: 'After Movie of the Freshers 2026 at the University of Vocational Technology',
+    featured: true, accent: '#ff0800ff',
+    videoLink: 'https://drive.google.com/drive/folders/1rWps5NqCg7yySYbCpfljlMz0erLJTsGI?usp=sharing',
+  },
 ];
 
 function ProjectCard({ project, index, onClick }) {
