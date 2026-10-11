@@ -1,289 +1,357 @@
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView, useReducedMotion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { Play, X, ArrowSquareOut } from '@phosphor-icons/react';
 
-const projects = [
+const ease = [0.16, 1, 0.3, 1];
+
+const CATEGORIES = ['all', 'event', 'social', 'documentary', 'motion'];
+
+// ── Work items data ──
+// VIDEO SLOTS: Replace 'thumb' with real thumbnail, 'videoLink' with real URL or set 'videoPath' for local files
+const WORKS = [
   {
-    title: 'Fresh Lens App',
-    tag: 'Flutter · TFLite · Firebase',
-    year: '2026', emoji: '🌿',
-    desc: 'AI-powered fruit ripeness detection app for Sri Lankan farmers. Supports Mango, Java Apple, Watermelon, and Passion Fruit with multilingual UI (EN / SI / TA), Firebase auth, marketplace, and dark/light theming.',
-    featured: true, accent: '#7c5cfc', links: [],
-  },
-  {
-    title: 'Multilingual Portfolio',
-    tag: 'React · Vite · Framer Motion',
-    year: '2026', emoji: '🌐',
-    desc: 'This portfolio itself — built with Vite, react-i18next for English/Sinhala/Tamil support, glass-effect cards, cinematic dark theme, and smooth scroll animations.',
-    featured: false, accent: '#00d4ff', links: [],
-  },
-  {
-    title: 'BTS Video — UOVT 2026',
-    tag: 'Premiere Pro · Video Production',
-    year: '2026', emoji: '🎥',
-    desc: 'Behind-the-scenes coverage of the Opening Ceremony & Inauguration of 2026 at the University of Vocational Technology — broadcast studio production.',
-    featured: true, accent: '#00d4ff',
+    id: 'bts-uovt-2026',
+    title: 'BTS — Opening Ceremony UVOCTECH 2026',
+    client: 'UVOCTECH',
+    role: 'Director / Editor',
+    tools: ['Premiere Pro'],
+    year: '2026',
+    category: 'event',
+    timecode: '00:04:12:08',
+    // VIDEO SLOT ↓ replace with real thumbnail image path
+    thumb: 'https://picsum.photos/seed/ceremony-broadcast/800/450',
     videoLink: 'https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing',
+    featured: true,
   },
-
   {
-    title: 'Hanthana Batch Trip Video — UOVT 2026',
-    tag: 'Premiere Pro · Video Production',
-    year: '2026', emoji: '🎥',
-    desc: 'Coverage of the Hanthana Batch Trip of 2026 at the University of Vocational Technology',
-    featured: true, accent: '#00d4ff',
+    id: 'hanthana-trip-2026',
+    title: 'Hanthana Batch Trip',
+    client: 'UVOCTECH',
+    role: 'Editor',
+    tools: ['Premiere Pro'],
+    year: '2026',
+    category: 'documentary',
+    timecode: '00:06:38:14',
+    // VIDEO SLOT ↓
+    thumb: 'https://picsum.photos/seed/mountain-trip-film/800/450',
     videoLink: 'https://drive.google.com/file/d/1FYkNnhN2gbtFoDSTXEBm3l2FJe7s42v8/view?usp=drive_link',
   },
-
   {
-    title: 'Siythra Educational Session — UOVT 2026',
-    tag: 'Premiere Pro · Video Production',
-    year: '2026', emoji: '🎥',
-    desc: 'Pre Documentry of the Siythra Educational Session of 2026 at the Department of Multimedia and Web Technology',
-    featured: true, accent: '#ffe600ff',
+    id: 'siythra-session-2026',
+    title: 'Siythra Educational Session',
+    client: 'Dept. of Multimedia & Web Technology',
+    role: 'Editor',
+    tools: ['Premiere Pro'],
+    year: '2026',
+    category: 'documentary',
+    timecode: '00:03:47:02',
+    // VIDEO SLOT ↓
+    thumb: 'https://picsum.photos/seed/educational-session/800/450',
     videoLink: 'https://drive.google.com/file/d/1DjOdI3DoeOqLTrH7fZrzAZMXM91Etk01/view?usp=sharing',
   },
-
   {
-    title: 'Freshers 2026 Theme Reveal — UOVT 2026',
-    tag: 'Premiere Pro · Video Production',
-    year: '2026', emoji: '🎥',
-    desc: 'Theme Reveal of the Freshers 2026 at the University of Vocational Technology',
-    featured: true, accent: '#ff0800ff',
+    id: 'freshers-reveal-2026',
+    title: 'Freshers 2026 Theme Reveal',
+    client: 'UVOCTECH',
+    role: 'Director / Editor / Colorist',
+    tools: ['Premiere Pro', 'DaVinci Resolve'],
+    year: '2026',
+    category: 'motion',
+    timecode: '00:01:58:21',
+    // VIDEO SLOT ↓
+    thumb: 'https://picsum.photos/seed/theme-reveal-cinematic/800/450',
     videoLink: 'https://drive.google.com/file/d/1C9qiE04p2PnkujZGzVaRAd9hH0eJw1qr/view?usp=drive_link',
   },
-
   {
-    title: 'Freshers 2026 After Movie — UOVT 2026',
-    tag: 'Premiere Pro · Video Production',
-    year: '2026', emoji: '🎥',
-    desc: 'After Movie of the Freshers 2026 at the University of Vocational Technology',
-    featured: true, accent: '#ff0800ff',
+    id: 'freshers-aftermovie-2026',
+    title: 'Freshers 2026 After Movie',
+    client: 'UVOCTECH',
+    role: 'Director / Editor / Colorist',
+    tools: ['Premiere Pro', 'DaVinci Resolve'],
+    year: '2026',
+    category: 'event',
+    timecode: '00:08:14:06',
+    // VIDEO SLOT ↓
+    thumb: 'https://picsum.photos/seed/after-movie-event/800/450',
     videoLink: 'https://drive.google.com/drive/folders/1rWps5NqCg7yySYbCpfljlMz0erLJTsGI?usp=sharing',
+    featured: true,
   },
 ];
 
-function ProjectCard({ project, index, onClick }) {
+function WorkCard({ item, index, onPlay, t }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const reduce = useReducedMotion();
   const [hovered, setHovered] = useState(false);
-  const hasVideo = !!(project.videoLink || project.videoPath);
 
   return (
-    <motion.div
+    <motion.article
       ref={ref}
-      onClick={onClick}
-      initial={{ opacity: 0, y: 50 }}
+      initial={reduce ? false : { opacity: 0, y: 32 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.09 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease }}
+      className="card"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered
-          ? 'rgba(18,14,48,0.72)'
-          : 'rgba(10,8,30,0.50)',
-        backdropFilter: 'blur(28px) saturate(170%)',
-        WebkitBackdropFilter: 'blur(28px) saturate(170%)',
-        border: `1px solid ${hovered ? project.accent + '50' : 'rgba(124,92,252,0.18)'}`,
-        borderRadius: 22,
-        padding: '2rem',
-        cursor: hasVideo ? 'pointer' : 'default',
-        transition: 'border-color 0.35s, box-shadow 0.35s, transform 0.3s, background 0.3s',
-        position: 'relative', overflow: 'hidden',
-        boxShadow: hovered
-          ? `0 0 0 1px ${project.accent}18, 0 0 50px ${project.accent}14, 0 24px 56px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)`
-          : '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)',
-        transform: hovered ? 'translateY(-6px)' : 'none',
+        cursor: 'pointer',
+        overflow: 'hidden',
       }}
+      onClick={() => onPlay(item)}
+      role="button"
+      tabIndex={0}
+      aria-label={`${item.title} — ${t('work.watch')}`}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onPlay(item); }}
     >
-      {/* Inner top shine */}
+      {/* Thumbnail */}
       <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-        background: hovered
-          ? `linear-gradient(90deg, transparent, ${project.accent}70, transparent)`
-          : 'linear-gradient(90deg, transparent, rgba(124,92,252,0.25), transparent)',
-        transition: 'opacity 0.3s',
-      }} />
+        position: 'relative',
+        aspectRatio: '16/9',
+        overflow: 'hidden',
+        background: 'var(--surface-3)',
+      }}>
+        <img
+          src={item.thumb}
+          alt={item.title}
+          loading="lazy"
+          style={{
+            width: '100%', height: '100%',
+            objectFit: 'cover',
+            transition: 'transform 0.55s var(--ease-out-expo)',
+            transform: hovered ? 'scale(1.04)' : 'scale(1)',
+          }}
+        />
 
-      {/* Featured badge */}
-      {project.featured && (
-        <span style={{
-          position: 'absolute', top: '1.2rem', right: '1.2rem',
-          fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase',
-          background: `linear-gradient(135deg, ${project.accent}, ${project.accent}99)`,
-          color: '#fff', padding: '0.22rem 0.65rem',
-          borderRadius: 50, fontWeight: 700,
-          boxShadow: `0 0 14px ${project.accent}55`,
-        }}>Featured</span>
-      )}
-
-      {/* Emoji + header */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', marginBottom: '1.2rem' }}>
+        {/* Hover overlay with play */}
         <div style={{
-          width: 46, height: 46, borderRadius: 13,
-          background: `${project.accent}12`,
-          border: `1px solid ${project.accent}30`,
-          backdropFilter: 'blur(8px)',
+          position: 'absolute', inset: 0,
+          background: 'rgba(11,11,13,0.55)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '1.3rem', flexShrink: 0,
-          boxShadow: `0 0 16px ${project.accent}14`,
-        }}>{project.emoji}</div>
-        <div>
-          <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.65rem', letterSpacing: '0.12em',
-            textTransform: 'uppercase', color: project.accent, opacity: 0.85,
-            display: 'block',
-          }}>{project.tag}</span>
-          <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.7rem', color: 'var(--muted)',
-          }}>{project.year}</span>
+          opacity: hovered ? 1 : 0,
+          transition: 'opacity 0.3s',
+        }}>
+          <div style={{
+            width: 52, height: 52,
+            borderRadius: '50%',
+            background: 'var(--amber)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 0 24px rgba(212,168,67,0.4)',
+            transform: hovered ? 'scale(1)' : 'scale(0.7)',
+            transition: 'transform 0.3s var(--ease-out-expo)',
+          }}>
+            <Play size={20} weight="fill" style={{ color: 'var(--ink)', marginLeft: 2 }} />
+          </div>
         </div>
+
+        {/* Timecode top-left */}
+        <div style={{
+          position: 'absolute', top: '0.6rem', left: '0.6rem',
+          background: 'rgba(11,11,13,0.75)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: 'var(--r-sm)',
+          padding: '0.18rem 0.55rem',
+        }}>
+          <span className="timecode">{item.timecode}</span>
+        </div>
+
+        {/* Featured badge */}
+        {item.featured && (
+          <div style={{
+            position: 'absolute', top: '0.6rem', right: '0.6rem',
+            background: 'var(--amber)',
+            borderRadius: 'var(--r-sm)',
+            padding: '0.18rem 0.6rem',
+          }}>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.58rem',
+              fontWeight: 600,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'var(--ink)',
+            }}>Featured</span>
+          </div>
+        )}
       </div>
 
-      <h3 style={{
-        fontFamily: "'Outfit', sans-serif",
-        fontSize: '1.25rem', fontWeight: 700,
-        marginBottom: '0.75rem', letterSpacing: '-0.01em',
-        color: 'var(--white)',
-      }}>{project.title}</h3>
-
-      <p style={{
-        color: 'var(--muted)', lineHeight: 1.72, fontSize: '0.88rem',
-        marginBottom: hasVideo ? '1.2rem' : 0,
-      }}>{project.desc}</p>
-
-      {hasVideo && (
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-          color: project.accent, fontSize: '0.8rem',
-          fontFamily: "'Space Grotesk', sans-serif", fontWeight: 600,
-          background: `${project.accent}10`,
-          border: `1px solid ${project.accent}30`,
-          backdropFilter: 'blur(8px)',
-          borderRadius: 50, padding: '0.35rem 0.9rem',
-        }}>
-          <span style={{ fontSize: '0.75rem' }}>▶</span>
-          <span>Watch Video</span>
+      {/* Card body */}
+      <div style={{ padding: '1.1rem 1.25rem 1.25rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
+          <h3 style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '0.975rem',
+            fontWeight: 700,
+            color: 'var(--bone)',
+            letterSpacing: '-0.01em',
+            lineHeight: 1.3,
+            flex: 1,
+            marginRight: '0.75rem',
+          }}>{item.title}</h3>
+          <span style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.62rem',
+            color: 'var(--fog)',
+            flexShrink: 0,
+          }}>{item.year}</span>
         </div>
-      )}
-    </motion.div>
-  );
-}
 
-export default function Projects() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-60px' });
-  const [selectedVideo, setSelectedVideo] = useState(null);
-
-  return (
-    <section
-      id="projects"
-      ref={ref}
-      style={{ padding: '9rem 0', position: 'relative', overflow: 'hidden' }}
-    >
-      {/* BG accents */}
-      <div style={{
-        position: 'absolute', top: '30%', right: '-8%',
-        width: 500, height: 500,
-        background: 'radial-gradient(circle, rgba(224,64,251,0.06) 0%, transparent 70%)',
-        filter: 'blur(65px)', pointerEvents: 'none', borderRadius: '50%',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '20%', left: '-5%',
-        width: 400, height: 400,
-        background: 'radial-gradient(circle, rgba(0,212,255,0.05) 0%, transparent 70%)',
-        filter: 'blur(55px)', pointerEvents: 'none', borderRadius: '50%',
-      }} />
-
-      {/* Section glass stripe */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(180deg, transparent 0%, rgba(10,8,30,0.30) 50%, transparent 100%)',
-        pointerEvents: 'none',
-      }} />
-
-      <div className="section-container">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65 }}
-          style={{ marginBottom: '3.5rem' }}
-        >
-          <span className="section-label" style={{ display: 'block', marginBottom: '1rem' }}>02 — Projects</span>
-          <h2 style={{
-            fontFamily: "'Outfit', sans-serif",
-            fontSize: 'clamp(2rem, 4.5vw, 3.4rem)',
-            fontWeight: 800, letterSpacing: '-0.02em', marginBottom: '1rem',
-          }}>
-            Things I've <span className="grad-text">built</span>
-          </h2>
-          <p style={{ color: 'var(--muted)', fontSize: '1rem', maxWidth: 500, lineHeight: 1.7 }}>
-            A mix of software, AI, and film — each project a different problem, a different medium.
-          </p>
-        </motion.div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 460px), 1fr))',
-          gap: '1.25rem',
+        <p style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '0.78rem',
+          color: 'var(--fog)',
+          marginBottom: '0.75rem',
+          lineHeight: 1.5,
         }}>
-          {projects.map((p, i) => (
-            <ProjectCard
-              key={p.title} project={p} index={i}
-              onClick={() => {
-                if (p.videoLink) window.open(p.videoLink, '_blank');
-                else if (p.videoPath) setSelectedVideo(p.videoPath);
-              }}
-            />
+          {item.client} · <span style={{ color: 'var(--smoke)' }}>{item.role}</span>
+        </p>
+
+        <div style={{ display: 'flex', gap: '0.35rem', flexWrap: 'wrap' }}>
+          {item.tools.map((tool) => (
+            <span key={tool} className="chip">{tool}</span>
           ))}
         </div>
       </div>
+    </motion.article>
+  );
+}
 
-      {/* Video modal */}
-      <AnimatePresence>
-        {selectedVideo && (
+export default function SelectedWork() {
+  const { t } = useTranslation();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  const reduce = useReducedMotion();
+  const [filter, setFilter] = useState('all');
+  const [lightbox, setLightbox] = useState(null);
+
+  const filtered = filter === 'all' ? WORKS : WORKS.filter((w) => w.category === filter);
+
+  const openItem = (item) => {
+    if (item.videoLink) {
+      window.open(item.videoLink, '_blank', 'noopener,noreferrer');
+    } else if (item.videoPath) {
+      setLightbox(item);
+    } else {
+      setLightbox(item);
+    }
+  };
+
+  return (
+    <section id="work" style={{ padding: '8rem 0', position: 'relative' }}>
+      <div className="container" ref={ref}>
+        {/* Section header */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease }}
+          style={{ marginBottom: '2.5rem' }}
+        >
+          <h2 style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: 800,
+            letterSpacing: '-0.03em',
+            lineHeight: 1.05,
+            color: 'var(--bone)',
+            marginBottom: '0.75rem',
+          }}>
+            {t('work.title')}
+          </h2>
+          <p style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '1rem',
+            color: 'var(--smoke)',
+            maxWidth: '46ch',
+            lineHeight: 1.7,
+          }}>
+            {t('work.subtitle')}
+          </p>
+        </motion.div>
+
+        {/* Filter bar */}
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1, ease }}
+          style={{
+            display: 'flex', gap: '0.4rem',
+            flexWrap: 'wrap',
+            marginBottom: '2.5rem',
+          }}
+          role="group"
+          aria-label="Filter works by category"
+        >
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              className={`filter-pill${filter === cat ? ' active' : ''}`}
+              onClick={() => setFilter(cat)}
+              aria-pressed={filter === cat}
+            >
+              {t(`work.filter_${cat}`)}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Works grid — asymmetric */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={() => setSelectedVideo(null)}
+            key={filter}
+            initial={reduce ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             style={{
-              position: 'fixed', inset: 0,
-              background: 'rgba(0,0,0,0.88)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              zIndex: 1000,
-              display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
+              gap: '1rem',
             }}
           >
+            {filtered.map((item, i) => (
+              <WorkCard
+                key={item.id}
+                item={item}
+                index={i}
+                onPlay={openItem}
+                t={t}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Lightbox for local video files */}
+      <AnimatePresence>
+        {lightbox && lightbox.videoPath && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="lightbox-overlay"
+            onClick={() => setLightbox(null)}
+            role="dialog"
+            aria-modal="true"
+            aria-label={lightbox.title}
+          >
             <motion.div
-              initial={{ scale: 0.88, opacity: 0 }}
+              initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.88, opacity: 0 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              transition={{ ease }}
+              className="lightbox-inner"
               onClick={(e) => e.stopPropagation()}
-              style={{
-                position: 'relative', width: '100%', maxWidth: 900,
-                aspectRatio: '16/9',
-                background: 'rgba(5,5,13,0.95)',
-                borderRadius: 20, overflow: 'hidden',
-                boxShadow: '0 0 80px rgba(124,92,252,0.35), 0 40px 80px rgba(0,0,0,0.7)',
-                border: '1px solid rgba(124,92,252,0.35)',
-              }}
             >
               <button
-                onClick={() => setSelectedVideo(null)}
-                style={{
-                  position: 'absolute', top: '1rem', right: '1rem', zIndex: 10,
-                  background: 'rgba(10,8,30,0.7)',
-                  backdropFilter: 'blur(8px)',
-                  color: '#fff', border: '1px solid rgba(255,255,255,0.15)',
-                  width: 36, height: 36, borderRadius: '50%',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  cursor: 'pointer', fontSize: '1rem',
-                }}
-              >✕</button>
+                className="lightbox-close"
+                onClick={() => setLightbox(null)}
+                aria-label={t('work.lightbox_close')}
+              >
+                <X size={16} />
+              </button>
               <video
-                src={selectedVideo} controls autoPlay
+                src={lightbox.videoPath}
+                controls
+                autoPlay
                 style={{ width: '100%', height: '100%', objectFit: 'contain' }}
               />
             </motion.div>

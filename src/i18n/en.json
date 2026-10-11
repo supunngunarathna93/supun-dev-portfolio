@@ -1,0 +1,99 @@
+{
+  "preloader": {
+    "aria_label": "Loading Supun Gunarathna's portfolio"
+  },
+  "nav": {
+    "work": "Work",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact",
+    "hire": "Hire me"
+  },
+  "hero": {
+    "role": "Senior Video Editor · Colorist · Filmmaker",
+    "tagline": "Crafting stories frame by frame. DaVinci Resolve, Premiere Pro, and an obsession with the right cut.",
+    "cta_primary": "Watch showreel",
+    "cta_secondary": "Get in touch",
+    "available": "Available for projects"
+  },
+  "work": {
+    "title": "Selected work",
+    "subtitle": "A cross-section of edits, events, and productions from 2024 to 2026.",
+    "filter_all": "All",
+    "filter_commercial": "Commercial",
+    "filter_event": "Event",
+    "filter_social": "Social",
+    "filter_documentary": "Documentary",
+    "filter_motion": "Motion",
+    "watch": "Watch",
+    "role_label": "Role",
+    "tools_label": "Tools",
+    "lightbox_close": "Close"
+  },
+  "beforeafter": {
+    "title": "Color grading",
+    "subtitle": "Raw footage vs. graded result — drag the handle to compare.",
+    "badge_before": "RAW",
+    "badge_after": "GRADED",
+    "tool_note": "Graded in DaVinci Resolve"
+  },
+  "workflow": {
+    "title": "Workflow & tools",
+    "subtitle": "Three platforms. One seamless pipeline — from edit bay to delivery.",
+    "resolve_title": "DaVinci Resolve",
+    "resolve_desc": "Primary edit suite, color grading, Fusion compositing, Fairlight audio.",
+    "resolve_tags": ["Edit", "Color", "Fusion", "Fairlight"],
+    "premiere_title": "Premiere Pro",
+    "premiere_desc": "Broadcast-ready delivery, team collaboration, and multi-cam event cuts.",
+    "premiere_tags": ["Multi-cam", "Broadcast", "Collaboration"],
+    "capcut_title": "CapCut",
+    "capcut_desc": "Fast turnaround short-form content — reels, TikToks, and social cuts.",
+    "capcut_tags": ["Reels", "TikTok", "Quick Delivery"]
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "End-to-end post-production — from rough cut to final delivery.",
+    "s1_title": "Video editing",
+    "s1_desc": "Feature-paced narrative cuts, event coverage, and branded content.",
+    "s2_title": "Color grading",
+    "s2_desc": "DaVinci Resolve primary and secondary color, LUT design, and look development.",
+    "s3_title": "Short-form & social",
+    "s3_desc": "Platform-native cuts optimised for Reels, TikTok, and YouTube Shorts.",
+    "s4_title": "Event highlights",
+    "s4_desc": "Same-day turnaround event edits — ceremonies, conferences, and performances.",
+    "s5_title": "Motion graphics",
+    "s5_desc": "Titles, lower thirds, and kinetic text using Fusion and After Effects.",
+    "s6_title": "Audio cleanup",
+    "s6_desc": "Dialogue restoration, noise reduction, and mix down via Fairlight."
+  },
+  "about": {
+    "title": "About",
+    "headline": "I edit for the feeling, not just the frame.",
+    "bio1": "I'm Supun Gunarathna — a video editor and colorist based in Sri Lanka. My primary tools are DaVinci Resolve and Premiere Pro. I've been the editorial lead for production work at UVOCTECH, covering ceremonies, batch trips, and institutional media.",
+    "bio2": "Alongside post-production, I'm studying BSc Multimedia and Web Technology at the University of Vocational Technology, which is where my interest in web, mobile, and AI-assisted workflows comes from. Both sides of the craft inform each other.",
+    "info_university": "University of Vocational Technology, Sri Lanka",
+    "info_degree": "BSc Multimedia and Web Technology",
+    "info_focus": "Video Editing · Color Grading · Filmmaking",
+    "info_languages": "Sinhala · Tamil · English",
+    "info_based": "Sri Lanka",
+    "label_university": "University",
+    "label_degree": "Degree",
+    "label_focus": "Focus",
+    "label_languages": "Languages",
+    "label_based": "Based"
+  },
+  "contact": {
+    "title": "Contact",
+    "headline": "Let's make something worth watching.",
+    "subtitle": "Open to freelance edits, event coverage, collaborations, and conversations about film.",
+    "email_label": "Email",
+    "copy": "Copy",
+    "copied": "Copied",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "footer_built": "Built with React + Vite",
+    "footer_copy": "© 2026 Supun N Gunarathna"
+  }
+}

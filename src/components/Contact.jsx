@@ -1,249 +1,397 @@
-import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { EnvelopeSimple, WhatsappLogo, LinkedinLogo, YoutubeLogo, InstagramLogo, Check } from '@phosphor-icons/react';
 
-const socials = [
+const ease = [0.16, 1, 0.3, 1];
+
+const EMAIL = 'supunngunarathna.edit.work@gmail.com';
+
+const SOCIALS = [
   {
-    label: 'GitHub',
-    handle: '@supunngunarathna93',
-    icon: (
-      <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-      </svg>
-    ),
-    href: 'https://github.com/supunngunarathna93',
-    accent: '#7c5cfc',
+    key: 'whatsapp',
+    icon: WhatsappLogo,
+    href: 'https://wa.me/94000000000', // REPLACE with real WhatsApp number
+    handle: '+94 XXX XXX XXX',
   },
   {
-    label: 'LinkedIn',
-    handle: 'Supun N Gunarathna',
-    icon: (
-      <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-      </svg>
-    ),
+    key: 'linkedin',
+    icon: LinkedinLogo,
     href: 'https://linkedin.com/in/supun-n-gunarathna-70ab43320',
-    accent: '#00d4ff',
+    handle: 'Supun N Gunarathna',
+  },
+  {
+    key: 'youtube',
+    icon: YoutubeLogo,
+    href: 'https://youtube.com/@supunngunarathna', // REPLACE with real YouTube channel
+    handle: '@supunngunarathna',
+  },
+  {
+    key: 'instagram',
+    icon: InstagramLogo,
+    href: 'https://instagram.com/supunngunarathna', // REPLACE with real Instagram
+    handle: '@supunngunarathna',
   },
 ];
 
 export default function Contact() {
-  const ref    = useRef(null);
+  const { t } = useTranslation();
+  const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
+  const reduce = useReducedMotion();
   const [copied, setCopied] = useState(false);
-  const email = 'supunngunarathna.edit.work@gmail.com';
+  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [formError, setFormError] = useState({});
+  const [submitted, setSubmitted] = useState(false);
 
   const copy = () => {
-    navigator.clipboard.writeText(email);
+    navigator.clipboard.writeText(EMAIL);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
+  const validate = () => {
+    const errs = {};
+    if (!formState.name.trim()) errs.name = 'Name is required';
+    if (!formState.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) errs.email = 'Valid email required';
+    if (!formState.message.trim() || formState.message.length < 10) errs.message = 'Message must be at least 10 characters';
+    return errs;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const errs = validate();
+    if (Object.keys(errs).length > 0) { setFormError(errs); return; }
+    setFormError({});
+    // Opens email client with pre-filled content — replace with real form handler if needed
+    const subject = encodeURIComponent(`Portfolio inquiry from ${formState.name}`);
+    const body = encodeURIComponent(formState.message);
+    window.open(`mailto:${EMAIL}?subject=${subject}&body=${body}`, '_self');
+    setSubmitted(true);
+  };
+
+  const inputStyle = (field) => ({
+    width: '100%',
+    fontFamily: 'var(--font-sans)',
+    fontSize: '0.9rem',
+    color: 'var(--bone)',
+    background: 'var(--surface-2)',
+    border: `1px solid ${formError[field] ? 'rgba(232,64,64,0.6)' : 'var(--border)'}`,
+    borderRadius: 'var(--r-sm)',
+    padding: '0.75rem 1rem',
+    outline: 'none',
+    transition: 'border-color var(--t-fast)',
+    display: 'block',
+  });
+
   return (
-    <section
-      id="contact"
-      ref={ref}
-      style={{ padding: '9rem 0 6rem', position: 'relative', overflow: 'hidden' }}
-    >
-      {/* BG glows */}
-      <div style={{
+    <section id="contact" style={{ padding: '8rem 0 6rem', position: 'relative' }}>
+      {/* Ambient */}
+      <div aria-hidden="true" style={{
         position: 'absolute', top: '10%', left: '50%',
         transform: 'translateX(-50%)',
-        width: 800, height: 600,
-        background: 'radial-gradient(ellipse, rgba(124,92,252,0.09) 0%, transparent 70%)',
-        filter: 'blur(70px)', pointerEvents: 'none', borderRadius: '50%',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '10%', right: '5%',
-        width: 400, height: 400,
-        background: 'radial-gradient(circle, rgba(0,212,255,0.07) 0%, transparent 70%)',
-        filter: 'blur(55px)', pointerEvents: 'none', borderRadius: '50%',
+        width: 700, height: 500,
+        background: 'radial-gradient(ellipse, rgba(212,168,67,0.06) 0%, transparent 65%)',
+        filter: 'blur(80px)',
+        pointerEvents: 'none', borderRadius: '50%',
       }} />
 
-      <div className="section-container">
+      <div className="container" ref={ref}>
+        {/* Giant editorial headline */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={reduce ? false : { opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.75 }}
+          transition={{ duration: 0.75, ease }}
+          style={{ marginBottom: '4rem', maxWidth: 900 }}
         >
-          <span className="section-label" style={{ display: 'block', marginBottom: '1rem' }}>04 — Contact</span>
-
           <h2 style={{
-            fontFamily: "'Outfit', sans-serif",
-            fontSize: 'clamp(2.5rem, 6vw, 5.5rem)',
-            fontWeight: 900, letterSpacing: '-0.03em',
-            lineHeight: 1.0, marginBottom: '1.5rem', maxWidth: 760,
+            fontFamily: 'var(--font-display)',
+            fontSize: 'clamp(2.5rem, 7vw, 6rem)',
+            fontWeight: 400,
+            lineHeight: 1.02,
+            letterSpacing: '-0.01em',
+            color: 'var(--bone)',
+            marginBottom: '1.25rem',
           }}>
-            Let's make something<br />
-            <span className="grad-text">worth watching.</span>
+            {t('contact.headline')}
           </h2>
-
           <p style={{
-            color: 'var(--muted)', fontSize: '1.05rem',
-            lineHeight: 1.75, maxWidth: 480, marginBottom: '3rem',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '1rem',
+            color: 'var(--smoke)',
+            maxWidth: '44ch',
+            lineHeight: 1.75,
           }}>
-            Open to freelance projects, collaborations, and interesting conversations —
-            about tech, film, or both. Let's build something great together.
+            {t('contact.subtitle')}
           </p>
-
-          {/* Email card — deep glass */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center',
-              gap: '1.2rem',
-              background: 'rgba(10,8,30,0.55)',
-              border: '1px solid rgba(124,92,252,0.22)',
-              backdropFilter: 'blur(28px) saturate(170%)',
-              WebkitBackdropFilter: 'blur(28px) saturate(170%)',
-              borderRadius: 18,
-              padding: '1.25rem 1.6rem',
-              marginBottom: '2.5rem',
-              flexWrap: 'wrap',
-              position: 'relative', overflow: 'hidden',
-              boxShadow: '0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04)',
-            }}
-          >
-            {/* shine */}
-            <div style={{
-              position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(124,92,252,0.5), rgba(0,212,255,0.3), transparent)',
-            }} />
-            <div style={{
-              width: 42, height: 42, borderRadius: 11,
-              background: 'linear-gradient(135deg, rgba(124,92,252,0.25), rgba(0,212,255,0.25))',
-              border: '1px solid rgba(124,92,252,0.3)',
-              backdropFilter: 'blur(8px)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '1.1rem',
-              boxShadow: '0 0 16px rgba(124,92,252,0.2)',
-            }}>✉️</div>
-            <div>
-              <div style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '0.65rem', letterSpacing: '0.18em',
-                textTransform: 'uppercase', color: 'var(--muted)', marginBottom: '0.15rem',
-              }}>Email me at</div>
-              <div style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '0.9rem', color: 'var(--white)', fontWeight: 500,
-              }}>{email}</div>
-            </div>
-            <button
-              onClick={copy}
-              style={{
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: '0.8rem', fontWeight: 600,
-                padding: '0.5rem 1.25rem', borderRadius: 50,
-                border: 'none', cursor: 'pointer',
-                transition: 'all 0.3s',
-                background: copied
-                  ? 'rgba(0,212,255,0.15)'
-                  : 'linear-gradient(135deg, #7c5cfc, #00d4ff)',
-                color: copied ? '#00d4ff' : '#fff',
-                boxShadow: copied
-                  ? '0 0 16px rgba(0,212,255,0.3)'
-                  : '0 0 22px rgba(124,92,252,0.4)',
-                letterSpacing: '0.05em',
-                backdropFilter: copied ? 'blur(8px)' : 'none',
-              }}
-            >
-              {copied ? '✓ Copied!' : 'Copy'}
-            </button>
-          </motion.div>
-
-          {/* Social cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '6rem' }}
-          >
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href} target="_blank" rel="noopener noreferrer"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.85rem',
-                  padding: '1rem 1.6rem',
-                  background: 'rgba(10,8,30,0.50)',
-                  border: '1px solid rgba(124,92,252,0.18)',
-                  backdropFilter: 'blur(24px) saturate(160%)',
-                  WebkitBackdropFilter: 'blur(24px) saturate(160%)',
-                  borderRadius: 16,
-                  textDecoration: 'none', color: 'var(--white)',
-                  transition: 'border-color 0.3s, box-shadow 0.3s, transform 0.25s, background 0.3s',
-                  minWidth: 210,
-                  position: 'relative', overflow: 'hidden',
-                  boxShadow: '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor  = `${s.accent}50`;
-                  e.currentTarget.style.boxShadow    = `0 0 30px ${s.accent}20, 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)`;
-                  e.currentTarget.style.transform    = 'translateY(-3px)';
-                  e.currentTarget.style.background   = 'rgba(18,14,50,0.65)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor  = 'rgba(124,92,252,0.18)';
-                  e.currentTarget.style.boxShadow    = '0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.03)';
-                  e.currentTarget.style.transform    = 'none';
-                  e.currentTarget.style.background   = 'rgba(10,8,30,0.50)';
-                }}
-              >
-                <div style={{
-                  color: s.accent,
-                  width: 40, height: 40,
-                  background: `${s.accent}12`,
-                  border: `1px solid ${s.accent}28`,
-                  backdropFilter: 'blur(8px)',
-                  borderRadius: 11,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
-                  boxShadow: `0 0 14px ${s.accent}18`,
-                }}>{s.icon}</div>
-                <div>
-                  <div style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.1rem',
-                  }}>{s.label}</div>
-                  <div style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
-                    fontSize: '0.72rem', color: 'var(--muted)',
-                  }}>{s.handle}</div>
-                </div>
-              </a>
-            ))}
-          </motion.div>
         </motion.div>
+
+        {/* Two-col: form left, links right */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: '1.1fr 0.9fr',
+          gap: '4rem',
+          alignItems: 'start',
+        }} className="contact-grid">
+
+          {/* Contact form */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.1, ease }}
+          >
+            {submitted ? (
+              <div style={{
+                padding: '2rem',
+                background: 'var(--amber-glow)',
+                border: '1px solid var(--amber-border)',
+                borderRadius: 'var(--r-lg)',
+                display: 'flex', alignItems: 'center', gap: '0.75rem',
+              }}>
+                <Check size={20} style={{ color: 'var(--amber)', flexShrink: 0 }} />
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.95rem', color: 'var(--bone)' }}>
+                  Your email client has opened with a pre-filled message. Thank you!
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
+                {/* Name */}
+                <div>
+                  <label htmlFor="contact-name" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.62rem',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--fog)',
+                    marginBottom: '0.4rem',
+                  }}>Name</label>
+                  <input
+                    id="contact-name"
+                    type="text"
+                    name="name"
+                    autoComplete="name"
+                    value={formState.name}
+                    onChange={(e) => setFormState({ ...formState, name: e.target.value })}
+                    style={inputStyle('name')}
+                    aria-describedby={formError.name ? 'err-name' : undefined}
+                    aria-invalid={!!formError.name}
+                    onFocus={(e) => { e.target.style.borderColor = 'var(--amber-border-strong)'; }}
+                    onBlur={(e) => { e.target.style.borderColor = formError.name ? 'rgba(232,64,64,0.6)' : 'var(--border)'; }}
+                  />
+                  {formError.name && (
+                    <span id="err-name" role="alert" style={{
+                      fontFamily: 'var(--font-sans)', fontSize: '0.78rem',
+                      color: '#E84040', marginTop: '0.3rem', display: 'block',
+                    }}>{formError.name}</span>
+                  )}
+                </div>
+
+                {/* Email */}
+                <div>
+                  <label htmlFor="contact-email" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.62rem',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--fog)',
+                    marginBottom: '0.4rem',
+                  }}>Email</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                    value={formState.email}
+                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                    style={inputStyle('email')}
+                    aria-describedby={formError.email ? 'err-email' : undefined}
+                    aria-invalid={!!formError.email}
+                    onFocus={(e) => { e.target.style.borderColor = 'var(--amber-border-strong)'; }}
+                    onBlur={(e) => { e.target.style.borderColor = formError.email ? 'rgba(232,64,64,0.6)' : 'var(--border)'; }}
+                  />
+                  {formError.email && (
+                    <span id="err-email" role="alert" style={{
+                      fontFamily: 'var(--font-sans)', fontSize: '0.78rem',
+                      color: '#E84040', marginTop: '0.3rem', display: 'block',
+                    }}>{formError.email}</span>
+                  )}
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="contact-message" style={{
+                    display: 'block',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.62rem',
+                    letterSpacing: '0.15em',
+                    textTransform: 'uppercase',
+                    color: 'var(--fog)',
+                    marginBottom: '0.4rem',
+                  }}>Message</label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows={5}
+                    value={formState.message}
+                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    style={{ ...inputStyle('message'), resize: 'vertical', minHeight: 120 }}
+                    aria-describedby={formError.message ? 'err-message' : undefined}
+                    aria-invalid={!!formError.message}
+                    onFocus={(e) => { e.target.style.borderColor = 'var(--amber-border-strong)'; }}
+                    onBlur={(e) => { e.target.style.borderColor = formError.message ? 'rgba(232,64,64,0.6)' : 'var(--border)'; }}
+                  />
+                  {formError.message && (
+                    <span id="err-message" role="alert" style={{
+                      fontFamily: 'var(--font-sans)', fontSize: '0.78rem',
+                      color: '#E84040', marginTop: '0.3rem', display: 'block',
+                    }}>{formError.message}</span>
+                  )}
+                </div>
+
+                <button type="submit" className="btn btn-primary" style={{ alignSelf: 'flex-start' }}>
+                  Send message
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Right — email + socials */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2, ease }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          >
+            {/* Email row */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '1rem',
+              padding: '1.1rem 1.25rem',
+              background: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-lg)',
+              flexWrap: 'wrap',
+            }}>
+              <div style={{
+                width: 38, height: 38,
+                borderRadius: 'var(--r-sm)',
+                background: 'var(--amber-glow)',
+                border: '1px solid var(--amber-border)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0,
+              }}>
+                <EnvelopeSimple size={17} style={{ color: 'var(--amber)' }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.6rem', color: 'var(--fog)', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.15rem' }}>
+                  {t('contact.email_label')}
+                </div>
+                <div style={{ fontFamily: 'var(--font-sans)', fontSize: '0.82rem', color: 'var(--bone)', fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  {EMAIL}
+                </div>
+              </div>
+              <button
+                onClick={copy}
+                className="btn"
+                style={{
+                  padding: '0.4rem 0.9rem',
+                  fontSize: '0.78rem',
+                  background: copied ? 'var(--amber-glow)' : 'var(--surface-3)',
+                  color: copied ? 'var(--amber)' : 'var(--smoke)',
+                  border: `1px solid ${copied ? 'var(--amber-border)' : 'var(--border)'}`,
+                  flexShrink: 0,
+                }}
+                aria-live="polite"
+              >
+                {copied ? t('contact.copied') : t('contact.copy')}
+              </button>
+            </div>
+
+            {/* Social links */}
+            {SOCIALS.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <motion.a
+                  key={s.key}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={reduce ? false : { opacity: 0, x: 16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.45, delay: 0.25 + i * 0.07, ease }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    padding: '0.9rem 1.25rem',
+                    background: 'var(--surface-2)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--r-lg)',
+                    textDecoration: 'none',
+                    transition: 'border-color var(--t-fast), background var(--t-fast)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--amber-border)';
+                    e.currentTarget.style.background = 'var(--surface-3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border)';
+                    e.currentTarget.style.background = 'var(--surface-2)';
+                  }}
+                  aria-label={`${t(`contact.${s.key}`)} — ${s.handle}`}
+                >
+                  <div style={{
+                    width: 36, height: 36,
+                    borderRadius: 'var(--r-sm)',
+                    background: 'var(--surface-3)',
+                    border: '1px solid var(--border)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0,
+                  }}>
+                    <Icon size={16} style={{ color: 'var(--smoke)' }} />
+                  </div>
+                  <div>
+                    <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 600, fontSize: '0.88rem', color: 'var(--bone)', marginBottom: '0.1rem' }}>
+                      {t(`contact.${s.key}`)}
+                    </div>
+                    <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--fog)' }}>
+                      {s.handle}
+                    </div>
+                  </div>
+                </motion.a>
+              );
+            })}
+          </motion.div>
+        </div>
 
         {/* Footer */}
         <div style={{
-          paddingTop: '2rem',
-          borderTop: '1px solid rgba(124,92,252,0.14)',
-          display: 'flex', justifyContent: 'space-between',
-          alignItems: 'center', flexWrap: 'wrap', gap: '1rem',
+          marginTop: '6rem',
+          paddingTop: '1.5rem',
+          borderTop: '1px solid var(--border)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <div style={{
-              width: 26, height: 26, borderRadius: 7,
-              background: 'linear-gradient(135deg, #7c5cfc, #00d4ff)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '0.55rem', fontWeight: 800, color: '#fff',
-              fontFamily: "'Space Grotesk', sans-serif",
-              boxShadow: '0 0 12px rgba(124,92,252,0.4)',
-            }}>SG</div>
-            <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '0.8rem', color: 'var(--muted)',
-            }}>© 2026 Supun N Gunarathna</span>
-          </div>
-          <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.78rem', color: 'var(--muted-2)', letterSpacing: '0.06em',
-          }}>Built with React + Vite + Framer Motion</span>
+          <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.82rem', color: 'var(--fog)' }}>
+            {t('contact.footer_copy')}
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.68rem', color: 'var(--fog)', letterSpacing: '0.06em' }}>
+            {t('contact.footer_built')}
+          </span>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .contact-grid { grid-template-columns: 1fr !important; gap: 3rem !important; }
+        }
+      `}</style>
     </section>
   );
 }

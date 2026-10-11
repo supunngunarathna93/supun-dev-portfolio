@@ -1,0 +1,99 @@
+{
+  "preloader": {
+    "aria_label": "சுபுன் குணரத்ன - படைப்புகள் ஏற்றப்படுகின்றன"
+  },
+  "nav": {
+    "work": "படைப்புகள்",
+    "about": "பற்றி",
+    "services": "சேவைகள்",
+    "contact": "தொடர்பு",
+    "hire": "வேலைக்கமர்த்தவும்"
+  },
+  "hero": {
+    "role": "மூத்த வீடியோ எடிட்டர் · வண்ண கலைஞர் · திரைப்படத் தயாரிப்பாளர்",
+    "tagline": "ஒவ்வொரு காட்சியாக கதைகளை உருவாக்குகிறேன். DaVinci Resolve, Premiere Pro, சரியான வெட்டின் ஆர்வம்.",
+    "cta_primary": "ஷோரீல் காணவும்",
+    "cta_secondary": "தொடர்பு கொள்ளவும்",
+    "available": "திட்டங்களுக்கு கிடைக்கிறேன்"
+  },
+  "work": {
+    "title": "தேர்ந்தெடுத்த படைப்புகள்",
+    "subtitle": "2024 முதல் 2026 வரை திருத்தங்கள், நிகழ்வுகள் மற்றும் தயாரிப்புகள்.",
+    "filter_all": "அனைத்தும்",
+    "filter_commercial": "வணிக",
+    "filter_event": "நிகழ்வு",
+    "filter_social": "சமூகம்",
+    "filter_documentary": "ஆவணப்படம்",
+    "filter_motion": "Motion",
+    "watch": "பார்க்கவும்",
+    "role_label": "பங்கு",
+    "tools_label": "கருவிகள்",
+    "lightbox_close": "மூடவும்"
+  },
+  "beforeafter": {
+    "title": "வண்ண மேம்பாடு",
+    "subtitle": "மூல காட்சி vs. மேம்படுத்தப்பட்ட முடிவு — ஒப்பிட கைப்பிடியை இழுக்கவும்.",
+    "badge_before": "மூல",
+    "badge_after": "மேம்படுத்தப்பட்டது",
+    "tool_note": "DaVinci Resolve இல் மேம்படுத்தப்பட்டது"
+  },
+  "workflow": {
+    "title": "பணிப்பாய்வு & கருவிகள்",
+    "subtitle": "மூன்று தளங்கள். ஒரு தடையற்ற குழாய்.",
+    "resolve_title": "DaVinci Resolve",
+    "resolve_desc": "முதன்மை திருத்த தொகுப்பு, வண்ண மேம்பாடு, Fusion கலப்பு, Fairlight ஒலி.",
+    "resolve_tags": ["திருத்தம்", "வண்ணம்", "Fusion", "Fairlight"],
+    "premiere_title": "Premiere Pro",
+    "premiere_desc": "ஒளிபரப்பு-தயார் வழங்கல், குழு ஒத்துழைப்பு.",
+    "premiere_tags": ["பல-கேமரா", "ஒளிபரப்பு", "ஒத்துழைப்பு"],
+    "capcut_title": "CapCut",
+    "capcut_desc": "Reels, TikToks மற்றும் சமூக வெட்டுக்களுக்கான விரைவான குறுகிய-வடிவ உள்ளடக்கம்.",
+    "capcut_tags": ["Reels", "TikTok", "விரைவு வழங்கல்"]
+  },
+  "services": {
+    "title": "சேவைகள்",
+    "subtitle": "கச்சா வெட்டிலிருந்து இறுதி வழங்கல் வரை.",
+    "s1_title": "வீடியோ திருத்தம்",
+    "s1_desc": "கதை வெட்டுக்கள், நிகழ்வு கவரேஜ் மற்றும் பிராண்டட் உள்ளடக்கம்.",
+    "s2_title": "வண்ண மேம்பாடு",
+    "s2_desc": "DaVinci Resolve முதன்மை மற்றும் இரண்டாம் நிலை வண்ணம்.",
+    "s3_title": "குறுகிய-வடிவ & சமூக",
+    "s3_desc": "Reels, TikTok, YouTube Shorts க்காக.",
+    "s4_title": "நிகழ்வு சிறப்பங்கங்கள்",
+    "s4_desc": "விழாக்கள், மாநாடுகள் மற்றும் நிகழ்ச்சிகள்.",
+    "s5_title": "இயக்க கிராபிக்ஸ்",
+    "s5_desc": "தலைப்புகள், கீழ் மூன்றாம் பகுதிகள், Fusion பயன்படுத்தி.",
+    "s6_title": "ஒலி சுத்தம்",
+    "s6_desc": "உரையாடல் மீட்டமைப்பு, சத்தம் குறைப்பு."
+  },
+  "about": {
+    "title": "பற்றி",
+    "headline": "உணர்வுக்காக திருத்துகிறேன், காட்சிக்காக அல்ல.",
+    "bio1": "நான் Supun Gunarathna — இலங்கையை தளமாகக் கொண்ட வீடியோ எடிட்டர் மற்றும் வண்ண கலைஞர். UVOCTECH இல் முன்னணி திருத்தாளராக பணிபுரிந்தேன்.",
+    "bio2": "தயாரிப்புக்கு கூடுதலாக, University of Vocational Technology இல் BSc Multimedia and Web Technology படிக்கிறேன்.",
+    "info_university": "University of Vocational Technology, இலங்கை",
+    "info_degree": "BSc Multimedia and Web Technology",
+    "info_focus": "வீடியோ திருத்தம் · வண்ண மேம்பாடு · திரைப்படம்",
+    "info_languages": "சிங்களம் · தமிழ் · ஆங்கிலம்",
+    "info_based": "இலங்கை",
+    "label_university": "பல்கலைக்கழகம்",
+    "label_degree": "பட்டம்",
+    "label_focus": "கவனம்",
+    "label_languages": "மொழிகள்",
+    "label_based": "இடம்"
+  },
+  "contact": {
+    "title": "தொடர்பு",
+    "headline": "பார்க்கத் தகுந்த ஒன்றை உருவாக்குவோம்.",
+    "subtitle": "ஃப்ரீலான்ஸ் திருத்தங்கள், நிகழ்வு கவரேஜ் மற்றும் ஒத்துழைப்புகளுக்கு திறந்திருக்கிறேன்.",
+    "email_label": "மின்னஞ்சல்",
+    "copy": "நகலெடு",
+    "copied": "நகலெடுக்கப்பட்டது",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "footer_built": "React + Vite கொண்டு கட்டப்பட்டது",
+    "footer_copy": "© 2026 Supun N Gunarathna"
+  }
+}

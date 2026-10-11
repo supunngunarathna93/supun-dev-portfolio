@@ -1,254 +1,186 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import HeroTitle from './hero/HeroTitle';
+import HeroPortrait from './hero/HeroPortrait';
+import HeroSideLabels from './hero/HeroSideLabels';
+import ShowreelModal from './hero/ShowreelModal';
 
-const ticker = [
-  'Multimedia', 'Web Dev', 'Filmmaker', 'Video Editor',
-  'Content Creator', 'Flutter', 'React', 'AI / ML', 'Sri Lanka',
-  'Multimedia', 'Web Dev', 'Filmmaker', 'Video Editor',
-  'Content Creator', 'Flutter', 'React', 'AI / ML', 'Sri Lanka',
-];
+const ease = [0.16, 1, 0.3, 1];
 
-const roles = ['Developer', 'Filmmaker', 'Creator', 'Designer'];
+// Giant display backdrop word: "EDITOR"
+const GIANT_WORD = 'EDITOR';
 
 export default function Hero() {
+  const reduce = useReducedMotion();
+  const [showreelOpen, setShowreelOpen] = useState(false);
+  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+
+  // Subtle desktop mouse parallax listener (normalized -0.5 to 0.5)
+  useEffect(() => {
+    if (reduce || typeof window === 'undefined') return;
+
+    let rafId = null;
+    const onMouseMove = (e) => {
+      if (window.innerWidth < 1024) return;
+      if (rafId) return;
+
+      rafId = requestAnimationFrame(() => {
+        const nx = (e.clientX / window.innerWidth) - 0.5;
+        const ny = (e.clientY / window.innerHeight) - 0.5;
+        setMouseOffset({ x: nx, y: ny });
+        rafId = null;
+      });
+    };
+
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [reduce]);
+
   return (
     <section
       id="hero"
       style={{
-        minHeight: '100vh',
+        position: 'relative',
+        minHeight: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        position: 'relative',
         overflow: 'hidden',
-        paddingTop: '80px',
+        paddingTop: 'clamp(80px, 12vh, 110px)',
+        paddingBottom: 'clamp(40px, 6vh, 70px)',
+        background: 'var(--ink, #0B0B0D)',
       }}
     >
-      {/* ── Animated background orbs ── */}
-      <div className="orb-1" style={{
-        position: 'absolute', top: '5%', right: '8%',
-        width: 700, height: 700,
-        background: 'radial-gradient(circle, rgba(124,92,252,0.14) 0%, transparent 70%)',
-        pointerEvents: 'none', borderRadius: '50%', filter: 'blur(70px)',
-      }} />
-      <div className="orb-2" style={{
-        position: 'absolute', bottom: '10%', left: '3%',
-        width: 500, height: 500,
-        background: 'radial-gradient(circle, rgba(0,212,255,0.10) 0%, transparent 70%)',
-        pointerEvents: 'none', borderRadius: '50%', filter: 'blur(65px)',
-      }} />
-      <div style={{
-        position: 'absolute', top: '45%', left: '55%',
-        transform: 'translate(-50%, -50%)',
-        width: 900, height: 500,
-        background: 'radial-gradient(ellipse, rgba(224,64,251,0.05) 0%, transparent 70%)',
-        pointerEvents: 'none', filter: 'blur(50px)',
-      }} />
+      {/* ── Subtle warm ambient glow in center ── */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '30%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 'clamp(500px, 70vw, 1000px)',
+          height: 'clamp(500px, 70vw, 1000px)',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(212, 168, 67, 0.06) 0%, rgba(11, 11, 13, 0) 70%)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }}
+      />
 
-      {/* ── Glass grid overlay ── */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: [
-          'linear-gradient(rgba(124,92,252,0.045) 1px, transparent 1px)',
-          'linear-gradient(90deg, rgba(124,92,252,0.045) 1px, transparent 1px)',
-        ].join(', '),
-        backgroundSize: '64px 64px',
-        pointerEvents: 'none',
-        maskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 40%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(ellipse 85% 85% at 50% 50%, black 40%, transparent 100%)',
-      }} />
-
-      {/* ── Main content ── */}
-      <div className="section-container" style={{ width: '100%' }}>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
-        >
-          {/* Status pill — glassmorphism */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: '0.55rem',
-              background: 'rgba(10,8,30,0.55)',
-              border: '1px solid rgba(0,212,255,0.28)',
-              backdropFilter: 'blur(20px) saturate(160%)',
-              WebkitBackdropFilter: 'blur(20px) saturate(160%)',
-              borderRadius: 50, padding: '0.4rem 1.1rem',
-              marginBottom: '2rem',
-              boxShadow: '0 0 20px rgba(0,212,255,0.1), inset 0 1px 0 rgba(255,255,255,0.06)',
-            }}
-          >
-            <span style={{
-              width: 7, height: 7, borderRadius: '50%',
-              background: '#00d4ff',
-              boxShadow: '0 0 8px #00d4ff, 0 0 16px rgba(0,212,255,0.6)',
-              animation: 'pulse-glow 2s ease-in-out infinite',
-              display: 'block', flexShrink: 0,
-            }} />
-            <span style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '0.72rem', letterSpacing: '0.18em',
-              textTransform: 'uppercase', color: 'rgba(240,238,255,0.75)',
-            }}>Available for projects</span>
-          </motion.div>
-
-          {/* Name */}
-          <h1 style={{
-            fontFamily: "'Outfit', sans-serif",
-            fontSize: 'clamp(3rem, 9vw, 7.5rem)',
-            fontWeight: 900,
-            lineHeight: 0.95,
-            letterSpacing: '-0.03em',
-            marginBottom: '1.8rem',
-          }}>
-            <span style={{ display: 'block', color: 'var(--white)' }}>Supun N</span>
-            <span className="grad-text" style={{ display: 'block' }}>Gunarathna</span>
-          </h1>
-
-          {/* Tagline */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.7 }}
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
-              color: 'var(--muted)',
-              maxWidth: 560,
-              lineHeight: 1.7,
-              marginBottom: '2.8rem',
-              fontWeight: 300,
-            }}
-          >
-            Every project starts the same way — a problem worth solving,
-            a story worth telling, and whatever tools it takes to get there.
-          </motion.p>
-
-          {/* Role tags — glass pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap', marginBottom: '2.5rem' }}
-          >
-            {roles.map((role, i) => {
-              const colors = ['rgba(124,92,252,0.5)', 'rgba(0,212,255,0.35)', 'rgba(224,64,251,0.35)', 'rgba(240,180,41,0.35)'];
-              const fg     = ['#7c5cfc', '#00d4ff', '#e040fb', 'var(--amber)'];
-              const bg     = ['rgba(124,92,252,0.08)', 'rgba(0,212,255,0.06)', 'rgba(224,64,251,0.06)', 'rgba(240,180,41,0.06)'];
-              return (
-                <span key={role} style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '0.75rem',
-                  padding: '0.32rem 0.95rem',
-                  borderRadius: 50,
-                  border: `1px solid ${colors[i]}`,
-                  color: fg[i],
-                  background: bg[i],
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  letterSpacing: '0.06em',
-                  boxShadow: `0 2px 12px ${bg[i]}`,
-                }}>{role}</span>
-              );
-            })}
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.55, duration: 0.6 }}
-            style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}
-          >
-            <a href="#projects" className="btn-glow">View My Work</a>
-            <a href="#contact"  className="btn-outline">Get in Touch</a>
-          </motion.div>
-        </motion.div>
-
-        {/* ── Scroll indicator ── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
+      {/* ── Giant Condensed Display Word ("EDITOR") behind subject ── */}
+      <motion.div
+        aria-hidden="true"
+        initial={reduce ? false : { opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.05, ease }}
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: `translate(calc(-50% + ${mouseOffset.x * -12}px), calc(-50% + ${mouseOffset.y * -8}px))`,
+          width: '100%',
+          textAlign: 'center',
+          zIndex: 1,
+          userSelect: 'none',
+          pointerEvents: 'none',
+          lineHeight: 0.82,
+          willChange: 'transform',
+        }}
+      >
+        <span
           style={{
-            position: 'absolute', bottom: '3rem', left: '50%',
-            transform: 'translateX(-50%)',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem',
+            fontFamily: 'var(--font-condensed, "Bebas Neue", sans-serif)',
+            fontSize: 'clamp(6.5rem, 21vw, 24rem)',
+            fontWeight: 800,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            background: 'linear-gradient(180deg, rgba(232, 230, 223, 0.12) 0%, rgba(232, 230, 223, 0.015) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            display: 'inline-block',
           }}
         >
-          <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.62rem', letterSpacing: '0.25em',
-            textTransform: 'uppercase', color: 'var(--muted)',
-          }}>Scroll</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            style={{
-              width: 1, height: 40,
-              background: 'linear-gradient(to bottom, rgba(124,92,252,0.8), transparent)',
-            }}
-          />
-        </motion.div>
-      </div>
+          {GIANT_WORD}
+        </span>
+      </motion.div>
 
-      {/* ── Film strip ticker ── */}
-      <div style={{
-        marginTop: 'auto',
-        overflow: 'hidden',
-        borderTop: '1px solid rgba(124,92,252,0.14)',
-        background: 'rgba(10,8,30,0.45)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        position: 'relative',
-      }}>
-        {/* Sprockets top */}
-        <div style={{ display: 'flex', gap: '2rem', padding: '0.6rem 1rem 0' }}>
-          {Array.from({ length: 40 }).map((_, i) => (
-            <div key={i} style={{
-              width: 9, height: 6,
-              border: '1px solid rgba(124,92,252,0.22)',
-              borderRadius: 1, flexShrink: 0,
-            }} />
-          ))}
-        </div>
+      {/* ── Vertical Edge Labels (Editorial side notes) ── */}
+      <HeroSideLabels />
 
-        <motion.div
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 30, ease: 'linear', repeat: Infinity }}
-          style={{ display: 'flex', gap: '3.5rem', padding: '0.6rem 0', willChange: 'transform' }}
+      {/* ── Main Content Container: Split 2-Column Layout ── */}
+      <div
+        className="container hero-container"
+        style={{
+          position: 'relative',
+          zIndex: 3,
+          display: 'grid',
+          gridTemplateColumns: '1.05fr 1fr',
+          gap: 'clamp(2rem, 5vw, 5rem)',
+          alignItems: 'center',
+          width: '100%',
+          margin: '0 auto',
+        }}
+      >
+        {/* Left Column: Heading, Bio, Signature, Action Buttons */}
+        <HeroTitle onOpenShowreel={() => setShowreelOpen(true)} />
+
+        {/* Right Column: Layered Cutout Portrait with Floating App Tiles & Rotating Badge */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
         >
-          {ticker.map((item, i) => (
-            <span key={i} style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '0.72rem', letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: i % 3 === 0 ? 'var(--violet)' : i % 3 === 1 ? 'var(--cyan-dim)' : 'var(--muted-2)',
-              flexShrink: 0, whiteSpace: 'nowrap',
-            }}>
-              {item}
-              <span style={{ marginLeft: '3.5rem', color: 'rgba(124,92,252,0.3)', fontSize: '0.9rem' }}>◆</span>
-            </span>
-          ))}
-        </motion.div>
-
-        {/* Sprockets bottom */}
-        <div style={{ display: 'flex', gap: '2rem', padding: '0 1rem 0.6rem' }}>
-          {Array.from({ length: 40 }).map((_, i) => (
-            <div key={i} style={{
-              width: 9, height: 6,
-              border: '1px solid rgba(124,92,252,0.22)',
-              borderRadius: 1, flexShrink: 0,
-            }} />
-          ))}
+          <HeroPortrait mouseOffset={mouseOffset} />
         </div>
       </div>
 
+      {/* ── Lightbox Modal for Showreel Video ── */}
+      <ShowreelModal
+        isOpen={showreelOpen}
+        onClose={() => setShowreelOpen(false)}
+      />
+
+      {/* ── Responsive CSS ── */}
       <style>{`
+        @media (max-width: 960px) {
+          .hero-container {
+            grid-template-columns: 1fr !important;
+            gap: 3rem !important;
+            text-align: center;
+          }
+          .hero-container > div:first-child {
+            align-items: center !important;
+            text-align: center;
+            margin: 0 auto;
+          }
+          .hero-container > div:first-child h1 {
+            text-align: center;
+          }
+          .hero-container > div:first-child p {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .hero-container > div:first-child > div {
+            justify-content: center !important;
+          }
+        }
+
         @media (max-width: 640px) {
-          #hero h1 { font-size: clamp(2.8rem, 13vw, 5rem) !important; }
+          #hero {
+            padding-top: 85px !important;
+            padding-bottom: 40px !important;
+          }
+          .hero-container {
+            gap: 2.25rem !important;
+          }
         }
       `}</style>
     </section>

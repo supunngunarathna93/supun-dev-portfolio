@@ -1,0 +1,99 @@
+{
+  "preloader": {
+    "aria_label": "සුපුන් ගුණරත්න - නිර්මාණ එකතුව පූරණය වෙමින් පවතී"
+  },
+  "nav": {
+    "work": "කෘති",
+    "about": "ගැන",
+    "services": "සේවා",
+    "contact": "සම්බන්ධ",
+    "hire": "කුලියට ගන්න"
+  },
+  "hero": {
+    "role": "ජ්‍යෙෂ්ඨ වීඩියෝ සංස්කාරක · වර්ණ ශිල්පී · චිත්‍රපට නිර්මාතෘ",
+    "tagline": "රාමු රාමු කරා කතාවක් ගොඩනගමි. DaVinci Resolve, Premiere Pro, සහ නිවැරදි කැපීමේ ආශාව.",
+    "cta_primary": "ෂෝරීල් බලන්න",
+    "cta_secondary": "සම්බන්ධ වන්න",
+    "available": "ව්‍යාපෘති සඳහා ලබා ගත හැකිය"
+  },
+  "work": {
+    "title": "තෝරාගත් කෘති",
+    "subtitle": "2024 සිට 2026 දක්වා සංස්කරණ, සිදුවීම් සහ නිෂ්පාදන.",
+    "filter_all": "සියල්ල",
+    "filter_commercial": "වාණිජ",
+    "filter_event": "සිදුවීම",
+    "filter_social": "සමාජ",
+    "filter_documentary": "ප්‍රලේඛනය",
+    "filter_motion": "Motion",
+    "watch": "බලන්න",
+    "role_label": "භූමිකාව",
+    "tools_label": "මෙවලම්",
+    "lightbox_close": "වසන්න"
+  },
+  "beforeafter": {
+    "title": "වර්ණ ශ්‍රේණිගත කිරීම",
+    "subtitle": "ශූෂ්ක දර්ශනය vs. ශ්‍රේණිගත ප්‍රතිඵලය — සංසන්දනය කිරීමට හසුරුව ඇදගන්න.",
+    "badge_before": "ශූෂ්ක",
+    "badge_after": "ශ්‍රේණිගත",
+    "tool_note": "DaVinci Resolve හි ශ්‍රේණිගත කරන ලදී"
+  },
+  "workflow": {
+    "title": "කාර්යාලය සහ මෙවලම්",
+    "subtitle": "ත්‍රෛ වේදිකා. එක් බාධාවකින් තොර නල මාර්ගය.",
+    "resolve_title": "DaVinci Resolve",
+    "resolve_desc": "ප්‍රාථමික සංස්කරණ කොටුව, වර්ණ ශ්‍රේණිගත කිරීම, Fusion සංයෝජනය, Fairlight ශ්‍රව්‍ය.",
+    "resolve_tags": ["සංස්කරණය", "වර්ණය", "Fusion", "Fairlight"],
+    "premiere_title": "Premiere Pro",
+    "premiere_desc": "විකාශන-සූදානම් බෙදාහැරීම, කණ්ඩායම් සහයෝගිතාව.",
+    "premiere_tags": ["බහු-cam", "විකාශනය", "සහයෝගිතාව"],
+    "capcut_title": "CapCut",
+    "capcut_desc": "Reels, TikToks සඳහා ඉක්මන් කෙටි-ආකාර අන්තර්ගත.",
+    "capcut_tags": ["Reels", "TikTok", "ඉක්මන් බෙදාහැරීම"]
+  },
+  "services": {
+    "title": "සේවා",
+    "subtitle": "රළු කැපීමේ සිට අවසාන බෙදාහැරීම දක්වා.",
+    "s1_title": "වීඩියෝ සංස්කරණය",
+    "s1_desc": "ආඛ්‍යාන කැපීම්, සිදුවීම් ආවරණය, සහ බ්‍රෑන්ඩ් අන්තර්ගත.",
+    "s2_title": "වර්ණ ශ්‍රේණිගත කිරීම",
+    "s2_desc": "DaVinci Resolve ප්‍රාථමික සහ ද්විතීයික වර්ණය.",
+    "s3_title": "කෙටි-ආකාර සහ සමාජ",
+    "s3_desc": "Reels, TikTok, YouTube Shorts සඳහා.",
+    "s4_title": "සිදුවීම් ඉස්මතු",
+    "s4_desc": "ගෙවතු, සාකච්ඡා, ධාවනය.",
+    "s5_title": "Motion ග්‍රැෆික්ස්",
+    "s5_desc": "මාතෘකා, පහළ තෙවන, Fusion භාවිතා කරමින්.",
+    "s6_title": "ශ්‍රව්‍ය ශුද්ධ කිරීම",
+    "s6_desc": "සංවාද ප්‍රතිෂ්ඨාපනය, ශබ්ද අඩු කිරීම."
+  },
+  "about": {
+    "title": "ගැන",
+    "headline": "හැඟීම සඳහා සංස්කරණය කරමි, රාමුව සඳහා නොව.",
+    "bio1": "මමෛ Supun Gunarathna — ශ්‍රී ලංකාව පදනම් වූ වීඩියෝ සංස්කාරකයෙකු සහ වර්ණකාරකයෙකි. UVOCTECH හිදී ප්‍රධාන සංස්කාරක ලෙස සේවය කළෙමි.",
+    "bio2": "කෘෂිකාර්මික නිෂ්පාදනයට අමතරව, University of Vocational Technology හිදී BSc Multimedia and Web Technology ඉගෙන ගන්නෙමි.",
+    "info_university": "University of Vocational Technology, Sri Lanka",
+    "info_degree": "BSc Multimedia and Web Technology",
+    "info_focus": "වීඩියෝ සංස්කරණය · වර්ණ ශ්‍රේණිගත කිරීම · චිත්‍රපට",
+    "info_languages": "සිංහල · දෙමළ · ඉංග්‍රීසි",
+    "info_based": "ශ්‍රී ලංකාව",
+    "label_university": "විශ්ව විද්‍යාලය",
+    "label_degree": "උපාධිය",
+    "label_focus": "අවධානය",
+    "label_languages": "භාෂා",
+    "label_based": "පදනම"
+  },
+  "contact": {
+    "title": "සම්බන්ධ",
+    "headline": "නැරඹිය හැකි දෙයක් කරමු.",
+    "subtitle": "ස්වාධීන සංස්කරණ, සිදුවීම් ආවරණය, සහ සහයෝගිතා සඳහා විවෘතයි.",
+    "email_label": "ඊමේල්",
+    "copy": "පිටපත් කරන්න",
+    "copied": "පිටපත් කළා",
+    "whatsapp": "WhatsApp",
+    "linkedin": "LinkedIn",
+    "youtube": "YouTube",
+    "instagram": "Instagram",
+    "footer_built": "React + Vite සමඟ ගොඩනගන ලදී",
+    "footer_copy": "© 2026 Supun N Gunarathna"
+  }
+}

@@ -1,143 +1,216 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import { List, X } from '@phosphor-icons/react';
 
-const links = ['About', 'Projects', 'Skills', 'Contact'];
+const LINKS = [
+  { key: 'work',     href: '#work'      },
+  { key: 'about',    href: '#about'     },
+  { key: 'services', href: '#services'  },
+  { key: 'contact',  href: '#contact'   },
+];
+
+const LANGS = ['en', 'si', 'ta'];
+
+const ease = [0.16, 1, 0.3, 1];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen]       = useState(false);
-  const [active, setActive]   = useState('');
+  const { t, i18n } = useTranslation();
+  const [scrolled, setScrolled]   = useState(false);
+  const [open, setOpen]           = useState(false);
+  const [active, setActive]       = useState('');
 
+  // Scroll progress for the playhead indicator
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  // Detect scroll for nav background
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
+    let prevScrolled = window.scrollY > 60;
+    const onScroll = () => {
+      const next = window.scrollY > 60;
+      if (next !== prevScrolled) { prevScrolled = next; setScrolled(next); }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Active section via IntersectionObserver
   useEffect(() => {
-    const ids = ['hero', 'about', 'projects', 'skills', 'contact'];
+    const ids = ['hero', 'work', 'beforeafter', 'workflow', 'services', 'about', 'contact'];
     const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }); },
+      (entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); });
+      },
       { rootMargin: '-40% 0px -55% 0px' }
     );
-    ids.forEach((id) => { const el = document.getElementById(id); if (el) observer.observe(el); });
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
     return () => observer.disconnect();
   }, []);
 
+  const changeLang = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem('portfolio-lang', lng);
+  };
+
   return (
     <>
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
-        padding: scrolled ? '0.75rem 2rem' : '1.1rem 2rem',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        transition: 'all 0.4s ease',
-        background: scrolled
-          ? 'rgba(5,5,13,0.70)'
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(28px) saturate(180%)' : 'none',
-        borderBottom: scrolled
-          ? '1px solid rgba(124,92,252,0.18)'
-          : '1px solid transparent',
-        boxShadow: scrolled
-          ? '0 4px 32px rgba(0,0,0,0.4), inset 0 -1px 0 rgba(124,92,252,0.12)'
-          : 'none',
-      }}>
+      {/* ── Scroll playhead ── */}
+      <motion.div
+        className="playhead"
+        style={{ width: scaleX }}
+        aria-hidden="true"
+      />
+
+      <nav
+        style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0,
+          zIndex: 'var(--z-nav)',
+          padding: scrolled ? '0.65rem 2rem' : '1rem 2rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          transition: 'padding 0.4s, background 0.4s, border-color 0.4s',
+          background: scrolled
+            ? 'rgba(11, 11, 13, 0.82)'
+            : 'transparent',
+          backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
+          borderBottom: scrolled
+            ? '1px solid rgba(255,255,255,0.06)'
+            : '1px solid transparent',
+        }}
+        aria-label="Main navigation"
+      >
         {/* Logo */}
-        <a href="#hero" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <a
+          href="#hero"
+          style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.6rem' }}
+          aria-label="Supun N Gunarathna — home"
+        >
           <div style={{
-            width: 34, height: 34, borderRadius: 10,
-            background: 'linear-gradient(135deg, #7c5cfc 0%, #00d4ff 100%)',
+            width: 32, height: 32,
+            borderRadius: 'var(--r-sm)',
+            background: 'var(--amber)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '0.75rem', fontWeight: 800, color: '#fff',
-            fontFamily: "'Space Grotesk', sans-serif",
-            boxShadow: '0 0 20px rgba(124,92,252,0.5), 0 2px 8px rgba(0,0,0,0.3)',
-          }}>SG</div>
+            flexShrink: 0,
+          }}>
+            <span style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.65rem',
+              fontWeight: 600,
+              color: 'var(--ink)',
+              letterSpacing: '0.02em',
+            }}>SG</span>
+          </div>
           <span style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontWeight: 700, fontSize: '1rem',
-            background: 'linear-gradient(135deg, #7c5cfc, #00d4ff)',
-            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            letterSpacing: '0.02em',
+            fontFamily: 'var(--font-sans)',
+            fontWeight: 700,
+            fontSize: '0.95rem',
+            color: 'var(--bone)',
+            letterSpacing: '-0.01em',
           }}>Supun</span>
         </a>
 
         {/* Desktop links */}
-        <ul style={{ display: 'flex', gap: '0.25rem', listStyle: 'none', alignItems: 'center' }} className="desk-nav">
-          {links.map((l) => {
-            const isActive = active === l.toLowerCase();
+        <ul
+          style={{ display: 'flex', gap: '0.1rem', listStyle: 'none', alignItems: 'center' }}
+          className="desk-nav"
+        >
+          {LINKS.map(({ key, href }) => {
+            const isActive = active === href.slice(1);
             return (
-              <li key={l}>
+              <li key={key}>
                 <a
-                  href={`#${l.toLowerCase()}`}
+                  href={href}
                   style={{
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    fontFamily: 'var(--font-sans)',
                     fontSize: '0.85rem',
-                    letterSpacing: '0.06em',
+                    fontWeight: isActive ? 600 : 400,
                     textDecoration: 'none',
-                    color: isActive ? '#7c5cfc' : 'rgba(240,238,255,0.62)',
-                    padding: '0.45rem 1rem',
-                    borderRadius: 50,
-                    transition: 'color 0.2s, background 0.2s',
-                    background: isActive
-                      ? 'rgba(124,92,252,0.12)'
-                      : 'transparent',
+                    color: isActive ? 'var(--amber)' : 'var(--smoke)',
+                    padding: '0.4rem 0.9rem',
+                    borderRadius: 'var(--r-sm)',
+                    transition: 'color 0.18s, background 0.18s',
+                    background: isActive ? 'var(--amber-glow)' : 'transparent',
                     display: 'block',
-                    backdropFilter: isActive ? 'blur(8px)' : 'none',
+                    letterSpacing: '0.01em',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.target.style.color = '#7c5cfc';
-                      e.target.style.background = 'rgba(124,92,252,0.08)';
+                      e.target.style.color = 'var(--bone)';
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
-                      e.target.style.color = 'rgba(240,238,255,0.62)';
-                      e.target.style.background = 'transparent';
+                      e.target.style.color = 'var(--smoke)';
                     }
                   }}
-                >{l}</a>
+                >
+                  {t(`nav.${key}`)}
+                </a>
               </li>
             );
           })}
-          <li>
-            <a
-              href="#contact"
-              className="btn-glow"
-              style={{ padding: '0.5rem 1.4rem', fontSize: '0.82rem', borderRadius: 50, marginLeft: '0.6rem' }}
-            >
-              Hire Me
+
+          {/* Lang switcher */}
+          <li style={{ display: 'flex', gap: '0.15rem', marginLeft: '0.75rem', padding: '0.25rem 0.5rem', borderLeft: '1px solid var(--border)' }}>
+            {LANGS.map((lng) => (
+              <button
+                key={lng}
+                onClick={() => changeLang(lng)}
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.62rem',
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  background: 'none',
+                  border: 'none',
+                  color: i18n.language === lng ? 'var(--amber)' : 'var(--fog)',
+                  cursor: 'pointer',
+                  padding: '0.25rem 0.4rem',
+                  borderRadius: 'var(--r-sm)',
+                  transition: 'color 0.18s',
+                  fontWeight: i18n.language === lng ? 600 : 400,
+                }}
+                aria-label={`Switch to ${lng}`}
+                aria-pressed={i18n.language === lng}
+              >
+                {lng}
+              </button>
+            ))}
+          </li>
+
+          {/* Hire CTA */}
+          <li style={{ marginLeft: '0.5rem' }}>
+            <a href="#contact" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.82rem' }}>
+              {t('nav.hire')}
             </a>
           </li>
         </ul>
 
-        {/* Hamburger (mobile) */}
+        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(!open)}
           className="hamburger"
-          aria-label="Toggle menu"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
           style={{
-            display: 'none', background: 'rgba(124,92,252,0.08)',
-            border: '1px solid rgba(124,92,252,0.2)',
-            backdropFilter: 'blur(12px)',
-            borderRadius: 10,
-            cursor: 'pointer', padding: '8px 10px',
-            flexDirection: 'column', gap: 5,
+            display: 'none',
+            background: 'var(--surface-2)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--r-sm)',
+            color: 'var(--bone)',
+            cursor: 'pointer',
+            padding: '0.5rem',
+            alignItems: 'center', justifyContent: 'center',
           }}
         >
-          {[0, 1, 2].map((i) => (
-            <span key={i} style={{
-              display: 'block', width: 20, height: 2,
-              background: 'var(--white)', borderRadius: 2,
-              transition: 'transform 0.3s, opacity 0.3s',
-              transform: open && i === 0 ? 'rotate(45deg) translateY(7px)'
-                       : open && i === 2 ? 'rotate(-45deg) translateY(-7px)'
-                       : 'none',
-              opacity: open && i === 1 ? 0 : 1,
-            }} />
-          ))}
+          {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
         </button>
       </nav>
 
@@ -145,52 +218,79 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -12 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.22 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease }}
             style={{
-              position: 'fixed', top: '64px', left: '1rem', right: '1rem', zIndex: 199,
-              background: 'rgba(8,6,24,0.88)',
-              backdropFilter: 'blur(32px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(32px) saturate(180%)',
-              border: '1px solid rgba(124,92,252,0.22)',
-              borderRadius: 20,
-              boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,92,252,0.08)',
-              padding: '1.5rem 2rem',
-              display: 'flex', flexDirection: 'column', gap: '1.2rem',
-              overflow: 'hidden',
+              position: 'fixed',
+              top: '64px', left: '1rem', right: '1rem',
+              zIndex: 'calc(var(--z-nav) - 1)',
+              background: 'rgba(17, 17, 20, 0.96)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-lg)',
+              padding: '1.25rem',
+              display: 'flex', flexDirection: 'column', gap: '0.25rem',
+              boxShadow: '0 20px 48px rgba(0,0,0,0.5)',
             }}
           >
-            {/* Shine */}
-            <div style={{
-              position: 'absolute', top: 0, left: 0, right: 0, height: 1,
-              background: 'linear-gradient(90deg, transparent, rgba(124,92,252,0.5), rgba(0,212,255,0.3), transparent)',
-            }} />
-            {links.map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`}
+            {LINKS.map(({ key, href }) => (
+              <a
+                key={key}
+                href={href}
                 onClick={() => setOpen(false)}
                 style={{
-                  fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: '1.05rem',
-                  color: 'rgba(240,238,255,0.85)',
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                  color: 'var(--bone)',
                   textDecoration: 'none',
-                  letterSpacing: '0.05em',
-                  padding: '0.4rem 0',
-                  borderBottom: '1px solid rgba(124,92,252,0.1)',
+                  padding: '0.75rem 1rem',
+                  borderRadius: 'var(--r-sm)',
+                  transition: 'background 0.18s, color 0.18s',
                 }}
-              >{l}</a>
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--surface-3)'; e.currentTarget.style.color = 'var(--amber)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--bone)'; }}
+              >
+                {t(`nav.${key}`)}
+              </a>
             ))}
-            <a href="#contact" className="btn-glow" onClick={() => setOpen(false)}
-              style={{ textAlign: 'center', borderRadius: 50, marginTop: '0.4rem' }}>
-              Hire Me
+
+            <div style={{ display: 'flex', gap: '0.5rem', padding: '0.5rem 1rem', marginTop: '0.25rem', borderTop: '1px solid var(--border)' }}>
+              {LANGS.map((lng) => (
+                <button
+                  key={lng}
+                  onClick={() => { changeLang(lng); setOpen(false); }}
+                  style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.7rem',
+                    letterSpacing: '0.1em',
+                    textTransform: 'uppercase',
+                    background: i18n.language === lng ? 'var(--amber-glow)' : 'none',
+                    border: i18n.language === lng ? '1px solid var(--amber-border)' : '1px solid transparent',
+                    color: i18n.language === lng ? 'var(--amber)' : 'var(--fog)',
+                    cursor: 'pointer',
+                    padding: '0.3rem 0.7rem',
+                    borderRadius: 'var(--r-sm)',
+                    fontWeight: i18n.language === lng ? 600 : 400,
+                  }}
+                >
+                  {lng.toUpperCase()}
+                </button>
+              ))}
+            </div>
+
+            <a href="#contact" className="btn btn-primary" onClick={() => setOpen(false)} style={{ textAlign: 'center', marginTop: '0.25rem' }}>
+              {t('nav.hire')}
             </a>
           </motion.div>
         )}
       </AnimatePresence>
 
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
           .desk-nav  { display: none !important; }
           .hamburger { display: flex !important; }
         }
