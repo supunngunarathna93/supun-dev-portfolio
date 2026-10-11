@@ -49,7 +49,7 @@ const projects = [
     year: '2026', emoji: '🎥',
     desc: 'Theme Reveal of the Freshers 2026 at the University of Vocational Technology',
     featured: true, accent: '#ff0800ff',
-    videoLink: 'https://drive.google.com/drive/folders/1rWps5NqCg7yySYbCpfljlMz0erLJTsGI?usp=sharing',
+    videoLink: 'https://drive.google.com/file/d/1C9qiE04p2PnkujZGzVaRAd9hH0eJw1qr/view?usp=drive_link',
   },
 
   {
