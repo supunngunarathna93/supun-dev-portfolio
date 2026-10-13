@@ -7,13 +7,46 @@ import ShowreelModal from './hero/ShowreelModal';
 
 const ease = [0.16, 1, 0.3, 1];
 
-// Giant display backdrop word: "EDITOR"
-const GIANT_WORD = 'EDITOR';
+// Giant display backdrop words cycling through editing & motion disciplines
+const TYPING_WORDS = ['EDITOR', 'COLORIST', 'MOTION', 'FILMMAKER'];
 
 export default function Hero() {
   const reduce = useReducedMotion();
   const [showreelOpen, setShowreelOpen] = useState(false);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+
+  // Typewriter effect for giant backdrop text behind the portrait
+  const [wordIndex, setWordIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(TYPING_WORDS[0].length);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    if (reduce) return;
+
+    const currentWord = TYPING_WORDS[wordIndex];
+
+    if (!isDeleting && subIndex === currentWord.length) {
+      // Hold completed word for ~2.3 seconds
+      const timeout = setTimeout(() => setIsDeleting(true), 2300);
+      return () => clearTimeout(timeout);
+    }
+
+    if (isDeleting && subIndex === 0) {
+      // Word fully erased, brief 350ms breath before typing next discipline
+      const timeout = setTimeout(() => {
+        setIsDeleting(false);
+        setWordIndex((prev) => (prev + 1) % TYPING_WORDS.length);
+      }, 350);
+      return () => clearTimeout(timeout);
+    }
+
+    const speed = isDeleting ? 65 : 125;
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (isDeleting ? -1 : 1));
+    }, speed);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, isDeleting, wordIndex, reduce]);
 
   // Subtle desktop mouse parallax listener (normalized -0.5 to 0.5)
   useEffect(() => {
@@ -71,42 +104,63 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Giant Condensed Display Word ("EDITOR") behind subject ── */}
-      <motion.div
+      {/* ── Full-Screen Kinetic Backdrop behind the entire hero section ── */}
+      <div
         aria-hidden="true"
-        initial={reduce ? false : { opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.05, ease }}
         style={{
           position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: `translate(calc(-50% + ${mouseOffset.x * -12}px), calc(-50% + ${mouseOffset.y * -8}px))`,
+          inset: 0,
           width: '100%',
-          textAlign: 'center',
+          height: '100%',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           zIndex: 1,
-          userSelect: 'none',
           pointerEvents: 'none',
-          lineHeight: 0.82,
-          willChange: 'transform',
+          userSelect: 'none',
         }}
       >
-        <span
+        <motion.div
+          initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.05, ease }}
           style={{
-            fontFamily: 'var(--font-condensed, "Bebas Neue", sans-serif)',
-            fontSize: 'clamp(6.5rem, 21vw, 24rem)',
-            fontWeight: 800,
-            letterSpacing: '0.04em',
-            textTransform: 'uppercase',
-            background: 'linear-gradient(180deg, rgba(232, 230, 223, 0.12) 0%, rgba(232, 230, 223, 0.015) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            display: 'inline-block',
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            transform: `translate3d(${mouseOffset.x * -16}px, ${mouseOffset.y * -10}px, 0)`,
+            transition: 'transform 0.18s ease-out',
+            willChange: 'transform',
+            whiteSpace: 'nowrap',
           }}
         >
-          {GIANT_WORD}
-        </span>
-      </motion.div>
+          <span
+            style={{
+              fontFamily: 'var(--font-condensed, "Bebas Neue", sans-serif)',
+              fontSize: 'clamp(9rem, 32vw, 44rem)',
+              fontWeight: 800,
+              letterSpacing: '0.03em',
+              textTransform: 'uppercase',
+              lineHeight: 1,
+              padding: '0.12em 0',
+              textAlign: 'center',
+              background: 'linear-gradient(180deg, rgba(232, 230, 223, 0.14) 0%, rgba(232, 230, 223, 0.015) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block',
+              filter: 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4))',
+            }}
+          >
+            {reduce ? 'EDITOR' : TYPING_WORDS[wordIndex].substring(0, subIndex)}
+          </span>
+        </motion.div>
+      </div>
 
       {/* ── Vertical Edge Labels (Editorial side notes) ── */}
       <HeroSideLabels />

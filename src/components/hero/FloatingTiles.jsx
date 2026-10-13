@@ -5,65 +5,113 @@ const SOFTWARE_TILES = [
     id: 'davinci',
     name: 'DaVinci Resolve',
     file: '/logos/davinci-resolve.png',
-    alt: 'DaVinci Resolve Studio — Primary Color Grading & Edit Suite',
-    // Top-left of portrait
+    alt: 'DaVinci Resolve Studio — Color Grading & Post-Production',
+    // Top-left
     style: {
-      top: '12%',
-      left: '-6%',
-      width: 'clamp(56px, 6vw, 76px)',
-      height: 'clamp(56px, 6vw, 76px)',
+      top: '18%',
+      left: '-9%',
+      width: 'clamp(46px, 5vw, 66px)',
+      height: 'clamp(46px, 5vw, 66px)',
     },
     depth: 18,
     floatDuration: 5.4,
-    delay: 0.2,
+    delay: 0.15,
   },
   {
-    id: 'premiere',
-    name: 'Adobe Premiere Pro',
-    file: '/logos/premiere-pro.png',
-    alt: 'Adobe Premiere Pro — Long-form & Multicam Broadcast Editing',
-    // Top-right of portrait
+    id: 'photoshop',
+    name: 'Adobe Photoshop',
+    file: '/logos/photoshop.png',
+    alt: 'Adobe Photoshop — Graphic Design & Thumbnails',
+    // Mid-left
     style: {
-      top: '20%',
-      right: '-4%',
-      width: 'clamp(52px, 5.5vw, 72px)',
-      height: 'clamp(52px, 5.5vw, 72px)',
+      top: '44%',
+      left: '-12%',
+      width: 'clamp(44px, 4.8vw, 62px)',
+      height: 'clamp(44px, 4.8vw, 62px)',
     },
-    depth: 24,
-    floatDuration: 6.2,
-    delay: 0.35,
+    depth: 15,
+    floatDuration: 4.9,
+    delay: 0.3,
   },
   {
     id: 'aftereffects',
     name: 'Adobe After Effects',
     file: '/logos/after-effects.png',
     alt: 'Adobe After Effects — Motion Design & Visual Effects',
-    // Bottom-left of portrait
+    // Bottom-left
     style: {
-      bottom: '22%',
-      left: '-10%',
-      width: 'clamp(50px, 5.2vw, 68px)',
-      height: 'clamp(50px, 5.2vw, 68px)',
+      bottom: '16%',
+      left: '-8%',
+      width: 'clamp(46px, 5vw, 64px)',
+      height: 'clamp(46px, 5vw, 64px)',
     },
-    depth: 14,
-    floatDuration: 4.8,
-    delay: 0.5,
+    depth: 16,
+    floatDuration: 5.2,
+    delay: 0.45,
+  },
+  {
+    id: 'premiere',
+    name: 'Adobe Premiere Pro',
+    file: '/logos/premiere-pro.png',
+    alt: 'Adobe Premiere Pro — Long-form & Multicam Broadcast Editing',
+    // Top-right
+    style: {
+      top: '10%',
+      right: '-6%',
+      width: 'clamp(48px, 5.2vw, 68px)',
+      height: 'clamp(48px, 5.2vw, 68px)',
+    },
+    depth: 22,
+    floatDuration: 6.2,
+    delay: 0.2,
+  },
+  {
+    id: 'capcut',
+    name: 'CapCut',
+    file: '/logos/capcut.png',
+    alt: 'CapCut — Short-form & Viral Social Video Editing',
+    // Mid-right
+    style: {
+      top: '34%',
+      right: '-11%',
+      width: 'clamp(46px, 5vw, 64px)',
+      height: 'clamp(46px, 5vw, 64px)',
+    },
+    depth: 20,
+    floatDuration: 5.8,
+    delay: 0.38,
+  },
+  {
+    id: 'figma',
+    name: 'Figma',
+    file: '/logos/figma.png',
+    alt: 'Figma — Visual Layout & UI/UX Design',
+    // Lower-right
+    style: {
+      top: '56%',
+      right: '-8%',
+      width: 'clamp(44px, 4.8vw, 62px)',
+      height: 'clamp(44px, 4.8vw, 62px)',
+    },
+    depth: 17,
+    floatDuration: 6.5,
+    delay: 0.55,
   },
   {
     id: 'claude',
     name: 'Claude AI',
     file: '/logos/claude.png',
     alt: 'Claude AI — Creative Scripting & Workflow Automation',
-    // Bottom-right of portrait
+    // Bottom-right
     style: {
-      bottom: '16%',
-      right: '-8%',
-      width: 'clamp(46px, 4.8vw, 62px)',
-      height: 'clamp(46px, 4.8vw, 62px)',
+      bottom: '14%',
+      right: '-11%',
+      width: 'clamp(42px, 4.5vw, 58px)',
+      height: 'clamp(42px, 4.5vw, 58px)',
     },
-    depth: 20,
-    floatDuration: 5.8,
-    delay: 0.65,
+    depth: 19,
+    floatDuration: 4.8,
+    delay: 0.7,
   },
 ];
 
@@ -96,7 +144,7 @@ export default function FloatingTiles({ mouseOffset = { x: 0, y: 0 } }) {
           >
             {/* Bobbing Motion Container */}
             <motion.div
-              animate={reduce ? {} : { y: [0, -8, 0], x: [0, 3, 0] }}
+              animate={reduce ? {} : { y: [0, -7, 0], x: [0, 2.5, 0] }}
               transition={{
                 duration: tile.floatDuration,
                 repeat: Infinity,
@@ -115,7 +163,7 @@ export default function FloatingTiles({ mouseOffset = { x: 0, y: 0 } }) {
                 style={{
                   width: '100%',
                   height: '100%',
-                  borderRadius: 'clamp(14px, 1.6vw, 20px)',
+                  borderRadius: 'clamp(12px, 1.4vw, 18px)',
                   background: 'rgba(24, 24, 29, 0.75)',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
@@ -124,13 +172,13 @@ export default function FloatingTiles({ mouseOffset = { x: 0, y: 0 } }) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  padding: '18%',
+                  padding: '16%',
                   transition: 'border-color 0.25s, transform 0.25s',
                   cursor: 'default',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = 'var(--amber, #D4A843)';
-                  e.currentTarget.style.transform = 'scale(1.08)';
+                  e.currentTarget.style.transform = 'scale(1.1)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';

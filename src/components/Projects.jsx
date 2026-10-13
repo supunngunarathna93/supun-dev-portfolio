@@ -42,7 +42,7 @@ const WORKS = [
     title: 'Siythra Educational Session',
     client: 'Dept. of Multimedia & Web Technology',
     role: 'Editor',
-    tools: ['Premiere Pro'],
+    tools: ['Premiere Pro', 'After Effects'],
     year: '2026',
     category: 'documentary',
     timecode: '00:03:47:02',
