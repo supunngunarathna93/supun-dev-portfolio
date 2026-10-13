@@ -12,15 +12,15 @@ const CATEGORIES = ['all', 'event', 'social', 'documentary', 'motion'];
 const WORKS = [
   {
     id: 'bts-uovt-2026',
-    title: 'BTS — Opening Ceremony UVOCTECH 2026',
-    client: 'UVOCTECH',
+    title: 'BTS — Opening Ceremony of HD STUDIO AND PROADCAST STUDIO of UOVT 2026',
+    client: 'University Of Vocational Technology',
     role: 'Director / Editor',
     tools: ['Premiere Pro'],
     year: '2026',
     category: 'event',
     timecode: '00:04:12:08',
-    // VIDEO SLOT ↓ replace with real thumbnail image path
-    thumb: 'https://picsum.photos/seed/ceremony-broadcast/800/450',
+    // Local public asset (or direct link: https://lh3.googleusercontent.com/d/1P-vAA8wyH9jfcHlcV-XLYWkJKOr1glV7)
+    thumb: '/projects/bts-uovt-2026.png',
     videoLink: 'https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing',
     featured: true,
   },
