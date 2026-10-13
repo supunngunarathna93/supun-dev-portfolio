@@ -66,6 +66,7 @@ export default function Navbar() {
       />
 
       <nav
+        className="main-nav"
         style={{
           position: 'fixed',
           top: 0, left: 0, right: 0,
@@ -291,8 +292,12 @@ export default function Navbar() {
 
       <style>{`
         @media (max-width: 768px) {
+          .main-nav  { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
           .desk-nav  { display: none !important; }
           .hamburger { display: flex !important; }
+        }
+        @media (max-width: 480px) {
+          .main-nav  { padding-left: 1rem !important; padding-right: 1rem !important; }
         }
       `}</style>
     </>

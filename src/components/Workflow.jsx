@@ -68,7 +68,7 @@ function ToolCell({ tool, t, index, inView, reduce }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: 0.15 + index * 0.1, ease }}
       className="card"
-      style={{ padding: '1.75rem' }}
+      style={{ padding: 'clamp(1.25rem, 3vw, 1.75rem)' }}
     >
       {/* Icon + pipeline label row */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
@@ -122,7 +122,7 @@ export default function Workflow() {
   const reduce = useReducedMotion();
 
   return (
-    <section id="workflow" style={{ padding: '8rem 0' }}>
+    <section id="workflow">
       <div className="container" ref={ref}>
         <motion.div
           initial={reduce ? false : { opacity: 0, y: 24 }}
@@ -152,11 +152,7 @@ export default function Workflow() {
         </motion.div>
 
         {/* Bento — 3 equal cells on desktop, stacked on mobile */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '1rem',
-        }} className="workflow-grid">
+        <div className="workflow-grid">
           {TOOLS.map((tool, i) => (
             <ToolCell
               key={tool.key}

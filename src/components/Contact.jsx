@@ -73,7 +73,7 @@ export default function Contact() {
   const inputStyle = (field) => ({
     width: '100%',
     fontFamily: 'var(--font-sans)',
-    fontSize: '0.9rem',
+    fontSize: '1rem',
     color: 'var(--bone)',
     background: 'var(--surface-2)',
     border: `1px solid ${formError[field] ? 'rgba(232,64,64,0.6)' : 'var(--border)'}`,
@@ -85,7 +85,7 @@ export default function Contact() {
   });
 
   return (
-    <section id="contact" style={{ padding: '8rem 0 6rem', position: 'relative' }}>
+    <section id="contact" style={{ position: 'relative' }}>
       {/* Ambient */}
       <div aria-hidden="true" style={{
         position: 'absolute', top: '10%', left: '50%',
@@ -127,12 +127,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Two-col: form left, links right */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1.1fr 0.9fr',
-          gap: '4rem',
-          alignItems: 'start',
-        }} className="contact-grid">
+        <div className="contact-grid">
 
           {/* Contact form */}
           <motion.div

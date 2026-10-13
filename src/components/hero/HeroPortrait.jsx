@@ -7,15 +7,7 @@ export default function HeroPortrait({ mouseOffset }) {
 
   return (
     <div
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: 'clamp(340px, 42vw, 560px)',
-        margin: '0 auto',
-        display: 'flex',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}
+      className="hero-portrait-frame"
     >
       {/* ── Cut-out Portrait with organic bottom fade ── */}
       <motion.div
@@ -35,7 +27,7 @@ export default function HeroPortrait({ mouseOffset }) {
         <picture>
           <source
             srcSet="/hero/supun-cutout-900.webp 900w, /hero/supun-cutout-1600.webp 1600w"
-            sizes="(max-width: 768px) 340px, (max-width: 1280px) 460px, 560px"
+            sizes="(max-width: 640px) 300px, (max-width: 1024px) 420px, 560px"
             type="image/webp"
           />
           <img
@@ -58,14 +50,7 @@ export default function HeroPortrait({ mouseOffset }) {
       <FloatingTiles mouseOffset={mouseOffset} />
 
       {/* ── Circular Rotating Badge (Anchored near top-left of portrait) ── */}
-      <RotatingBadge
-        style={{
-          position: 'absolute',
-          top: '-2%',
-          left: '2%',
-          zIndex: 12,
-        }}
-      />
+      <RotatingBadge />
     </div>
   );
 }

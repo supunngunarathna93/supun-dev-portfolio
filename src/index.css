@@ -190,6 +190,10 @@ body {
   .container { padding: 0 1.25rem; }
 }
 
+@media (max-width: 480px) {
+  .container { padding: 0 1rem; }
+}
+
 nav, main, footer {
   position: relative;
   z-index: var(--z-base);
@@ -464,4 +468,324 @@ nav, main, footer {
 @media (max-width: 640px) {
   .hide-mobile { display: none; }
   .show-mobile { display: block; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   RESPONSIVE DESIGN SYSTEM (PHONE · TABLET · PC)
+   ───────────────────────────────────────────────────────────── */
+
+/* Safe global overflow containment */
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Section vertical breathing room */
+section {
+  padding: clamp(4.5rem, 9vw, 8rem) 0;
+}
+
+#hero {
+  padding-top: clamp(80px, 13vh, 115px) !important;
+  padding-bottom: clamp(35px, 6vh, 65px) !important;
+}
+
+/* ── Hero Split Layout ── */
+.hero-container {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 2.75rem;
+  }
+}
+
+.hero-portrait-col {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: clamp(380px, 42vw, 560px);
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .hero-portrait-frame {
+    max-width: clamp(300px, 45vw, 420px);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-portrait-frame {
+    max-width: min(78vw, 330px);
+  }
+}
+
+/* ── Giant Backdrop Typography ── */
+.hero-giant-word {
+  font-family: var(--font-condensed, "Bebas Neue", sans-serif);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  padding: 0.15em 0;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(232, 230, 223, 0.14) 0%, rgba(232, 230, 223, 0.015) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+  font-size: clamp(2.9rem, 14vw, 5rem);
+  max-width: 98vw;
+  user-select: none;
+}
+
+@media (min-width: 641px) {
+  .hero-giant-word {
+    font-size: clamp(5.2rem, 16vw, 9.5rem);
+  }
+}
+
+@media (min-width: 1025px) {
+  .hero-giant-word {
+    font-size: clamp(8rem, 24vw, 32rem);
+  }
+}
+
+/* ── Hero Rotating Badge ── */
+.hero-rotating-badge {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  width: 110px;
+  height: 110px;
+  top: -2%;
+  left: 2%;
+  z-index: 12;
+}
+
+@media (max-width: 1024px) {
+  .hero-rotating-badge {
+    width: 95px;
+    height: 95px;
+    top: -3%;
+    left: 2%;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-rotating-badge {
+    width: 78px;
+    height: 78px;
+    top: -3%;
+    left: 0%;
+  }
+}
+
+/* ── Hero Floating Software Tiles ── */
+.hero-tile {
+  position: absolute;
+  z-index: 10;
+  user-select: none;
+}
+
+/* PC / Desktop tile sizing & placement */
+.hero-tile-davinci {
+  top: 18%;
+  left: -9%;
+  width: clamp(46px, 5vw, 66px);
+  height: clamp(46px, 5vw, 66px);
+}
+.hero-tile-photoshop {
+  top: 44%;
+  left: -12%;
+  width: clamp(44px, 4.8vw, 62px);
+  height: clamp(44px, 4.8vw, 62px);
+}
+.hero-tile-aftereffects {
+  bottom: 16%;
+  left: -8%;
+  width: clamp(46px, 5vw, 64px);
+  height: clamp(46px, 5vw, 64px);
+}
+.hero-tile-premiere {
+  top: 10%;
+  right: -6%;
+  width: clamp(48px, 5.2vw, 68px);
+  height: clamp(48px, 5.2vw, 68px);
+}
+.hero-tile-capcut {
+  top: 34%;
+  right: -11%;
+  width: clamp(46px, 5vw, 64px);
+  height: clamp(46px, 5vw, 64px);
+}
+.hero-tile-figma {
+  top: 56%;
+  right: -8%;
+  width: clamp(44px, 4.8vw, 62px);
+  height: clamp(44px, 4.8vw, 62px);
+}
+.hero-tile-claude {
+  bottom: 14%;
+  right: -11%;
+  width: clamp(42px, 4.5vw, 58px);
+  height: clamp(42px, 4.5vw, 58px);
+}
+
+/* Tablet tile sizing & placement (641px - 1024px) */
+@media (max-width: 1024px) and (min-width: 641px) {
+  .hero-tile-davinci      { left: -5%; width: 48px; height: 48px; }
+  .hero-tile-photoshop    { left: -7%; width: 46px; height: 46px; }
+  .hero-tile-aftereffects { left: -5%; width: 46px; height: 46px; }
+  .hero-tile-premiere     { right: -4%; width: 50px; height: 50px; }
+  .hero-tile-capcut       { right: -6%; width: 48px; height: 48px; }
+  .hero-tile-figma        { right: -5%; width: 46px; height: 46px; }
+  .hero-tile-claude       { right: -6%; width: 44px; height: 44px; }
+}
+
+/* Phone tile sizing & placement (<= 640px) */
+@media (max-width: 640px) {
+  .hero-tile-davinci      { top: 16%; left: -2%; width: 38px; height: 38px; }
+  .hero-tile-photoshop    { top: 44%; left: -3%; width: 36px; height: 36px; }
+  .hero-tile-aftereffects { bottom: 14%; left: -2%; width: 36px; height: 36px; }
+  .hero-tile-premiere     { top: 8%; right: -2%; width: 38px; height: 38px; }
+  .hero-tile-capcut       { top: 32%; right: -3%; width: 36px; height: 36px; }
+  .hero-tile-figma        { top: 54%; right: -2%; width: 36px; height: 36px; }
+  .hero-tile-claude       { bottom: 12%; right: -3%; width: 34px; height: 34px; }
+}
+
+/* ── Hero Title & CTA buttons ── */
+.hero-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 5;
+  width: 100%;
+  max-width: 540px;
+}
+
+@media (max-width: 992px) {
+  .hero-title-wrap {
+    max-width: 100%;
+  }
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .hero-cta-group {
+    width: 100%;
+  }
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ── Hero Edge Labels ── */
+.hero-side-label-left,
+.hero-side-label-right {
+  display: flex;
+}
+
+@media (max-width: 1280px) {
+  .hero-side-label-left,
+  .hero-side-label-right {
+    display: none !important;
+  }
+}
+
+/* ── Projects Filter Bar ── */
+.projects-filter-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 640px) {
+  .projects-filter-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.75rem;
+    scrollbar-width: none;
+  }
+  .projects-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  .filter-pill {
+    padding: 0.38rem 0.85rem;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+}
+
+/* ── Workflow Grid ── */
+.workflow-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .workflow-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ── About Grid ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ── Contact Grid & Form ── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.contact-input {
+  font-size: 16px !important;
 }

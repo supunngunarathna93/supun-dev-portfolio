@@ -20,14 +20,14 @@ export default function BeforeAfter() {
   const [dragging, setDragging] = useState(false);
 
   const getPos = useCallback((e) => {
+    if (!sliderRef.current) return 50;
     const rect = sliderRef.current.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientX = e.touches && e.touches.length > 0 ? e.touches[0].clientX : e.clientX;
     const pct = ((clientX - rect.left) / rect.width) * 100;
     return Math.max(1, Math.min(99, pct));
   }, []);
 
   const onStart = (e) => {
-    e.preventDefault();
     setDragging(true);
   };
   const onMove = useCallback((e) => {
@@ -37,7 +37,7 @@ export default function BeforeAfter() {
   const onEnd = () => setDragging(false);
 
   return (
-    <section id="beforeafter" style={{ padding: '8rem 0' }}>
+    <section id="beforeafter">
       <div className="container" ref={ref}>
         {/* Header */}
         <motion.div
@@ -98,6 +98,7 @@ export default function BeforeAfter() {
               overflow: 'hidden',
               border: '1px solid var(--border)',
               userSelect: 'none',
+              touchAction: 'none',
               cursor: dragging ? 'ew-resize' : 'col-resize',
               boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             }}
@@ -117,21 +118,23 @@ export default function BeforeAfter() {
               }}
             />
 
-            {/* BEFORE (raw) — clipped to left portion */}
+            {/* BEFORE (raw) — responsive clip-path */}
             <div style={{
               position: 'absolute', inset: 0,
-              width: `${position}%`,
+              width: '100%', height: '100%',
+              clipPath: `inset(0 ${100 - position}% 0 0)`,
+              WebkitClipPath: `inset(0 ${100 - position}% 0 0)`,
               overflow: 'hidden',
+              pointerEvents: 'none',
             }}>
               <img
                 src={BEFORE_IMG}
                 alt="Raw ungraded footage"
                 draggable={false}
                 style={{
-                  position: 'absolute', top: 0, left: 0,
-                  width: sliderRef.current ? `${sliderRef.current.offsetWidth}px` : '100%',
+                  position: 'absolute', inset: 0,
+                  width: '100%',
                   height: '100%',
-                  maxWidth: 'none',
                   objectFit: 'cover',
                   userSelect: 'none',
                 }}
@@ -157,7 +160,8 @@ export default function BeforeAfter() {
                 position: 'absolute', top: '50%',
                 left: `${position}%`,
                 transform: 'translate(-50%, -50%)',
-                width: 44, height: 44,
+                width: 'clamp(38px, 5vw, 44px)',
+                height: 'clamp(38px, 5vw, 44px)',
                 borderRadius: '50%',
                 background: 'var(--amber)',
                 border: '3px solid var(--ink)',
@@ -165,6 +169,7 @@ export default function BeforeAfter() {
                 cursor: 'ew-resize',
                 boxShadow: '0 0 16px rgba(212,168,67,0.4), 0 4px 12px rgba(0,0,0,0.5)',
                 zIndex: 10,
+                touchAction: 'none',
                 transition: 'transform 0.1s',
               }}
               aria-label="Drag to compare before and after"

@@ -99,7 +99,7 @@ export default function HeroSideLabels() {
       </div>
 
       <style>{`
-        @media (max-width: 1100px) {
+        @media (max-width: 1280px) {
           .hero-side-label-left,
           .hero-side-label-right {
             display: none !important;

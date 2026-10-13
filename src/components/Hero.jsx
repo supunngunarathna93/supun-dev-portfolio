@@ -140,23 +140,7 @@ export default function Hero() {
             whiteSpace: 'nowrap',
           }}
         >
-          <span
-            style={{
-              fontFamily: 'var(--font-condensed, "Bebas Neue", sans-serif)',
-              fontSize: 'clamp(9rem, 32vw, 44rem)',
-              fontWeight: 800,
-              letterSpacing: '0.03em',
-              textTransform: 'uppercase',
-              lineHeight: 1,
-              padding: '0.12em 0',
-              textAlign: 'center',
-              background: 'linear-gradient(180deg, rgba(232, 230, 223, 0.14) 0%, rgba(232, 230, 223, 0.015) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              display: 'inline-block',
-              filter: 'drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4))',
-            }}
-          >
+          <span className="hero-giant-word">
             {reduce ? 'EDITOR' : TYPING_WORDS[wordIndex].substring(0, subIndex)}
           </span>
         </motion.div>
@@ -171,11 +155,6 @@ export default function Hero() {
         style={{
           position: 'relative',
           zIndex: 3,
-          display: 'grid',
-          gridTemplateColumns: '1.05fr 1fr',
-          gap: 'clamp(2rem, 5vw, 5rem)',
-          alignItems: 'center',
-          width: '100%',
           margin: '0 auto',
         }}
       >
@@ -183,14 +162,7 @@ export default function Hero() {
         <HeroTitle onOpenShowreel={() => setShowreelOpen(true)} />
 
         {/* Right Column: Layered Cutout Portrait with Floating App Tiles & Rotating Badge */}
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
+        <div className="hero-portrait-col">
           <HeroPortrait mouseOffset={mouseOffset} />
         </div>
       </div>

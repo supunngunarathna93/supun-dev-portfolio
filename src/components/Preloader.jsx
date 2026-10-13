@@ -214,7 +214,7 @@ export default function Preloader() {
           <div
             style={{
               position: 'relative',
-              width: 'min(62vw, 420px)',
+              width: 'clamp(240px, 72vw, 420px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

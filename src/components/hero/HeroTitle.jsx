@@ -16,13 +16,7 @@ export default function HeroTitle({ onOpenShowreel }) {
 
   return (
     <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        zIndex: 5,
-        maxWidth: '540px',
-      }}
+      className="hero-title-wrap"
     >
       {/* ── Subtitle Eyebrow ── */}
       <motion.div
@@ -137,12 +131,7 @@ export default function HeroTitle({ onOpenShowreel }) {
       {/* ── Action Buttons ── */}
       <motion.div
         {...fade(0.58)}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.85rem',
-          flexWrap: 'wrap',
-        }}
+        className="hero-cta-group"
       >
         <button
           onClick={onOpenShowreel}

@@ -13,7 +13,7 @@ export default function About() {
   const INFO_KEYS = ['university', 'degree', 'focus', 'languages', 'based'];
 
   return (
-    <section id="about" style={{ padding: '8rem 0', position: 'relative', overflow: 'hidden' }}>
+    <section id="about" style={{ position: 'relative', overflow: 'hidden' }}>
       {/* Ambient glow */}
       <div aria-hidden="true" style={{
         position: 'absolute', top: '20%', right: '-8%',
@@ -25,12 +25,7 @@ export default function About() {
 
       <div className="container" ref={ref}>
         {/* Asymmetric split: left portrait zone, right content */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1.1fr',
-          gap: '5rem',
-          alignItems: 'start',
-        }} className="about-grid">
+        <div className="about-grid">
 
           {/* Left — editorial large text + decorative */}
           <motion.div

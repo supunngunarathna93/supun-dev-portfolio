@@ -6,13 +6,6 @@ const SOFTWARE_TILES = [
     name: 'DaVinci Resolve',
     file: '/logos/davinci-resolve.png',
     alt: 'DaVinci Resolve Studio — Color Grading & Post-Production',
-    // Top-left
-    style: {
-      top: '18%',
-      left: '-9%',
-      width: 'clamp(46px, 5vw, 66px)',
-      height: 'clamp(46px, 5vw, 66px)',
-    },
     depth: 18,
     floatDuration: 5.4,
     delay: 0.15,
@@ -22,13 +15,6 @@ const SOFTWARE_TILES = [
     name: 'Adobe Photoshop',
     file: '/logos/photoshop.png',
     alt: 'Adobe Photoshop — Graphic Design & Thumbnails',
-    // Mid-left
-    style: {
-      top: '44%',
-      left: '-12%',
-      width: 'clamp(44px, 4.8vw, 62px)',
-      height: 'clamp(44px, 4.8vw, 62px)',
-    },
     depth: 15,
     floatDuration: 4.9,
     delay: 0.3,
@@ -38,13 +24,6 @@ const SOFTWARE_TILES = [
     name: 'Adobe After Effects',
     file: '/logos/after-effects.png',
     alt: 'Adobe After Effects — Motion Design & Visual Effects',
-    // Bottom-left
-    style: {
-      bottom: '16%',
-      left: '-8%',
-      width: 'clamp(46px, 5vw, 64px)',
-      height: 'clamp(46px, 5vw, 64px)',
-    },
     depth: 16,
     floatDuration: 5.2,
     delay: 0.45,
@@ -54,13 +33,6 @@ const SOFTWARE_TILES = [
     name: 'Adobe Premiere Pro',
     file: '/logos/premiere-pro.png',
     alt: 'Adobe Premiere Pro — Long-form & Multicam Broadcast Editing',
-    // Top-right
-    style: {
-      top: '10%',
-      right: '-6%',
-      width: 'clamp(48px, 5.2vw, 68px)',
-      height: 'clamp(48px, 5.2vw, 68px)',
-    },
     depth: 22,
     floatDuration: 6.2,
     delay: 0.2,
@@ -70,13 +42,6 @@ const SOFTWARE_TILES = [
     name: 'CapCut',
     file: '/logos/capcut.png',
     alt: 'CapCut — Short-form & Viral Social Video Editing',
-    // Mid-right
-    style: {
-      top: '34%',
-      right: '-11%',
-      width: 'clamp(46px, 5vw, 64px)',
-      height: 'clamp(46px, 5vw, 64px)',
-    },
     depth: 20,
     floatDuration: 5.8,
     delay: 0.38,
@@ -86,13 +51,6 @@ const SOFTWARE_TILES = [
     name: 'Figma',
     file: '/logos/figma.png',
     alt: 'Figma — Visual Layout & UI/UX Design',
-    // Lower-right
-    style: {
-      top: '56%',
-      right: '-8%',
-      width: 'clamp(44px, 4.8vw, 62px)',
-      height: 'clamp(44px, 4.8vw, 62px)',
-    },
     depth: 17,
     floatDuration: 6.5,
     delay: 0.55,
@@ -102,13 +60,6 @@ const SOFTWARE_TILES = [
     name: 'Claude AI',
     file: '/logos/claude.png',
     alt: 'Claude AI — Creative Scripting & Workflow Automation',
-    // Bottom-right
-    style: {
-      bottom: '14%',
-      right: '-11%',
-      width: 'clamp(42px, 4.5vw, 58px)',
-      height: 'clamp(42px, 4.5vw, 58px)',
-    },
     depth: 19,
     floatDuration: 4.8,
     delay: 0.7,
@@ -128,18 +79,13 @@ export default function FloatingTiles({ mouseOffset = { x: 0, y: 0 } }) {
         return (
           <motion.div
             key={tile.id}
+            className={`hero-tile hero-tile-${tile.id}`}
             initial={reduce ? false : { opacity: 0, scale: 0.7 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
               duration: 0.55,
               delay: tile.delay,
               ease: [0.16, 1, 0.3, 1],
-            }}
-            style={{
-              position: 'absolute',
-              zIndex: 10,
-              userSelect: 'none',
-              ...tile.style,
             }}
           >
             {/* Bobbing Motion Container */}

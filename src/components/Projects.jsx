@@ -176,11 +176,11 @@ function WorkCard({ item, index, onPlay, t }) {
       </div>
 
       {/* Card body */}
-      <div style={{ padding: '1.1rem 1.25rem 1.25rem' }}>
+      <div style={{ padding: 'clamp(0.85rem, 2.2vw, 1.15rem) clamp(0.95rem, 2.5vw, 1.25rem)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.4rem' }}>
           <h3 style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: '0.975rem',
+            fontSize: 'clamp(0.92rem, 1.8vw, 1.05rem)',
             fontWeight: 700,
             color: 'var(--bone)',
             letterSpacing: '-0.01em',
@@ -237,7 +237,7 @@ export default function SelectedWork() {
   };
 
   return (
-    <section id="work" style={{ padding: '8rem 0', position: 'relative' }}>
+    <section id="work" style={{ position: 'relative' }}>
       <div className="container" ref={ref}>
         {/* Section header */}
         <motion.div
@@ -273,11 +273,7 @@ export default function SelectedWork() {
           initial={reduce ? false : { opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.1, ease }}
-          style={{
-            display: 'flex', gap: '0.4rem',
-            flexWrap: 'wrap',
-            marginBottom: '2.5rem',
-          }}
+          className="projects-filter-bar"
           role="group"
           aria-label="Filter works by category"
         >
@@ -303,8 +299,8 @@ export default function SelectedWork() {
             transition={{ duration: 0.3 }}
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 340px), 1fr))',
-              gap: '1rem',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
+              gap: 'clamp(0.85rem, 2vw, 1.25rem)',
             }}
           >
             {filtered.map((item, i) => (
