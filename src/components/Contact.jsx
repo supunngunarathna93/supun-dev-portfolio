@@ -5,33 +5,22 @@ import { EnvelopeSimple, WhatsappLogo, LinkedinLogo, YoutubeLogo, InstagramLogo,
 
 const ease = [0.16, 1, 0.3, 1];
 
-const EMAIL = 'supunngunarathna.edit.work@gmail.com';
+const EMAIL = 'supunngunarathna3@gmail.com';
 
 const SOCIALS = [
   {
     key: 'whatsapp',
     icon: WhatsappLogo,
-    href: 'https://wa.me/94000000000', // REPLACE with real WhatsApp number
-    handle: '+94 XXX XXX XXX',
+    href: 'https://wa.me/+94721133698',
+    handle: '+94721133698',
   },
   {
     key: 'linkedin',
     icon: LinkedinLogo,
     href: 'https://linkedin.com/in/supun-n-gunarathna-70ab43320',
     handle: 'Supun N Gunarathna',
-  },
-  {
-    key: 'youtube',
-    icon: YoutubeLogo,
-    href: 'https://youtube.com/@supunngunarathna', // REPLACE with real YouTube channel
-    handle: '@supunngunarathna',
-  },
-  {
-    key: 'instagram',
-    icon: InstagramLogo,
-    href: 'https://instagram.com/supunngunarathna', // REPLACE with real Instagram
-    handle: '@supunngunarathna',
-  },
+  }
+
 ];
 
 export default function Contact() {

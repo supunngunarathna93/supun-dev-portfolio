@@ -6,8 +6,8 @@ import { ArrowsHorizontal } from '@phosphor-icons/react';
 const ease = [0.16, 1, 0.3, 1];
 
 // VIDEO SLOTS: replace these with real before/after frame grabs or video posters
-const BEFORE_IMG = 'https://picsum.photos/seed/raw-footage-flat/1400/787';
-const AFTER_IMG  = 'https://picsum.photos/seed/color-graded-cinematic/1400/787';
+const BEFORE_IMG = 'public/projects/before.png';
+const AFTER_IMG = 'public/projects/after.png';
 
 export default function BeforeAfter() {
   const { t } = useTranslation();

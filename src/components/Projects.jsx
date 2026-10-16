@@ -34,7 +34,7 @@ const WORKS = [
     category: 'documentary',
     timecode: '00:06:38:14',
     // VIDEO SLOT ↓
-    thumb: 'https://picsum.photos/seed/mountain-trip-film/800/450',
+    thumb: '/projects/hanthana.jpeg',
     videoLink: 'https://drive.google.com/file/d/1FYkNnhN2gbtFoDSTXEBm3l2FJe7s42v8/view?usp=drive_link',
   },
   {
@@ -47,7 +47,7 @@ const WORKS = [
     category: 'documentary',
     timecode: '00:03:47:02',
     // VIDEO SLOT ↓
-    thumb: 'https://picsum.photos/seed/educational-session/800/450',
+    thumb: '/projects/siythra-session-2026.png',
     videoLink: 'https://drive.google.com/file/d/1DjOdI3DoeOqLTrH7fZrzAZMXM91Etk01/view?usp=sharing',
   },
   {
@@ -60,7 +60,7 @@ const WORKS = [
     category: 'motion',
     timecode: '00:01:58:21',
     // VIDEO SLOT ↓
-    thumb: 'https://picsum.photos/seed/theme-reveal-cinematic/800/450',
+    thumb: '/projects/reveal.png',
     videoLink: 'https://drive.google.com/file/d/1C9qiE04p2PnkujZGzVaRAd9hH0eJw1qr/view?usp=drive_link',
   },
   {
@@ -73,8 +73,8 @@ const WORKS = [
     category: 'event',
     timecode: '00:08:14:06',
     // VIDEO SLOT ↓
-    thumb: 'https://picsum.photos/seed/after-movie-event/800/450',
-    videoLink: 'https://drive.google.com/drive/folders/1rWps5NqCg7yySYbCpfljlMz0erLJTsGI?usp=sharing',
+    thumb: '/projects/after movie.png',
+    videoLink: 'https://www.facebook.com/share/v/1Fm55d4S2S/',
     featured: true,
   },
 ];
