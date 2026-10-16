@@ -42,13 +42,26 @@
     "subtitle": "Three platforms. One seamless pipeline — from edit bay to delivery.",
     "resolve_title": "DaVinci Resolve",
     "resolve_desc": "Primary edit suite, color grading, Fusion compositing, Fairlight audio.",
-    "resolve_tags": ["Edit", "Color", "Fusion", "Fairlight"],
+    "resolve_tags": [
+      "Edit",
+      "Color",
+      "Fusion",
+      "Fairlight"
+    ],
     "premiere_title": "Premiere Pro",
     "premiere_desc": "Broadcast-ready delivery, team collaboration, and multi-cam event cuts.",
-    "premiere_tags": ["Multi-cam", "Broadcast", "Collaboration"],
+    "premiere_tags": [
+      "Multi-cam",
+      "Broadcast",
+      "Collaboration"
+    ],
     "capcut_title": "CapCut",
     "capcut_desc": "Fast turnaround short-form content — reels, TikToks, and social cuts.",
-    "capcut_tags": ["Reels", "TikTok", "Quick Delivery"]
+    "capcut_tags": [
+      "Reels",
+      "TikTok",
+      "Quick Delivery"
+    ]
   },
   "services": {
     "title": "Services",
@@ -72,7 +85,7 @@
     "bio1": "I'm Supun Gunarathna — a video editor and colorist based in Sri Lanka. My primary tools are DaVinci Resolve and Premiere Pro. I've been the editorial lead for production work at UVOCTECH, covering ceremonies, batch trips, and institutional media.",
     "bio2": "Alongside post-production, I'm studying BSc Multimedia and Web Technology at the University of Vocational Technology, which is where my interest in web, mobile, and AI-assisted workflows comes from. Both sides of the craft inform each other.",
     "info_university": "University of Vocational Technology, Sri Lanka",
-    "info_degree": "BSc Multimedia and Web Technology",
+    "info_degree": "B.tech in Multimedia and Web Technology",
     "info_focus": "Video Editing · Color Grading · Filmmaking",
     "info_languages": "Sinhala · Tamil · English",
     "info_based": "Sri Lanka",
