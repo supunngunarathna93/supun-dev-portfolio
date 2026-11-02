@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supun N Gunarathna — Curriculum Vitae</title>
+  <meta name="description" content="Curriculum Vitae of Supun N Gunarathna — Senior Video Editor, Colorist, Filmmaker & Multimedia Developer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F5F7;
+      --paper: #FFFFFF;
+      --ink: #111317;
+      --ink-secondary: #3D424D;
+      --ink-muted: #666E7D;
+      --border: #E2E5EA;
+      --border-light: #ECEEF2;
+      --accent: #B8861B;
+      --accent-dark: #8C620D;
+      --accent-soft: rgba(184, 134, 27, 0.09);
+      --chip-bg: #F1F3F6;
+      --radius: 6px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.45;
+      padding: 24px 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Action Bar (hidden when printed) */
+    .action-bar {
+      max-width: 860px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .action-btn:hover {
+      background: #ECEFF2;
+      border-color: #CBD0D8;
+    }
+
+    .action-btn-primary {
+      background: #111827;
+      color: #FFFFFF;
+      border-color: #111827;
+    }
+
+    .action-btn-primary:hover {
+      background: #252D3D;
+      color: #FFFFFF;
+    }
+
+    /* Paper Container (Exact 1-Page Proportions) */
+    .resume-sheet {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      padding: 32px 36px;
+    }
+
+    /* Header Section */
+    .resume-header {
+      border-bottom: 1.5px solid var(--border-light);
+      padding-bottom: 14px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .name-role h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .name-role .title-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: inline-block;
+    }
+
+    .contact-block {
+      text-align: right;
+      font-size: 0.77rem;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+
+    .contact-block a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+
+    .contact-block a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 5px;
+    }
+
+    /* Two-Column Grid */
+    .resume-grid {
+      display: grid;
+      grid-template-columns: 1fr 245px;
+      gap: 24px;
+    }
+
+    /* Section Headings */
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1.5px solid var(--accent);
+      padding-bottom: 3px;
+      margin-bottom: 9px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title span.bar {
+      display: inline-block;
+      width: 3px;
+      height: 11px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 0.80rem;
+      color: var(--ink-secondary);
+      line-height: 1.48;
+      margin-bottom: 13px;
+      text-align: justify;
+    }
+
+    /* Timeline Items */
+    .timeline-item {
+      margin-bottom: 11px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .timeline-role {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .timeline-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.70rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      background: var(--accent-soft);
+      padding: 1px 6px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    .timeline-company {
+      font-size: 0.77rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      margin-bottom: 4px;
+    }
+
+    .bullet-list {
+      list-style-type: none;
+      padding-left: 0;
+      margin-top: 3px;
+    }
+
+    .bullet-list li {
+      font-size: 0.77rem;
+      color: var(--ink-secondary);
+      line-height: 1.42;
+      margin-bottom: 3px;
+      position: relative;
+      padding-left: 12px;
+    }
+
+    .bullet-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.78rem;
+      top: -1px;
+    }
+
+    .timeline-desc {
+      font-size: 0.76rem;
+      color: var(--ink-secondary);
+      line-height: 1.42;
+    }
+
+    .project-link {
+      font-size: 0.70rem;
+      font-weight: 600;
+      color: var(--accent-dark);
+      text-decoration: none;
+      margin-left: 4px;
+    }
+
+    .project-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Sidebar Blocks */
+    .sidebar-block {
+      margin-bottom: 13px;
+    }
+
+    .sidebar-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-group-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 6px;
+      margin-bottom: 4px;
+    }
+
+    .chips-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.5px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      background: var(--chip-bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1.5px 5.5px;
+      white-space: nowrap;
+    }
+
+    .chip.highlight {
+      background: var(--accent-soft);
+      border-color: rgba(184, 134, 27, 0.28);
+      color: var(--accent-dark);
+      font-weight: 600;
+    }
+
+    /* Education Item */
+    .edu-degree {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .edu-school {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      margin-top: 1px;
+    }
+
+    .edu-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--accent-dark);
+      margin-top: 1px;
+      margin-bottom: 3px;
+    }
+
+    .edu-details {
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+
+    /* Languages Row */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      padding: 2.5px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .lang-item:last-child {
+      border-bottom: none;
+    }
+
+    .lang-name {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .lang-level {
+      color: var(--ink-muted);
+      font-size: 0.70rem;
+    }
+
+    /* Responsive for mobile screen browsing */
+    @media (max-width: 768px) {
+      body {
+        padding: 12px 8px;
+      }
+
+      .resume-sheet {
+        padding: 22px 18px;
+      }
+
+      .resume-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .contact-block {
+        text-align: left;
+      }
+
+      .contact-item {
+        justify-content: flex-start;
+      }
+
+      .resume-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    /* ── STRICT 1-PAGE A4 PRINT STYLES ── */
+    @page {
+      size: A4 portrait;
+      margin: 8mm 9mm 6mm 9mm;
+    }
+
+    @media print {
+      html, body {
+        width: 100% !important;
+        height: 100% !important;
+        max-height: 297mm !important;
+        overflow: hidden !important;
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 9.3pt !important;
+      }
+
+      .no-print, .action-bar {
+        display: none !important;
+      }
+
+      .resume-sheet {
+        width: 100% !important;
+        max-width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        page-break-after: avoid !important;
+        page-break-before: avoid !important;
+        break-after: avoid !important;
+        break-before: avoid !important;
+        overflow: hidden !important;
+      }
+
+      .resume-grid {
+        gap: 20px !important;
+        grid-template-columns: 1fr 235px !important;
+      }
+
+      .timeline-item, .sidebar-block {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* Keep exact colors, badges, borders, and chips */
+      .section-title {
+        border-bottom: 1.5px solid #B8861B !important;
+        color: #111317 !important;
+      }
+
+      .section-title span.bar {
+        background: #B8861B !important;
+      }
+
+      .name-role .title-badge {
+        color: #B8861B !important;
+      }
+
+      .timeline-date {
+        color: #8C620D !important;
+        background: rgba(184, 134, 27, 0.09) !important;
+      }
+
+      .chip {
+        background: #F1F3F6 !important;
+        border: 1px solid #E2E5EA !important;
+        color: #3D424D !important;
+      }
+
+      .chip.highlight {
+        background: rgba(184, 134, 27, 0.10) !important;
+        border-color: rgba(184, 134, 27, 0.32) !important;
+        color: #8C620D !important;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: inherit !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Top Bar with Quick Actions (Hidden in Print) -->
+  <header class="action-bar no-print">
+    <a href="/" class="action-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Portfolio
+    </a>
+
+    <div style="display: flex; gap: 8px;">
+      <a href="/CV.md" download class="action-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        Download (.md)
+      </a>
+
+      <button onclick="window.print()" class="action-btn action-btn-primary" title="Prints exactly on 1 page as shown">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Save 1-Page PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- Resume Main Document (Exact 1 Page Canvas) -->
+  <main class="resume-sheet">
+
+    <!-- Header -->
+    <header class="resume-header">
+      <div class="name-role">
+        <h1>Supun N Gunarathna</h1>
+        <span class="title-badge">Senior Video Editor · Colorist · Filmmaker</span>
+      </div>
+
+      <div class="contact-block">
+        <div class="contact-item">📍 Sri Lanka</div>
+        <div class="contact-item">
+          ✉️ <a href="mailto:supunngunarathna3@gmail.com">supunngunarathna3@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          📞 <a href="https://wa.me/+94721133698">+94 72 113 3698</a>
+        </div>
+        <div class="contact-item">
+          🔗 <a href="https://linkedin.com/in/supun-n-gunarathna-70ab43320" target="_blank" rel="noopener">linkedin.com/in/supun-n-gunarathna</a>
+        </div>
+        <div class="contact-item">
+          💻 <a href="https://github.com/supunngunarathna93" target="_blank" rel="noopener">github.com/supunngunarathna93</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2 Column Layout -->
+    <div class="resume-grid">
+
+      <!-- LEFT / MAIN COLUMN -->
+      <section>
+
+        <!-- Executive Summary -->
+        <div style="margin-bottom: 11px;">
+          <h2 class="section-title"><span class="bar"></span> Professional Profile</h2>
+          <p class="summary-text">
+            Dedicated <strong>Senior Video Editor, Colorist, and Filmmaker</strong> with mastery in narrative rhythm, commercial pacing, and broadcast color grading. Proficient in end-to-end post pipelines using <strong>DaVinci Resolve</strong>, <strong>Premiere Pro</strong>, and <strong>After Effects</strong>. Editorial lead at UVOCTECH directing milestone studio unveilings, documentary travelogues, and ceremonies. Pursuing <strong>B.Tech in Multimedia & Web Technology</strong>, blending cinematic film craft with modern web (React) and mobile (Flutter) engineering.
+          </p>
+        </div>
+
+        <!-- Experience -->
+        <div style="margin-bottom: 11px;">
+          <h2 class="section-title"><span class="bar"></span> Experience & Leadership</h2>
+
+          <!-- UVOCTECH -->
+          <article class="timeline-item">
+            <div class="timeline-header">
+              <h3 class="timeline-role">Editorial Lead & Director</h3>
+              <span class="timeline-date">2024 – Present</span>
+            </div>
+            <div class="timeline-company">University of Vocational Technology (UVOCTECH) — Media Unit</div>
+            <ul class="bullet-list">
+              <li>Direct and edit high-profile university media, official broadcasts, studio unveilings, and ceremonies.</li>
+              <li>Lead video post-production teams across multi-cam logging, timeline assembly, and broadcast audio cleanup.</li>
+              <li>Engineered optimized proxy workflows in Premiere Pro & DaVinci Resolve, speeding delivery times by 40%.</li>
+            </ul>
+          </article>
+
+          <!-- Freelance -->
+          <article class="timeline-item">
+            <div class="timeline-header">
+              <h3 class="timeline-role">Freelance Video Editor & Colorist</h3>
+              <span class="timeline-date">2024 – Present</span>
+            </div>
+            <div class="timeline-company">Independent Practice (Remote & Direct Client Commissions)</div>
+            <ul class="bullet-list">
+              <li>Deliver end-to-end post-production for commercial promos, event recaps, short films, and social content.</li>
+              <li>Execute professional color grading in DaVinci Resolve across RAW and S-Log footage with custom LUT designs.</li>
+              <li>Restore audio and mixdown via Fairlight (noise reduction, vocal EQ, and loudness compliance).</li>
+            </ul>
+          </article>
+        </div>
+
+        <!-- Selected Projects -->
+        <div>
+          <h2 class="section-title"><span class="bar"></span> Featured Video Productions</h2>
+
+          <article class="timeline-item">
+            <div class="timeline-header">
+              <h3 class="timeline-role">BTS — Opening Ceremony of HD & Broadcast Studio</h3>
+              <span class="timeline-date">2026</span>
+            </div>
+            <div class="timeline-company">
+              Client: UVOCTECH · <strong>Director / Lead Editor</strong> · Premiere Pro
+              <a href="https://drive.google.com/file/d/1aQyKoRgEV2HxwVil0fyPZvU4PCp41dLy/view?usp=sharing" target="_blank" rel="noopener" class="project-link">View Media ↗</a>
+            </div>
+            <p class="timeline-desc">
+              Directed and cut the official documentary capturing the launch of UVOCTECH's broadcast facility; handled narrative arc, multicam editing, and synchronized room audio.
+            </p>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-header">
+              <h3 class="timeline-role">Freshers 2026 Official After Movie</h3>
+              <span class="timeline-date">2026</span>
+            </div>
+            <div class="timeline-company">
+              Client: UVOCTECH · <strong>Director / Editor / Colorist</strong> · DaVinci Resolve, Premiere Pro
+              <a href="https://www.facebook.com/share/v/1Fm55d4S2S/" target="_blank" rel="noopener" class="project-link">Watch Reel ↗</a>
+            </div>
+            <p class="timeline-desc">
+              Directed and graded an 8+ minute cinematic recap capturing the high energy of stage performances and crowd atmosphere with rhythm-synced cuts and Fairlight audio balance.
+            </p>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-header">
+              <h3 class="timeline-role">Freshers 2026 Theme Reveal Teaser</h3>
+              <span class="timeline-date">2026</span>
+            </div>
+            <div class="timeline-company">
+              Client: UVOCTECH · <strong>Director / Editor / Colorist</strong> · DaVinci Resolve, Premiere Pro
+              <a href="https://drive.google.com/file/d/1C9qiE04p2PnkujZGzVaRAd9hH0eJw1qr/view?usp=drive_link" target="_blank" rel="noopener" class="project-link">View Media ↗</a>
+            </div>
+            <p class="timeline-desc">
+              High-intensity motion teaser revealing the event concept; blended atmospheric sound design, heavy color grading, and kinetic typography.
+            </p>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-header">
+              <h3 class="timeline-role">Hanthana Batch Trip Documentary & Siythra Session</h3>
+              <span class="timeline-date">2026</span>
+            </div>
+            <div class="timeline-company">
+              <strong>Lead Editor</strong> · Premiere Pro, After Effects
+              <a href="https://drive.google.com/file/d/1FYkNnhN2gbtFoDSTXEBm3l2FJe7s42v8/view?usp=drive_link" target="_blank" rel="noopener" class="project-link">Hanthana ↗</a> · 
+              <a href="https://drive.google.com/file/d/1DjOdI3DoeOqLTrH7fZrzAZMXM91Etk01/view?usp=sharing" target="_blank" rel="noopener" class="project-link">Siythra ↗</a>
+            </div>
+            <p class="timeline-desc">
+              Assembled a 6+ min travelogue capturing landscape b-roll and expedition soundscapes, alongside educational media with lower-third titles and deck sync.
+            </p>
+          </article>
+
+        </div>
+
+      </section>
+
+      <!-- RIGHT / SIDEBAR COLUMN -->
+      <aside>
+
+        <!-- Education -->
+        <div class="sidebar-block">
+          <h2 class="section-title"><span class="bar"></span> Education</h2>
+          <div>
+            <div class="edu-degree">B.Tech in Multimedia & Web Technology</div>
+            <div class="edu-school">University of Vocational Technology, Sri Lanka</div>
+            <div class="edu-date">2023 – Present</div>
+            <div class="edu-details">
+              Specialization: Video Editing, Color Grading, Cinematography, Web & Mobile App Engineering, and AI Workflows.
+            </div>
+          </div>
+        </div>
+
+        <!-- Technical Skills -->
+        <div class="sidebar-block">
+          <h2 class="section-title"><span class="bar"></span> Technical Skills</h2>
+
+          <div class="skill-group-title">NLE Suites & Editing</div>
+          <div class="chips-wrap">
+            <span class="chip highlight">DaVinci Resolve Studio</span>
+            <span class="chip highlight">Adobe Premiere Pro</span>
+            <span class="chip">CapCut</span>
+            <span class="chip">Multi-Cam</span>
+            <span class="chip">Proxy Workflows</span>
+          </div>
+
+          <div class="skill-group-title">Color Grading</div>
+          <div class="chips-wrap">
+            <span class="chip highlight">Resolve Color Page</span>
+            <span class="chip">LUT Design</span>
+            <span class="chip">Color Matching</span>
+            <span class="chip">RAW / Log Pipeline</span>
+            <span class="chip">Look Dev</span>
+          </div>
+
+          <div class="skill-group-title">Motion & VFX</div>
+          <div class="chips-wrap">
+            <span class="chip">Adobe After Effects</span>
+            <span class="chip">Fusion</span>
+            <span class="chip">Kinetic Typography</span>
+            <span class="chip">Photoshop</span>
+          </div>
+
+          <div class="skill-group-title">Camera & Audio</div>
+          <div class="chips-wrap">
+            <span class="chip">Sony A6400</span>
+            <span class="chip">Fairlight Audio</span>
+            <span class="chip">Dialogue Cleanup</span>
+            <span class="chip">Studio Lighting</span>
+          </div>
+
+          <div class="skill-group-title">Web & Mobile Dev</div>
+          <div class="chips-wrap">
+            <span class="chip">React 19</span>
+            <span class="chip">Vite</span>
+            <span class="chip">Flutter / Dart</span>
+            <span class="chip">Firebase</span>
+            <span class="chip">Framer Motion</span>
+            <span class="chip">TFLite / AI</span>
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div class="sidebar-block">
+          <h2 class="section-title"><span class="bar"></span> Core Services</h2>
+          <ul class="bullet-list">
+            <li><strong>Narrative & Event Editing:</strong> Commercials, ceremonies, documentaries.</li>
+            <li><strong>DaVinci Color Grading:</strong> Look dev, matching, and custom LUTs.</li>
+            <li><strong>Short-Form Social:</strong> Reels & TikToks with kinetic typography.</li>
+            <li><strong>Audio Mixdown:</strong> Noise suppression and vocal cleanup.</li>
+            <li><strong>Web Development:</strong> Modern, responsive React applications.</li>
+          </ul>
+        </div>
+
+        <!-- Languages -->
+        <div class="sidebar-block">
+          <h2 class="section-title"><span class="bar"></span> Languages</h2>
+          <div class="lang-item">
+            <span class="lang-name">Sinhala</span>
+            <span class="lang-level">Native</span>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">English</span>
+            <span class="lang-level">Professional Working</span>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">Tamil</span>
+            <span class="lang-level">Professional Working</span>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+  </main>
+
+  <script>
+    // Auto-trigger print/PDF save dialog if query param ?download=1 or ?print=1 is present
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('download') === '1' || params.get('print') === '1') {
+        setTimeout(() => {
+          window.print();
+        }, 400);
+      }
+    });
+  </script>
+
+</body>
+</html>
