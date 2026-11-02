@@ -3,7 +3,6 @@ import { motion, useReducedMotion } from 'framer-motion';
 import HeroTitle from './hero/HeroTitle';
 import HeroPortrait from './hero/HeroPortrait';
 import HeroSideLabels from './hero/HeroSideLabels';
-import ShowreelModal from './hero/ShowreelModal';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -12,7 +11,6 @@ const TYPING_WORDS = ['EDITOR', 'COLORIST', 'MOTION', 'FILMMAKER'];
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const [showreelOpen, setShowreelOpen] = useState(false);
   const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
   // Typewriter effect for giant backdrop text behind the portrait
@@ -159,19 +157,13 @@ export default function Hero() {
         }}
       >
         {/* Left Column: Heading, Bio, Signature, Action Buttons */}
-        <HeroTitle onOpenShowreel={() => setShowreelOpen(true)} />
+        <HeroTitle />
 
         {/* Right Column: Layered Cutout Portrait with Floating App Tiles & Rotating Badge */}
         <div className="hero-portrait-col">
           <HeroPortrait mouseOffset={mouseOffset} />
         </div>
       </div>
-
-      {/* ── Lightbox Modal for Showreel Video ── */}
-      <ShowreelModal
-        isOpen={showreelOpen}
-        onClose={() => setShowreelOpen(false)}
-      />
 
       {/* ── Responsive CSS ── */}
       <style>{`

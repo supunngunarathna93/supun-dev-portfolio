@@ -7,13 +7,16 @@
     "about": "ගැන",
     "services": "සේවා",
     "contact": "සම්බන්ධ",
-    "hire": "කුලියට ගන්න"
+    "hire": "කුලියට ගන්න",
+    "cv": "CV",
+    "download_cv": "CV බාගත කරන්න"
   },
   "hero": {
     "role": "ජ්‍යෙෂ්ඨ වීඩියෝ සංස්කාරක · වර්ණ ශිල්පී · චිත්‍රපට නිර්මාතෘ",
     "tagline": "රාමු රාමු කරා කතාවක් ගොඩනගමි. DaVinci Resolve, Premiere Pro, සහ නිවැරදි කැපීමේ ආශාව.",
     "cta_primary": "ෂෝරීල් බලන්න",
     "cta_secondary": "සම්බන්ධ වන්න",
+    "cta_cv": "CV බාගත කරන්න",
     "available": "ව්‍යාපෘති සඳහා ලබා ගත හැකිය"
   },
   "work": {
@@ -80,7 +83,9 @@
     "label_degree": "උපාධිය",
     "label_focus": "අවධානය",
     "label_languages": "භාෂා",
-    "label_based": "පදනම"
+    "label_based": "පදනම",
+    "view_cv": "CV බලන්න",
+    "download_cv": "CV බාගත කරන්න"
   },
   "contact": {
     "title": "සම්බන්ධ",

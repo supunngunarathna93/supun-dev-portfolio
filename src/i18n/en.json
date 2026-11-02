@@ -7,13 +7,16 @@
     "about": "About",
     "services": "Services",
     "contact": "Contact",
-    "hire": "Hire me"
+    "hire": "Hire me",
+    "cv": "CV",
+    "download_cv": "Download CV"
   },
   "hero": {
     "role": "Senior Video Editor · Colorist · Filmmaker",
     "tagline": "Crafting stories frame by frame. DaVinci Resolve, Premiere Pro, and an obsession with the right cut.",
     "cta_primary": "Watch showreel",
     "cta_secondary": "Get in touch",
+    "cta_cv": "Download CV",
     "available": "Available for projects"
   },
   "work": {
@@ -93,7 +96,9 @@
     "label_degree": "Degree",
     "label_focus": "Focus",
     "label_languages": "Languages",
-    "label_based": "Based"
+    "label_based": "Based",
+    "view_cv": "View CV",
+    "download_cv": "Download CV"
   },
   "contact": {
     "title": "Contact",

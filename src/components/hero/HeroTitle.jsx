@@ -1,10 +1,10 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { Play, ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRight, DownloadSimple } from '@phosphor-icons/react';
 
 const ease = [0.16, 1, 0.3, 1];
 
-export default function HeroTitle({ onOpenShowreel }) {
+export default function HeroTitle() {
   const { t } = useTranslation();
   const reduce = useReducedMotion();
 
@@ -133,19 +133,22 @@ export default function HeroTitle({ onOpenShowreel }) {
         {...fade(0.58)}
         className="hero-cta-group"
       >
-        <button
-          onClick={onOpenShowreel}
+        <a
+          href="/cv.html?download=1"
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn btn-primary"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.55rem',
             boxShadow: '0 8px 24px var(--amber-glow)',
+            textDecoration: 'none',
           }}
         >
-          <Play size={16} weight="fill" />
-          <span>{t('hero.cta_primary', 'Watch Showreel')}</span>
-        </button>
+          <DownloadSimple size={16} weight="bold" />
+          <span>{t('hero.cta_cv', 'Download CV')}</span>
+        </a>
 
         <a
           href="#contact"

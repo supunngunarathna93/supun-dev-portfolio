@@ -7,13 +7,16 @@
     "about": "பற்றி",
     "services": "சேவைகள்",
     "contact": "தொடர்பு",
-    "hire": "வேலைக்கமர்த்தவும்"
+    "hire": "வேலைக்கமர்த்தவும்",
+    "cv": "CV",
+    "download_cv": "CV பதிவிறக்குக"
   },
   "hero": {
     "role": "மூத்த வீடியோ எடிட்டர் · வண்ண கலைஞர் · திரைப்படத் தயாரிப்பாளர்",
     "tagline": "ஒவ்வொரு காட்சியாக கதைகளை உருவாக்குகிறேன். DaVinci Resolve, Premiere Pro, சரியான வெட்டின் ஆர்வம்.",
     "cta_primary": "ஷோரீல் காணவும்",
     "cta_secondary": "தொடர்பு கொள்ளவும்",
+    "cta_cv": "CV பதிவிறக்குக",
     "available": "திட்டங்களுக்கு கிடைக்கிறேன்"
   },
   "work": {
@@ -80,7 +83,9 @@
     "label_degree": "பட்டம்",
     "label_focus": "கவனம்",
     "label_languages": "மொழிகள்",
-    "label_based": "இடம்"
+    "label_based": "இடம்",
+    "view_cv": "CV பார்க்கவும்",
+    "download_cv": "CV பதிவிறக்குக"
   },
   "contact": {
     "title": "தொடர்பு",

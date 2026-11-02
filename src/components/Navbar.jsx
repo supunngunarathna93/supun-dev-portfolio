@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { List, X } from '@phosphor-icons/react';
+import { List, X, DownloadSimple } from '@phosphor-icons/react';
 
 const LINKS = [
   { key: 'work',     href: '#work'      },
@@ -186,8 +186,31 @@ export default function Navbar() {
             ))}
           </li>
 
-          {/* Hire CTA */}
+          {/* CV CTA */}
           <li style={{ marginLeft: '0.5rem' }}>
+            <a
+              href="/cv.html?download=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+              style={{
+                padding: '0.45rem 0.95rem',
+                fontSize: '0.8rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                borderColor: 'var(--amber-border)',
+                color: 'var(--bone)',
+              }}
+              title="Download Supun's CV"
+            >
+              <DownloadSimple size={14} weight="bold" style={{ color: 'var(--amber)' }} />
+              <span>{t('nav.cv', 'CV')}</span>
+            </a>
+          </li>
+
+          {/* Hire CTA */}
+          <li style={{ marginLeft: '0.35rem' }}>
             <a href="#contact" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem', fontSize: '0.82rem' }}>
               {t('nav.hire')}
             </a>
@@ -282,6 +305,26 @@ export default function Navbar() {
                 </button>
               ))}
             </div>
+
+            <a
+              href="/cv.html?download=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-ghost"
+              onClick={() => setOpen(false)}
+              style={{
+                textAlign: 'center',
+                marginTop: '0.4rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.45rem',
+                borderColor: 'var(--amber-border)',
+              }}
+            >
+              <DownloadSimple size={15} weight="bold" style={{ color: 'var(--amber)' }} />
+              <span>{t('nav.download_cv', 'Download CV')}</span>
+            </a>
 
             <a href="#contact" className="btn btn-primary" onClick={() => setOpen(false)} style={{ textAlign: 'center', marginTop: '0.25rem' }}>
               {t('nav.hire')}

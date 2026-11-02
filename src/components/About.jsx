@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import { FileText, ArrowUpRight, DownloadSimple } from '@phosphor-icons/react';
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -152,6 +153,47 @@ export default function About() {
                 In parallel: building web apps with React + Vite, Flutter mobile apps,
                 and AI/ML experiments — all skills that feed back into the edit suite.
               </p>
+            </div>
+
+            {/* Curriculum Vitae CTA */}
+            <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <a
+                href="/cv.html?download=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.55rem',
+                  padding: '0.65rem 1.35rem',
+                  fontSize: '0.84rem',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 18px var(--amber-glow)',
+                }}
+              >
+                <DownloadSimple size={16} weight="bold" />
+                <span>{t('about.download_cv', 'Download CV')}</span>
+              </a>
+
+              <a
+                href="/cv.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.65rem 1.15rem',
+                  fontSize: '0.84rem',
+                  textDecoration: 'none',
+                }}
+              >
+                <FileText size={16} />
+                <span>{t('about.view_cv', 'View CV')}</span>
+                <ArrowUpRight size={13} weight="bold" />
+              </a>
             </div>
           </motion.div>
         </div>
