@@ -189,9 +189,8 @@ export default function Navbar() {
           {/* CV CTA */}
           <li style={{ marginLeft: '0.5rem' }}>
             <a
-              href="/cv.html?download=1"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/Supun-Gunarathna-CV.pdf"
+              download="Supun-Gunarathna-CV.pdf"
               className="btn btn-ghost"
               style={{
                 padding: '0.45rem 0.95rem',
@@ -307,9 +306,8 @@ export default function Navbar() {
             </div>
 
             <a
-              href="/cv.html?download=1"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/Supun-Gunarathna-CV.pdf"
+              download="Supun-Gunarathna-CV.pdf"
               className="btn btn-ghost"
               onClick={() => setOpen(false)}
               style={{

@@ -134,9 +134,8 @@ export default function HeroTitle() {
         className="hero-cta-group"
       >
         <a
-          href="/cv.html?download=1"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/Supun-Gunarathna-CV.pdf"
+          download="Supun-Gunarathna-CV.pdf"
           className="btn btn-primary"
           style={{
             display: 'inline-flex',

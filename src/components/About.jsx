@@ -158,9 +158,8 @@ export default function About() {
             {/* Curriculum Vitae CTA */}
             <div style={{ marginTop: '1.25rem', display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               <a
-                href="/cv.html?download=1"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/Supun-Gunarathna-CV.pdf"
+                download="Supun-Gunarathna-CV.pdf"
                 className="btn btn-primary"
                 style={{
                   display: 'inline-flex',
@@ -177,7 +176,7 @@ export default function About() {
               </a>
 
               <a
-                href="/cv.html"
+                href="/Supun-Gunarathna-CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost"
